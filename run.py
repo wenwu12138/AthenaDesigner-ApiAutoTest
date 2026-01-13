@@ -90,7 +90,7 @@ def run():
         # 生成allure文件
         os.system(r"allure generate ./report/tmp -o ./report/html --clean")
 
-        '''
+
         # 目前暂时只让云端发报告了 本地就注释掉 放在jenkinsfiles里面
         allure_data = AllureFileClean().get_case_count()
         notification_mapping = {
@@ -100,11 +100,11 @@ def run():
             NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
         }
 
-        if config.notification_type != NotificationType.DEFAULT.value:
-            notify_type = config.notification_type.split(",")
-            for i in notify_type:
-                notification_mapping.get(i.lstrip(""))()
-        '''
+        # if config.notification_type != NotificationType.DEFAULT.value:
+        #     notify_type = config.notification_type.split(",")
+        #     for i in notify_type:
+        #         notification_mapping.get(i.lstrip(""))()
+
 
         if config.excel_report:
             ErrorCaseExcel().write_case()

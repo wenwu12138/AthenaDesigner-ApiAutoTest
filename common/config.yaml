@@ -128,7 +128,7 @@ email:
   # 自己到QQ邮箱中配置stamp_key
   stamp_key: dmsvcfbsxpenbbje
   # 收件人改成自己的邮箱
-  send_list: wenwu@digiwin.com
+  send_list: wenwu@digiwin.com,fujb@digiwin.com,yaosla@digiwin.com
 
 # 飞书通知
 lark:

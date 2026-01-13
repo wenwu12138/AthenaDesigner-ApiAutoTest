@@ -268,7 +268,7 @@ class ReportServer:
 
 if __name__ == "__main__":
     # 配置报告路径和端口
-    report_path = r"D:\sort\athena-designer-automatedtest\report\html"
+    report_path = r"/\report\html"
     port = 9999
 
     # 关键修改：使用 '0.0.0.0' 而不是 'localhost'
