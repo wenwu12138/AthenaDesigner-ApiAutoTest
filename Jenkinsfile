@@ -182,7 +182,7 @@ pefile==2023.2.7
 pluggy==1.6.0
 protobuf==6.31.1
 psutil==7.1.3
-publicsuffix2==20191221
+publicsuffix2==2.20191221
 py==1.11.0
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
