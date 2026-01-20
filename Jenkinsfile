@@ -22,7 +22,7 @@ pipeline {
                     checkout scm
                     sh """
                         set +x
-                        sed -i "s/current_environment:.*/current_environment: \\\"${params.TEST_ENV}\\\"/" common/config.yaml
+                        sed -i "s/current_environment:.*/current_environment: \\\\"${params.TEST_ENV}\\\\"/" common/config.yaml
                         echo "✅ 环境已设置为: ${params.TEST_ENV}"
                     """
                 }
@@ -180,7 +180,7 @@ pefile==2023.2.7
 pluggy==1.6.0
 protobuf==6.31.1
 psutil==7.1.3
-publicsuffix2==2.20191221
+publicsuffix2==20191221
 py==1.11.0
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
@@ -343,7 +343,8 @@ EOF
                     echo "🎯 测试环境: ${params.TEST_ENV}"
                     echo "📄 执行测试文件: ${params.TEST_FILE ?: '全部文件'}"
                 }
-                sh """
+                // 关键修复：把需要传Groovy变量的部分拆成两个sh块，避免转义冲突
+                sh '''
                     set +x
                     . venv/bin/activate
 
@@ -363,45 +364,57 @@ except Exception as e:
 "
 
                     echo "📥 安装 Allure 命令行工具..."
-                    # 修复点1：Shell变量定义（正确写法）
                     ALLURE_VERSION="2.27.0"
-                    # 修复点2：Shell变量引用时转义$，避免Groovy解析
-                    ALLURE_URL="https://github.com/allure-framework/allure2/releases/download/\${ALLURE_VERSION}/allure-\${ALLURE_VERSION}.zip"
-                    wget -q \${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null || { echo "❌ Allure 下载失败"; exit 1; }
+                    ALLURE_URL="https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip"
+                    wget -q ${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null || { echo "❌ Allure 下载失败"; exit 1; }
                     unzip -oq /tmp/allure.zip -d /opt/ 2>/dev/null || { echo "❌ Allure 解压失败"; exit 1; }
-                    export PATH="/opt/allure-\${ALLURE_VERSION}/bin:\${PATH}"
+                    export PATH="/opt/allure-${ALLURE_VERSION}/bin:${PATH}"
                     allure --version 2>/dev/null && echo "✅ Allure 命令行工具安装成功" || { echo "❌ Allure 验证失败"; exit 1; }
 
                     echo "🚦 准备执行测试..."
-                    echo "测试开始时间: \$(date)"
+                    echo "测试开始时间: $(date)"
 
-                    export PYTHONPATH="\${PWD}:\${PYTHONPATH}"
-                    START_TIME=\$(date +%s)
-
-                    echo "▶️ 开始执行自动化测试..."
-                    if [ -n "${params.TEST_FILE}" ]; then
-                        echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
-                        python run.py ${params.TEST_FILE}
-                    else
-                        echo "🔍 执行所有测试文件"
-                        python run.py
-                    fi
-                    TEST_STATUS=\$?
-
-                    END_TIME=\$(date +%s)
-                    DURATION=\$((END_TIME - START_TIME))
-
-                    echo "⏱️ 测试执行统计:"
-                    echo "  总耗时: \${DURATION} 秒"
-
-                    if [ \$TEST_STATUS -eq 0 ]; then
-                        echo "🎉 测试执行成功!"
-                    else
-                        echo "❌ 测试执行失败，退出码: \$TEST_STATUS"
-                    fi
-
-                    echo "✅ 测试执行完成"
-                """
+                    export PYTHONPATH="${PWD}:${PYTHONPATH}"
+                    START_TIME=$(date +%s)
+                '''
+                // 单独处理需要传Groovy变量的部分，避免转义冲突
+                script {
+                    if (params.TEST_FILE) {
+                        sh """
+                            set +x
+                            . venv/bin/activate
+                            echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
+                            python run.py ${params.TEST_FILE}
+                            TEST_STATUS=\$?
+                            END_TIME=\$(date +%s)
+                            DURATION=\$((END_TIME - START_TIME))
+                            echo "⏱️ 测试执行统计: 总耗时: \${DURATION} 秒"
+                            if [ \$TEST_STATUS -eq 0 ]; then
+                                echo "🎉 测试执行成功!"
+                            else
+                                echo "❌ 测试执行失败，退出码: \$TEST_STATUS"
+                                exit \$TEST_STATUS
+                            fi
+                        """
+                    } else {
+                        sh '''
+                            set +x
+                            . venv/bin/activate
+                            echo "🔍 执行所有测试文件"
+                            python run.py
+                            TEST_STATUS=$?
+                            END_TIME=$(date +%s)
+                            DURATION=$((END_TIME - START_TIME))
+                            echo "⏱️ 测试执行统计: 总耗时: ${DURATION} 秒"
+                            if [ $TEST_STATUS -eq 0 ]; then
+                                echo "🎉 测试执行成功!"
+                            else
+                                echo "❌ 测试执行失败，退出码: $TEST_STATUS"
+                                exit $TEST_STATUS
+                            fi
+                        '''
+                    }
+                }
             }
         }
 
@@ -418,7 +431,7 @@ except Exception as e:
                         export PYTHONPATH="\${PWD}:\${PYTHONPATH}"
 
                         export REPORT_URL="${reportUrl}"
-                        export NOTIFY_TYPES="${params.NOTIFICATION_TYPES}"
+                        export NOTIFY_TYPES="${params.NOTIFICATION_TYPES ?: ''}"
 
                         python -c '
 import json
@@ -453,11 +466,11 @@ if config.notification_type != NotificationType.DEFAULT.value:
             except Exception as e:
                 print(f"❌ {notify_key}通知发送失败: {str(e)}")
                 continue
-                ' || echo "⚠️ 通知发送流程异常，继续执行后续步骤"
-            """
+' || echo "⚠️ 通知发送流程异常，继续执行后续步骤"
+                    """
+                }
+            }
         }
-    }
-}
     }
 
     post {
