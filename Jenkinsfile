@@ -344,74 +344,49 @@ EOF
                     echo "🚀 阶段 6/7: 执行测试"
                     echo "🎯 测试环境: ${params.TEST_ENV}"
                     echo "📄 执行测试文件: ${params.TEST_FILE ?: '全部文件'}"
-
-                    // 新增：提前校验测试文件是否存在（避免执行无效路径）
-                    def testFile = params.TEST_FILE ?: ''
-                    if (testFile && !fileExists(testFile)) {
-                        error("❌ 测试文件不存在: ${testFile}，请检查路径是否正确！")
-                    }
                 }
-
-                // 核心Shell块：环境信息 + Allure安装（容错处理，不再直接exit）
+                // 拆分Shell块，避免转义冲突
                 sh '''
                     set +x
-                    # 激活虚拟环境（仅激活一次）
                     . venv/bin/activate
 
                     echo "📋 当前测试环境信息:"
                     python -c "
-        import yaml
-        try:
-            with open('common/config.yaml', 'r') as f:
-                config = yaml.safe_load(f)
-            env = config['current_environment']
-            env_config = config['environments'][env]
-            print('   环境: ' + env_config['env'])
-            print('   设计器: ' + env_config['athena_designer_host'])
-            print('   租户: ' + env_config['tenantId'])
-        except Exception as e:
-            print('   无法读取环境配置: ' + str(e))
-        "
+import yaml
+try:
+    with open('common/config.yaml', 'r') as f:
+        config = yaml.safe_load(f)
+    env = config['current_environment']
+    env_config = config['environments'][env]
+    print('   环境: ' + env_config['env'])
+    print('   设计器: ' + env_config['athena_designer_host'])
+    print('   租户: ' + env_config['tenantId'])
+except Exception as e:
+    print('   无法读取环境配置: ' + str(e))
+"
 
                     echo "📥 安装 Allure 命令行工具..."
                     ALLURE_VERSION="2.27.0"
                     ALLURE_URL="https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip"
-                    # 容错：Allure下载/解压失败不中断，仅提示
-                    if ! wget -q ${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null; then
-                        echo "⚠️ Allure 下载失败，跳过Allure报告生成"
-                        ALLURE_INSTALLED="false"
-                    elif ! unzip -oq /tmp/allure.zip -d /opt/ 2>/dev/null; then
-                        echo "⚠️ Allure 解压失败，跳过Allure报告生成"
-                        ALLURE_INSTALLED="false"
-                    elif ! export PATH="/opt/allure-${ALLURE_VERSION}/bin:${PATH}" || ! allure --version 2>/dev/null; then
-                        echo "⚠️ Allure 验证失败，跳过Allure报告生成"
-                        ALLURE_INSTALLED="false"
-                    else
-                        echo "✅ Allure 命令行工具安装成功"
-                        ALLURE_INSTALLED="true"
-                    fi
+                    wget -q ${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null || { echo "❌ Allure 下载失败"; exit 1; }
+                    unzip -oq /tmp/allure.zip -d /opt/ 2>/dev/null || { echo "❌ Allure 解压失败"; exit 1; }
+                    export PATH="/opt/allure-${ALLURE_VERSION}/bin:${PATH}"
+                    allure --version 2>/dev/null && echo "✅ Allure 命令行工具安装成功" || { echo "❌ Allure 验证失败"; exit 1; }
 
                     echo "🚦 准备执行测试..."
-                    echo "测试开始时间: $(date '+%Y-%m-%d %H:%M:%S')"
-                    export PYTHONPATH="${PWD}:${PYTHONPATH}"
-                '''
+                    echo "测试开始时间: $(date)"
 
-                // 单独处理测试文件执行逻辑（缩进正确，无语法错误）
+                    export PYTHONPATH="${PWD}:${PYTHONPATH}"
+                    START_TIME=$(date +%s)
+                '''
+                // 单独处理测试文件执行逻辑
                 script {
                     if (params.TEST_FILE) {
                         sh """
                             set +x
-                            . venv/bin/activate  # 重新激活（跨Shell块需重新激活）
+                            . venv/bin/activate
                             echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
-                            # 执行测试（Allure容错）
-                            if [ "\${ALLURE_INSTALLED}" = "true" ]; then
-                                python run.py ${params.TEST_FILE}
-                            else
-                                echo "⚠️ Allure未安装，执行测试时不生成Allure报告"
-                                python run.py ${params.TEST_FILE} --no-allure
-                            fi
-                            TEST_STATUS=\$?
-                            # 结果判断
+                            python run.py ${params.TEST_FILE}
                             if [ \$TEST_STATUS -eq 0 ]; then
                                 echo "🎉 测试执行成功!"
                             else
@@ -422,17 +397,9 @@ EOF
                     } else {
                         sh '''
                             set +x
-                            . venv/bin/activate  # 重新激活（跨Shell块需重新激活）
+                            . venv/bin/activate
                             echo "🔍 执行所有测试文件"
-                            # 执行测试（Allure容错）
-                            if [ "${ALLURE_INSTALLED}" = "true" ]; then
-                                python run.py
-                            else
-                                echo "⚠️ Allure未安装，执行测试时不生成Allure报告"
-                                python run.py --no-allure
-                            fi
-                            TEST_STATUS=$?
-                            # 结果判断
+                            python run.py
                             if [ $TEST_STATUS -eq 0 ]; then
                                 echo "🎉 测试执行成功!"
                             else
