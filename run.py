@@ -105,7 +105,8 @@ def run():
 
         if test_file:
             pytest_args.append(test_file)
-
+        #调试 执行命令
+        print(f"开始执行测试 执行命令为{pytest_args}")
         # 执行pytest测试
         pytest.main(pytest_args)
 
