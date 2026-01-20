@@ -10,7 +10,7 @@ pipeline {
         string(
             name: 'TEST_FILE',
             defaultValue: '',
-            description: '指定要执行的测试文件路径（如：tests/test_login.py），留空则执行所有测试'
+            description: '指定要执行的测试文件/文件夹路径（如：test_case/Login/test_Login.py），留空则执行所有测试'
         )
     }
 
