@@ -388,15 +388,6 @@ except Exception as e:
                             echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
                             python run.py ${params.TEST_FILE}
                             TEST_STATUS=\$?
-                            END_TIME=\$(date +%s)
-                            DURATION=\$((END_TIME - START_TIME))
-                            echo "⏱️ 测试执行统计: 总耗时: \${DURATION} 秒"
-                            if [ \$TEST_STATUS -eq 0 ]; then
-                                echo "🎉 测试执行成功!"
-                            else
-                                echo "❌ 测试执行失败，退出码: \$TEST_STATUS"
-                                exit \$TEST_STATUS
-                            fi
                         """
                     } else {
                         sh '''
@@ -405,16 +396,19 @@ except Exception as e:
                             echo "🔍 执行所有测试文件"
                             python run.py
                             TEST_STATUS=$?
-                            END_TIME=$(date +%s)
-                            DURATION=$((END_TIME - START_TIME))
-                            echo "⏱️ 测试执行统计: 总耗时: ${DURATION} 秒"
-                            if [ $TEST_STATUS -eq 0 ]; then
-                                echo "🎉 测试执行成功!"
-                            else
-                                echo "❌ 测试执行失败，退出码: $TEST_STATUS"
-                                exit $TEST_STATUS
-                            fi
                         '''
+                    }
+
+                    // 2. 计算耗时（Jenkins脚本层计算）
+                    def endTime = new Date().getTime() / 1000
+                    def duration = (endTime - startTime).toInteger()
+                    echo "⏱️ 测试执行统计: 总耗时: ${duration} 秒"
+
+                    // 状态判断
+                    if (TEST_STATUS != 0) {
+                        error("❌ 测试执行失败，退出码: ${TEST_STATUS}")
+                    } else {
+                        echo "🎉 测试执行成功!"
                     }
                 }
             }
