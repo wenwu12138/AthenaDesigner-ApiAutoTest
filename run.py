@@ -29,8 +29,11 @@ def run():
     # 打印执行模式日志，方便调试
     if test_file:
         INFO.logger.info(f"📄 【指定文件模式】执行测试文件：{test_file}")
-    else:
-        INFO.logger.info("📄 【全量执行模式】未指定测试文件，执行所有测试用例")
+    if not os.path.exists(test_file):
+        print(f"❌ 错误：路径 {test_file} 不存在！")
+        print(f"📌 当前工作目录：{os.getcwd()}")
+        print(f"📌 可用文件/目录：{os.listdir('.')}")
+        sys.exit(1)
 
 
     # 从配置文件中获取项目名称
@@ -88,7 +91,8 @@ def run():
             '-s',
             '-W', 'ignore:Module already imported:pytest.PytestWarning',
             '--alluredir', './report/tmp',
-            "--clean-alluredir"
+            "--clean-alluredir",
+            test_file
         ]
 
         """
@@ -103,8 +107,7 @@ def run():
         "--reruns=3", "--reruns-delay=2"
         """
 
-        if test_file:
-            pytest_args.append(test_file)
+
         #调试 执行命令
         print(f"开始执行测试 执行命令为{pytest_args}")
         # 执行pytest测试
