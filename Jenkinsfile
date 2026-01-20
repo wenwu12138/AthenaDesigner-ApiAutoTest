@@ -14,6 +14,21 @@ pipeline {
         )
     }
 
+    // 核心配置：Allure报告（与run.py的allure-results目录对应）
+    options {
+        allure([
+            includeProperties: false,
+            jdk: '',
+            properties: [],
+            reportBuildPolicy: 'ALWAYS',  // 无论构建成功失败都生成报告
+            results: [[path: 'allure-results']]  // 对应run.py复制的结果目录
+        ])
+        // 保留足够的工作空间
+        preserveWorkspace()
+        // 构建超时时间
+        timeout(time: 1, unit: 'HOURS')
+    }
+
     stages {
         stage('设置环境') {
             steps {
@@ -110,7 +125,7 @@ pipeline {
                     echo "   激活后Python版本: $(python --version 2>&1 || echo '获取失败')"
 
                     # ========== 升级基础工具（容错处理） ==========
-                    echo -e "\\n⬆️ 升级pip/setuptools/wheel..."
+                    echo -e "\\n⬆️ 升级基础工具（容错处理）..."
                     pip install --upgrade pip setuptools wheel --quiet
                     if [ $? -eq 0 ]; then
                         echo "✅ 基础工具升级成功"
@@ -392,7 +407,6 @@ EOF
                     echo "🎯 测试环境: ${params.TEST_ENV}"
                     echo "📄 执行测试文件: ${params.TEST_FILE ?: '全部文件'}"
                 }
-                // 拆分Shell块，避免转义冲突
                 sh '''
                     set +x
                     . venv/bin/activate
@@ -412,7 +426,7 @@ except Exception as e:
     print('   无法读取环境配置: ' + str(e))
 "
 
-                    echo "📥 安装 Allure 命令行工具..."
+                    echo "📥 安装 Allure 命令行工具（备用）..."
                     ALLURE_VERSION="2.27.0"
                     ALLURE_URL="https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip"
                     wget -q ${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null || { echo "❌ Allure 下载失败"; exit 1; }
@@ -420,39 +434,47 @@ except Exception as e:
                     export PATH="/opt/allure-${ALLURE_VERSION}/bin:${PATH}"
                     allure --version 2>/dev/null && echo "✅ Allure 命令行工具安装成功" || { echo "❌ Allure 验证失败"; exit 1; }
 
-                    echo "🚦 准备执行测试..."
+                    echo "🚦 准备执行测试（调用run.py）..."
                     echo "测试开始时间: $(date)"
 
                     export PYTHONPATH="${PWD}:${PYTHONPATH}"
+                    # 标记为Jenkins环境，让run.py适配执行
+                    export JENKINS_URL="${BUILD_URL}"
                     START_TIME=$(date +%s)
+
+                    # 清理旧的Allure结果
+                    rm -rf allure-results report/tmp report/html
+                    mkdir -p report/tmp
+
+                    # 执行run.py（核心修改：调用项目原生执行入口）
+                    if [ -n "${TEST_FILE}" ]; then
+                        echo "🔍 执行指定测试文件: ${TEST_FILE}"
+                        python run.py "${TEST_FILE}"
+                    else
+                        echo "🔍 执行所有测试文件"
+                        python run.py
+                    fi
+
+                    TEST_STATUS=$?
+                    END_TIME=$(date +%s)
+                    DURATION=$((END_TIME - START_TIME))
+
+                    echo "✅ 测试执行完成，耗时 ${DURATION} 秒，退出码: ${TEST_STATUS}"
+
+                    # 验证Allure结果文件是否生成
+                    if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
+                        echo "✅ Allure结果文件生成成功，文件数: $(ls allure-results | wc -l)"
+                    else
+                        echo "⚠️ Allure结果文件未生成或为空"
+                        # 非致命错误，继续执行
+                    fi
+
+                    # 生成备用HTML报告
+                    if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
+                        allure generate allure-results -o allure-report --clean
+                        echo "✅ 备用Allure HTML报告已生成"
+                    fi
                 '''
-                // 单独处理测试文件执行逻辑
-                script {
-                    if (params.TEST_FILE) {
-                        sh """
-                            set +x
-                            . venv/bin/activate
-                            echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
-                            python run.py ${params.TEST_FILE}
-                            if [ \$TEST_STATUS -eq 0 ]; then
-                                echo "🎉 测试执行成功!"
-                            else
-                                echo "❌ 测试执行失败，退出码: \$TEST_STATUS"
-                                exit \$TEST_STATUS
-                            fi
-                        """
-                    } else {
-                        sh '''
-                            set +x
-                            . venv/bin/activate
-                            echo "🔍 执行所有测试文件"
-                            python run.py
-                            if [ $TEST_STATUS -eq 0 ]; then
-                                echo "🎉 测试执行成功!"
-                            fi
-                        '''
-                    }
-                }
             }
         }
 
@@ -460,15 +482,19 @@ except Exception as e:
             steps {
                 script {
                     echo "📢 阶段 7/7: 发送测试通知"
-                    def reportUrl = "${env.BUILD_URL}artifact/report/html/index.html"
-                    echo "📄 测试报告地址: ${reportUrl}"
+                    // Allure插件入口链接
+                    def allureReportUrl = "${env.BUILD_URL}allure"
+                    // 备用HTML报告链接
+                    def htmlReportUrl = "${env.BUILD_URL}artifact/allure-report/index.html"
+                    echo "📄 Allure报告入口: ${allureReportUrl}"
+                    echo "📄 备用HTML报告: ${htmlReportUrl}"
 
                     sh """
                         set +x
                         . venv/bin/activate
                         export PYTHONPATH="\${PWD}:\${PYTHONPATH}"
 
-                        export REPORT_URL="${reportUrl}"
+                        export REPORT_URL="${allureReportUrl}"
                         export NOTIFY_TYPES="${params.NOTIFICATION_TYPES ?: ''}"
 
                         python -c '
@@ -513,7 +539,22 @@ if config.notification_type != NotificationType.DEFAULT.value:
 
     post {
         always {
-            archiveArtifacts artifacts: 'report/html/**', fingerprint: true
+            // 归档所有报告文件
+            archiveArtifacts artifacts: '''
+                allure-results/**,
+                allure-report/**,
+                report/**,
+                venv/logs/**
+            ''', fingerprint: true, allowEmptyArchive: true
+
+            // 确保Allure报告入口显示
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'allure-results']]
+            ])
 
             script {
                 def jobUrl = env.JOB_URL ?: ''
@@ -521,10 +562,12 @@ if config.notification_type != NotificationType.DEFAULT.value:
 
                 if (jobUrl && buildNumber) {
                     echo "📊 报告存档信息:"
-                    echo "   存档链接: ${jobUrl}${buildNumber}/"
-                    echo "   直接下载: ${jobUrl}${buildNumber}/artifact/report/html/index.html"
+                    echo "   📈 Allure插件入口: ${jobUrl}${buildNumber}/allure"
+                    echo "   📄 备用HTML报告: ${jobUrl}${buildNumber}/artifact/allure-report/index.html"
+                    echo "   📁 原始结果文件: ${jobUrl}${buildNumber}/artifact/allure-results/"
                 }
             }
+
             script {
                 echo ""
                 echo "=" * 60
@@ -540,6 +583,10 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  测试环境: ${params.TEST_ENV}"
                 echo "  执行文件: ${params.TEST_FILE ?: '全部文件'}"
                 echo ""
+                echo "📊 报告链接:"
+                echo "  📈 Allure报告: ${BUILD_URL}allure"
+                echo "  📄 备用HTML报告: ${BUILD_URL}artifact/allure-report/index.html"
+                echo ""
                 echo "📊 阶段统计:"
                 echo "  1. ✅ 设置环境"
                 echo "  2. ✅ 代码检出"
@@ -547,7 +594,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  4. ✅ 安装核心依赖"
                 echo "  5. ✅ 安装项目依赖"
                 echo "  6. ✅ 验证依赖"
-                echo "  7. ✅ 执行测试"
+                echo "  7. ✅ 执行测试（run.py）"
                 echo "  8. ✅ 发送测试通知"
                 echo "  9. ✅ 报告收集"
                 echo "=" * 60
@@ -565,10 +612,9 @@ if config.notification_type != NotificationType.DEFAULT.value:
                     echo "所有测试文件执行成功!"
                 }
                 echo ""
-                echo "📎 相关链接:"
-                echo "  Jenkins控制台: ${BUILD_URL}console"
-                echo "  测试报告: ${BUILD_URL}artifact/report/html/index.html"
-                echo "  工作空间: ${WORKSPACE}"
+                echo "📎 快速访问:"
+                echo "  📈 Allure报告: ${BUILD_URL}allure"
+                echo "  🖥️ 控制台日志: ${BUILD_URL}console"
             }
         }
 
@@ -587,6 +633,9 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  2. 检查依赖是否完整"
                 echo "  3. 验证环境配置"
                 echo "  4. 检查测试代码"
+                echo ""
+                echo "📎 报告链接（即使失败也会生成）:"
+                echo "  📈 Allure报告: ${BUILD_URL}allure"
             }
             sh '''
                 set +x
@@ -597,6 +646,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "环境信息:"
                 echo "Python版本: $(python3 --version 2>/dev/null || echo '未找到')"
                 echo "虚拟环境: $(ls -la venv/bin/python 2>/dev/null && echo '存在' || echo '不存在')"
+                echo "Allure结果目录: $(ls -la allure-results 2>/dev/null | wc -l || echo '不存在')"
             '''
         }
     }

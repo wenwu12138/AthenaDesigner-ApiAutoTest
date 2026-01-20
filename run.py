@@ -26,17 +26,22 @@ def run():
     # 读取命令行传入的测试文件参数（支持指定单个测试文件执行）
     test_file = sys.argv[1] if len(sys.argv) > 1 else None
 
+    # ===== 新增：支持Jenkins环境变量控制 =====
+    # 判断是否在Jenkins环境中运行
+    is_jenkins = os.getenv('JENKINS_URL', False)
+
     # 打印执行模式日志，方便调试
     if test_file:
         INFO.logger.info(f"📄 【指定文件模式】执行测试文件：{test_file}")
-    if not os.path.exists(test_file):
-        print(f"❌ 错误：路径 {test_file} 不存在！")
-        print(f"📌 当前工作目录：{os.getcwd()}")
-        print(f"📌 可用文件/目录：{os.listdir('.')}")
-        sys.exit(1)
+        # 检查文件是否存在
+        if not os.path.exists(test_file):
+            print(f"❌ 错误：路径 {test_file} 不存在！")
+            print(f"📌 当前工作目录：{os.getcwd()}")
+            print(f"📌 可用文件/目录：{os.listdir('.')}")
+            sys.exit(1)
+    else:
+        INFO.logger.info("📄 【全量模式】执行所有测试文件")
 
-
-    # 从配置文件中获取项目名称
     try:
         INFO.logger.info(
             """
@@ -83,68 +88,80 @@ def run():
                 """.format(config.project_name)
         )
 
-        # 判断现有的测试用例，如果未生成测试代码，则自动生成
-        # TestCaseAutomaticGeneration().get_case_automatic()
-
         # 构建pytest执行参数
         pytest_args = [
             '-s',
             '-W', 'ignore:Module already imported:pytest.PytestWarning',
-            '--alluredir', './report/tmp',
+            '--alluredir', './report/tmp',  # 保持原有Allure结果路径
             "--clean-alluredir",
-            test_file
         ]
 
-        """
-        --reruns: 失败重跑次数
-        --count: 重复执行次数
-        -v: 显示错误位置以及错误的详细信息
-        -s: 等价于 pytest --capture=no 可以捕获print函数的输出
-        -q: 简化输出信息
-        -m: 运行指定标签的测试用例
-        -x: 一旦错误，则停止运行
-        --maxfail: 设置最大失败次数，当超出这个阈值时，则不会在执行测试用例
-        "--reruns=3", "--reruns-delay=2"
-        """
+        # 添加测试文件参数（如果有）
+        if test_file:
+            pytest_args.append(test_file)
 
+        # 调试执行命令
+        print(f"开始执行测试 执行命令为: pytest {' '.join(pytest_args)}")
 
-        #调试 执行命令
-        print(f"开始执行测试 执行命令为{pytest_args}")
         # 执行pytest测试
-        pytest.main(pytest_args)
+        exit_code = pytest.main(pytest_args)
 
+        # 生成allure文件（Jenkins环境下不生成HTML，由Jenkins插件处理）
+        if not is_jenkins:
+            # 本地运行时生成HTML报告
+            os.system(r"allure generate ./report/tmp -o ./report/html --clean")
+        else:
+            # Jenkins环境下：复制Allure结果到jenkins识别的目录
+            # 确保allure-results目录存在
+            os.makedirs("allure-results", exist_ok=True)
+            # 复制report/tmp下的所有文件到allure-results（供Jenkins Allure插件读取）
+            for file in os.listdir("./report/tmp"):
+                src = os.path.join("./report/tmp", file)
+                dst = os.path.join("allure-results", file)
+                if os.path.isfile(src):
+                    shutil.copy2(src, dst)
+            print(f"✅ 已将Allure结果复制到 allure-results 目录")
 
-        # 生成allure文件
-        os.system(r"allure generate ./report/tmp -o ./report/html --clean")
-
-
-        # 目前暂时只让云端发报告了 本地就注释掉 放在jenkinsfiles里面
-        allure_data = AllureFileClean().get_case_count()
-        notification_mapping = {
-            NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
-            NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
-            NotificationType.EMAIL.value: SendEmail(allure_data).send_main,
-            NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
-        }
-
-        # if config.notification_type != NotificationType.DEFAULT.value:
-        #     notify_type = config.notification_type.split(",")
-        #     for i in notify_type:
-        #         notification_mapping.get(i.lstrip(""))()
-
-
+        # 生成错误用例Excel（保持原有逻辑）
         if config.excel_report:
             ErrorCaseExcel().write_case()
 
-        # 程序运行之后，自动启动报告，如果不想启动报告，可注释这段代码
-        # os.system(f"allure serve ./report/tmp -h 127.0.0.1 -p 9999")
+        # ===== 调整：Jenkins环境不启动本地报告服务 =====
+        if not is_jenkins:
+            # 本地运行时启动报告服务
+            # 程序运行之后，自动启动报告，如果不想启动报告，可注释这段代码
+            # os.system(f"allure serve ./report/tmp -h 127.0.0.1 -p 9999")
 
-        #启动本地服务供内网查看报告
-        server = ReportServer(report_path=ensure_path_sep("\\report\\html"), port=9999, host='0.0.0.0')
-        server.start_server()
+            # 启动本地服务供内网查看报告
+            server = ReportServer(report_path=ensure_path_sep("\\report\\html"), port=9999, host='0.0.0.0')
+            server.start_server()
+        else:
+            print("✅ Jenkins环境下跳过本地报告服务启动")
+
+        # ===== 调整：Jenkins环境不发送通知（由Jenkinsfile处理） =====
+        if not is_jenkins and config.notification_type != NotificationType.DEFAULT.value:
+            allure_data = AllureFileClean().get_case_count()
+            notification_mapping = {
+                NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
+                NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
+                NotificationType.EMAIL.value: SendEmail(allure_data).send_main,
+                NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
+            }
+
+            notify_type = config.notification_type.split(",")
+            for i in notify_type:
+                notify_key = i.lstrip("")
+                if notify_key in notification_mapping:
+                    try:
+                        notification_mapping.get(notify_key)()
+                    except Exception as e:
+                        print(f"❌ 发送{notify_key}通知失败: {str(e)}")
+
+        # 返回测试执行结果码
+        sys.exit(exit_code)
 
     except Exception:
-        # 如有异常，相关异常发送邮件z
+        # 如有异常，相关异常发送邮件
         e = traceback.format_exc()
         print("==========自动化执行异常=========")
         print(e)
