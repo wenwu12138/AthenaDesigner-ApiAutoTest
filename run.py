@@ -23,6 +23,16 @@ from common.setting import ensure_path_sep
 
 
 def run():
+    # 读取命令行传入的测试文件参数（支持指定单个测试文件执行）
+    test_file = sys.argv[1] if len(sys.argv) > 1 else None
+
+    # 打印执行模式日志，方便调试
+    if test_file:
+        INFO.logger.info(f"📄 【指定文件模式】执行测试文件：{test_file}")
+    else:
+        INFO.logger.info("📄 【全量执行模式】未指定测试文件，执行所有测试用例")
+
+
     # 从配置文件中获取项目名称
     try:
         INFO.logger.info(
@@ -73,20 +83,33 @@ def run():
         # 判断现有的测试用例，如果未生成测试代码，则自动生成
         # TestCaseAutomaticGeneration().get_case_automatic()
 
-        pytest.main(['-s', '-W', 'ignore:Module already imported:pytest.PytestWarning',
-                     '--alluredir', './report/tmp', "--clean-alluredir"])
+        # 构建pytest执行参数
+        pytest_args = [
+            '-s',
+            '-W', 'ignore:Module already imported:pytest.PytestWarning',
+            '--alluredir', './report/tmp',
+            "--clean-alluredir"
+        ]
 
         """
-                   --reruns: 失败重跑次数
-                   --count: 重复执行次数
-                   -v: 显示错误位置以及错误的详细信息
-                   -s: 等价于 pytest --capture=no 可以捕获print函数的输出
-                   -q: 简化输出信息
-                   -m: 运行指定标签的测试用例
-                   -x: 一旦错误，则停止运行
-                   --maxfail: 设置最大失败次数，当超出这个阈值时，则不会在执行测试用例
-                    "--reruns=3", "--reruns-delay=2"
-                   """
+        --reruns: 失败重跑次数
+        --count: 重复执行次数
+        -v: 显示错误位置以及错误的详细信息
+        -s: 等价于 pytest --capture=no 可以捕获print函数的输出
+        -q: 简化输出信息
+        -m: 运行指定标签的测试用例
+        -x: 一旦错误，则停止运行
+        --maxfail: 设置最大失败次数，当超出这个阈值时，则不会在执行测试用例
+        "--reruns=3", "--reruns-delay=2"
+        """
+
+        if test_file:
+            pytest_args.append(test_file)
+
+        # 执行pytest测试
+        pytest.main(pytest_args)
+
+
         # 生成allure文件
         os.system(r"allure generate ./report/tmp -o ./report/html --clean")
 

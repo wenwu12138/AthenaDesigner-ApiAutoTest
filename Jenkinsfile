@@ -7,6 +7,12 @@ pipeline {
             choices: ['huawei-test','huawei-prod',  'ali-paas', 'on-premise'],
             description: '选择测试环境'
         )
+        // 新增：指定测试文件的参数（可选，留空则执行全部）
+        string(
+            name: 'TEST_FILE',
+            defaultValue: '',
+            description: '指定要执行的测试文件路径（如：tests/test_login.py），留空则执行所有测试'
+        )
     }
 
     stages {
@@ -29,6 +35,7 @@ pipeline {
                 script {
                     echo "📥 阶段 1/7: 代码检出"
                     echo "🎯 测试环境: ${params.TEST_ENV}"
+                    echo "📄 指定测试文件: ${params.TEST_FILE ?: '全部文件'}"
                     echo "✅ 代码检出完成"
                     sh '''
                         set +x
@@ -46,25 +53,6 @@ pipeline {
                 }
                 sh '''
                     set +x
-
-                    # 检查Python3是否安装，未安装则自动安装（Debian/Ubuntu系统）
-                    if ! command -v python3 &> /dev/null; then
-                        echo "⚠️  未检测到Python3，开始自动安装..."
-                        # 切换root权限安装（需确保jenkins用户有免密sudo权限）
-                        sudo apt-get update -y > /dev/null 2>&1
-                        sudo apt-get install -y python3 python3-pip python3-venv > /dev/null 2>&1
-                        # 建立python -> python3软链接，兼容脚本调用
-                        sudo ln -sf /usr/bin/python3 /usr/bin/python
-                        sudo ln -sf /usr/bin/pip3 /usr/bin/pip
-                        # 验证安装结果
-                        if command -v python3 &> /dev/null; then
-                            echo "✅ Python3安装成功"
-                        else
-                            echo "❌ Python3安装失败，请手动检查系统环境"
-                            exit 1
-                        fi
-                    fi
-                    # =====环境初始化=====
                     echo "🐍 系统Python信息:"
                     echo "Python3路径: $(which python3 || echo '未找到')"
                     echo "Python3版本:"
@@ -354,8 +342,9 @@ EOF
                 script {
                     echo "🚀 阶段 6/7: 执行测试"
                     echo "🎯 测试环境: ${params.TEST_ENV}"
+                    echo "📄 执行测试文件: ${params.TEST_FILE ?: '全部文件'}"
                 }
-                sh '''
+                sh """
                     set +x
                     . venv/bin/activate
 
@@ -383,29 +372,38 @@ except Exception as e:
                     allure --version 2>/dev/null && echo "✅ Allure 命令行工具安装成功" || { echo "❌ Allure 验证失败"; exit 1; }
 
                     echo "🚦 准备执行测试..."
-                    echo "测试开始时间: $(date)"
+                    echo "测试开始时间: \$(date)"
 
-                    export PYTHONPATH="${PWD}:${PYTHONPATH}"
-                    START_TIME=$(date +%s)
+                    export PYTHONPATH="\${PWD}:\${PYTHONPATH}"
+                    START_TIME=\$(date +%s)
 
                     echo "▶️ 开始执行自动化测试..."
-                    python run.py
-                    TEST_STATUS=$?
+                    # 核心修改：根据是否指定测试文件执行不同命令
+                    if [ -n "${params.TEST_FILE}" ]; then
+                        # 指定了测试文件，执行单个文件
+                        echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
+                        python run.py ${params.TEST_FILE}
+                    else
+                        # 未指定，执行全部测试
+                        echo "🔍 执行所有测试文件"
+                        python run.py
+                    fi
+                    TEST_STATUS=\$?
 
-                    END_TIME=$(date +%s)
-                    DURATION=$((END_TIME - START_TIME))
+                    END_TIME=\$(date +%s)
+                    DURATION=\$((END_TIME - START_TIME))
 
                     echo "⏱️ 测试执行统计:"
-                    echo "  总耗时: ${DURATION} 秒"
+                    echo "  总耗时: \${DURATION} 秒"
 
-                    if [ $TEST_STATUS -eq 0 ]; then
+                    if [ \$TEST_STATUS -eq 0 ]; then
                         echo "🎉 测试执行成功!"
                     else
-                        echo "❌ 测试执行失败，退出码: $TEST_STATUS"
+                        echo "❌ 测试执行失败，退出码: \$TEST_STATUS"
                     fi
 
                     echo "✅ 测试执行完成"
-                '''
+                """
             }
         }
 
@@ -499,6 +497,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  时长: ${currentBuild.durationString}"
                 echo "  链接: ${BUILD_URL}"
                 echo "  测试环境: ${params.TEST_ENV}"
+                echo "  执行文件: ${params.TEST_FILE ?: '全部文件'}"  // 新增：显示执行的文件
                 echo ""
                 echo "📊 阶段统计:"
                 echo "  1. ✅ 设置环境"
@@ -519,6 +518,11 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo ""
                 echo "🎉 🎉 🎉 构建成功! 🎉 🎉 🎉"
                 echo "环境 ${params.TEST_ENV} 测试通过!"
+                if (params.TEST_FILE) {
+                    echo "测试文件 ${params.TEST_FILE} 执行成功!"
+                } else {
+                    echo "所有测试文件执行成功!"
+                }
                 echo ""
                 echo "📎 相关链接:"
                 echo "  Jenkins控制台: ${BUILD_URL}console"
@@ -532,6 +536,11 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo ""
                 echo "💥 💥 💥 构建失败! 💥 💥 💥"
                 echo "环境 ${params.TEST_ENV} 测试失败!"
+                if (params.TEST_FILE) {
+                    echo "测试文件 ${params.TEST_FILE} 执行失败!"
+                } else {
+                    echo "部分测试文件执行失败!"
+                }
                 echo "请检查以下问题:"
                 echo "  1. 查看上方具体错误信息"
                 echo "  2. 检查依赖是否完整"

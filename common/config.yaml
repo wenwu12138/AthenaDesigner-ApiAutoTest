@@ -1,6 +1,6 @@
 project_name: Athena开发平台 #项目名称
 tester_name: 闻武 # 测试人员名称，作用于自动生成代码的作者，以及发送企业微信、钉钉通知的测试负责人
-current_environment: "huawei-prod"
+current_environment: "huawei-test"
 
 
 # ==================== 环境配置 ====================
