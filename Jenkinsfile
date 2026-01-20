@@ -7,7 +7,7 @@ pipeline {
             choices: ['huawei-test','huawei-prod',  'ali-paas', 'on-premise'],
             description: '选择测试环境'
         )
-        # ========== 完全保留文件选择参数 ==========
+        // ========== 完全保留文件选择参数 ==========
         string(
             name: 'TEST_FILE',
             defaultValue: '',
@@ -42,7 +42,7 @@ pipeline {
                 script {
                     echo "📥 阶段 1/7: 代码检出"
                     echo "🎯 测试环境: ${params.TEST_ENV}"
-                    # ========== 保留文件选择日志 ==========
+                    // ========== 保留文件选择日志 ==========
                     echo "📄 指定测试文件: ${params.TEST_FILE ?: '全部文件'}"
                     echo "✅ 代码检出完成"
                     sh '''
@@ -61,7 +61,7 @@ pipeline {
                 script {
                     echo "🚀 阶段 6/7: 执行测试"
                     echo "🎯 测试环境: ${params.TEST_ENV}"
-                    # ========== 保留文件选择日志 ==========
+                    // ========== 保留文件选择日志 ==========
                     echo "📄 执行测试文件: ${params.TEST_FILE ?: '全部文件'}"
                 }
                 sh '''
@@ -137,7 +137,7 @@ except Exception as e:
             steps {
                 script {
                     echo "📢 阶段 7/7: 发送测试通知"
-                    # ========== 核心修改：报告链接指向统一路径 ==========
+                    // ========== 核心修改：报告链接指向统一路径 ==========
                     def allureReportUrl = "${env.BUILD_URL}artifact/report/html/index.html"
                     echo "📄 Allure报告地址: ${allureReportUrl}"
 
@@ -191,7 +191,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
 
     post {
         always {
-            # ========== 核心修改：归档统一路径报告 ==========
+            // ========== 核心修改：归档统一路径报告 ==========
             archiveArtifacts artifacts: '''
                 allure-results/**,
                 report/**,  // 归档report/html
@@ -216,7 +216,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
 
                 if (jobUrl && buildNumber) {
                     echo "📊 报告存档信息:"
-                    # ========== 核心修改：报告链接指向统一路径 ==========
+                    // ========== 核心修改：报告链接指向统一路径 ==========
                     echo "   📈 Allure报告: ${jobUrl}${buildNumber}/artifact/report/html/index.html"
                     echo "   📁 原始结果文件: ${jobUrl}${buildNumber}/artifact/allure-results/"
                 }
@@ -235,11 +235,11 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  时长: ${currentBuild.durationString}"
                 echo "  链接: ${BUILD_URL}"
                 echo "  测试环境: ${params.TEST_ENV}"
-                # ========== 保留文件选择日志 ==========
+                // ========== 保留文件选择日志 ==========
                 echo "  执行文件: ${params.TEST_FILE ?: '全部文件'}"
                 echo ""
                 echo "📊 报告链接:"
-                # ========== 核心修改：报告链接指向统一路径 ==========
+                // ========== 核心修改：报告链接指向统一路径 ==========
                 echo "  📈 Allure报告: ${BUILD_URL}artifact/report/html/index.html"
                 echo ""
                 echo "📊 阶段统计:"
