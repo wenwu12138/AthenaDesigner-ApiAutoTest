@@ -14,19 +14,14 @@ pipeline {
         )
     }
 
-    // 核心配置：Allure报告（与run.py的allure-results目录对应）
+    // 修正：只保留标准的Pipeline选项
     options {
-        allure([
-            includeProperties: false,
-            jdk: '',
-            properties: [],
-            reportBuildPolicy: 'ALWAYS',  // 无论构建成功失败都生成报告
-            results: [[path: 'allure-results']]  // 对应run.py复制的结果目录
-        ])
-        // 保留足够的工作空间
-        preserveWorkspace()
         // 构建超时时间
         timeout(time: 1, unit: 'HOURS')
+        // 禁止并发构建
+        disableConcurrentBuilds()
+        // 跳过默认的代码检出（我们手动在stage中处理）
+        skipDefaultCheckout()
     }
 
     stages {
@@ -441,11 +436,11 @@ except Exception as e:
                     # 标记为Jenkins环境，让run.py适配执行
                     export JENKINS_URL="${BUILD_URL}"
                     START_TIME=$(date +%s)
-
+                    
                     # 清理旧的Allure结果
                     rm -rf allure-results report/tmp report/html
                     mkdir -p report/tmp
-
+                    
                     # 执行run.py（核心修改：调用项目原生执行入口）
                     if [ -n "${TEST_FILE}" ]; then
                         echo "🔍 执行指定测试文件: ${TEST_FILE}"
@@ -454,13 +449,13 @@ except Exception as e:
                         echo "🔍 执行所有测试文件"
                         python run.py
                     fi
-
+                    
                     TEST_STATUS=$?
                     END_TIME=$(date +%s)
                     DURATION=$((END_TIME - START_TIME))
-
+                    
                     echo "✅ 测试执行完成，耗时 ${DURATION} 秒，退出码: ${TEST_STATUS}"
-
+                    
                     # 验证Allure结果文件是否生成
                     if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
                         echo "✅ Allure结果文件生成成功，文件数: $(ls allure-results | wc -l)"
@@ -468,11 +463,11 @@ except Exception as e:
                         echo "⚠️ Allure结果文件未生成或为空"
                         # 非致命错误，继续执行
                     fi
-
-                    # 生成备用HTML报告
+                    
+                    # 生成Allure HTML报告（供Jenkins展示）
                     if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
                         allure generate allure-results -o allure-report --clean
-                        echo "✅ 备用Allure HTML报告已生成"
+                        echo "✅ Allure HTML报告已生成"
                     fi
                 '''
             }
@@ -482,12 +477,9 @@ except Exception as e:
             steps {
                 script {
                     echo "📢 阶段 7/7: 发送测试通知"
-                    // Allure插件入口链接
-                    def allureReportUrl = "${env.BUILD_URL}allure"
-                    // 备用HTML报告链接
-                    def htmlReportUrl = "${env.BUILD_URL}artifact/allure-report/index.html"
-                    echo "📄 Allure报告入口: ${allureReportUrl}"
-                    echo "📄 备用HTML报告: ${htmlReportUrl}"
+                    // Allure报告链接（HTML版本）
+                    def allureReportUrl = "${env.BUILD_URL}artifact/allure-report/index.html"
+                    echo "📄 Allure报告地址: ${allureReportUrl}"
 
                     sh """
                         set +x
@@ -547,27 +539,31 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 venv/logs/**
             ''', fingerprint: true, allowEmptyArchive: true
 
-            // 确保Allure报告入口显示
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']]
-            ])
-
+            // 修正：使用Allure插件的正确方式 - 通过step调用
             script {
+                // 如果Allure结果存在，尝试生成报告（兼容方式）
+                if (fileExists('allure-results')) {
+                    echo "📊 生成Allure报告..."
+                    step([
+                        $class: 'AllureReportPublisher',
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'allure-results']]
+                    ])
+                }
+                
                 def jobUrl = env.JOB_URL ?: ''
                 def buildNumber = env.BUILD_NUMBER ?: ''
 
                 if (jobUrl && buildNumber) {
                     echo "📊 报告存档信息:"
-                    echo "   📈 Allure插件入口: ${jobUrl}${buildNumber}/allure"
-                    echo "   📄 备用HTML报告: ${jobUrl}${buildNumber}/artifact/allure-report/index.html"
+                    echo "   📈 Allure报告: ${jobUrl}${buildNumber}/artifact/allure-report/index.html"
                     echo "   📁 原始结果文件: ${jobUrl}${buildNumber}/artifact/allure-results/"
                 }
             }
-
+            
             script {
                 echo ""
                 echo "=" * 60
@@ -584,8 +580,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  执行文件: ${params.TEST_FILE ?: '全部文件'}"
                 echo ""
                 echo "📊 报告链接:"
-                echo "  📈 Allure报告: ${BUILD_URL}allure"
-                echo "  📄 备用HTML报告: ${BUILD_URL}artifact/allure-report/index.html"
+                echo "  📈 Allure报告: ${BUILD_URL}artifact/allure-report/index.html"
                 echo ""
                 echo "📊 阶段统计:"
                 echo "  1. ✅ 设置环境"
@@ -613,7 +608,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 }
                 echo ""
                 echo "📎 快速访问:"
-                echo "  📈 Allure报告: ${BUILD_URL}allure"
+                echo "  📈 Allure报告: ${BUILD_URL}artifact/allure-report/index.html"
                 echo "  🖥️ 控制台日志: ${BUILD_URL}console"
             }
         }
@@ -635,7 +630,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  4. 检查测试代码"
                 echo ""
                 echo "📎 报告链接（即使失败也会生成）:"
-                echo "  📈 Allure报告: ${BUILD_URL}allure"
+                echo "  📈 Allure报告: ${BUILD_URL}artifact/allure-report/index.html"
             }
             sh '''
                 set +x
