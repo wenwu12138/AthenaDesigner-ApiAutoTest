@@ -7,7 +7,6 @@ pipeline {
             choices: ['huawei-test','huawei-prod',  'ali-paas', 'on-premise'],
             description: '选择测试环境'
         )
-        // 新增：指定测试文件的参数（可选，留空则执行全部）
         string(
             name: 'TEST_FILE',
             defaultValue: '',
@@ -364,11 +363,13 @@ except Exception as e:
 "
 
                     echo "📥 安装 Allure 命令行工具..."
+                    # 修复点1：Shell变量定义（正确写法）
                     ALLURE_VERSION="2.27.0"
-                    ALLURE_URL="https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip"
-                    wget -q ${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null || { echo "❌ Allure 下载失败"; exit 1; }
+                    # 修复点2：Shell变量引用时转义$，避免Groovy解析
+                    ALLURE_URL="https://github.com/allure-framework/allure2/releases/download/\${ALLURE_VERSION}/allure-\${ALLURE_VERSION}.zip"
+                    wget -q \${ALLURE_URL} -O /tmp/allure.zip 2>/dev/null || { echo "❌ Allure 下载失败"; exit 1; }
                     unzip -oq /tmp/allure.zip -d /opt/ 2>/dev/null || { echo "❌ Allure 解压失败"; exit 1; }
-                    export PATH="/opt/allure-${ALLURE_VERSION}/bin:${PATH}"
+                    export PATH="/opt/allure-\${ALLURE_VERSION}/bin:\${PATH}"
                     allure --version 2>/dev/null && echo "✅ Allure 命令行工具安装成功" || { echo "❌ Allure 验证失败"; exit 1; }
 
                     echo "🚦 准备执行测试..."
@@ -378,13 +379,10 @@ except Exception as e:
                     START_TIME=\$(date +%s)
 
                     echo "▶️ 开始执行自动化测试..."
-                    # 核心修改：根据是否指定测试文件执行不同命令
                     if [ -n "${params.TEST_FILE}" ]; then
-                        # 指定了测试文件，执行单个文件
                         echo "🔍 执行指定测试文件: ${params.TEST_FILE}"
                         python run.py ${params.TEST_FILE}
                     else
-                        # 未指定，执行全部测试
                         echo "🔍 执行所有测试文件"
                         python run.py
                     fi
@@ -411,22 +409,17 @@ except Exception as e:
             steps {
                 script {
                     echo "📢 阶段 7/7: 发送测试通知"
-                    // 定义报告URL
                     def reportUrl = "${env.BUILD_URL}artifact/report/html/index.html"
                     echo "📄 测试报告地址: ${reportUrl}"
 
-                    // 核心修复：改用双引号插值，避免变量拼接错误
                     sh """
                         set +x
-                        # 激活虚拟环境 + 设置Python路径
                         . venv/bin/activate
                         export PYTHONPATH="\${PWD}:\${PYTHONPATH}"
 
-                        # 传递变量到Shell环境
                         export REPORT_URL="${reportUrl}"
                         export NOTIFY_TYPES="${params.NOTIFICATION_TYPES}"
 
-                        # 执行Python通知逻辑
                         python -c '
 import json
 import os
@@ -439,10 +432,8 @@ from utils.notify.send_mail import SendEmail
 from utils.notify.lark import FeiShuTalkChatBot
 from utils import config
 
-# 获取Allure测试数据
 allure_data = AllureFileClean().get_case_count()
 
-# 定义通知映射（复用原有逻辑，邮件注入报告URL）
 notification_mapping = {
     NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
     NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
@@ -450,7 +441,6 @@ notification_mapping = {
     NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
 }
 
-# 读取代码内config配置发送通知（复用原有逻辑）
 if config.notification_type != NotificationType.DEFAULT.value:
     notify_type = config.notification_type.split(",")
     for i in notify_type:
@@ -497,7 +487,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                 echo "  时长: ${currentBuild.durationString}"
                 echo "  链接: ${BUILD_URL}"
                 echo "  测试环境: ${params.TEST_ENV}"
-                echo "  执行文件: ${params.TEST_FILE ?: '全部文件'}"  // 新增：显示执行的文件
+                echo "  执行文件: ${params.TEST_FILE ?: '全部文件'}"
                 echo ""
                 echo "📊 阶段统计:"
                 echo "  1. ✅ 设置环境"
