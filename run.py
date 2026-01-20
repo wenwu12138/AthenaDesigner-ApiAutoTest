@@ -23,17 +23,13 @@ from common.setting import ensure_path_sep
 
 
 def run():
-    # 读取命令行传入的测试文件参数（支持指定单个测试文件执行）
+    # ========== 完全保留文件选择功能 ==========
     test_file = sys.argv[1] if len(sys.argv) > 1 else None
-
-    # ===== 新增：支持Jenkins环境变量控制 =====
-    # 判断是否在Jenkins环境中运行
     is_jenkins = os.getenv('JENKINS_URL', False)
 
-    # 打印执行模式日志，方便调试
     if test_file:
         INFO.logger.info(f"📄 【指定文件模式】执行测试文件：{test_file}")
-        # 检查文件是否存在
+        # 保留文件存在性检查
         if not os.path.exists(test_file):
             print(f"❌ 错误：路径 {test_file} 不存在！")
             print(f"📌 当前工作目录：{os.getcwd()}")
@@ -43,6 +39,7 @@ def run():
         INFO.logger.info("📄 【全量模式】执行所有测试文件")
 
     try:
+        # 保留原有日志打印逻辑
         INFO.logger.info(
             """
                                   ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
@@ -88,57 +85,49 @@ def run():
                 """.format(config.project_name)
         )
 
-        # 构建pytest执行参数
+        # 保留原有pytest参数构建逻辑
         pytest_args = [
             '-s',
             '-W', 'ignore:Module already imported:pytest.PytestWarning',
-            '--alluredir', './report/tmp',  # 保持原有Allure结果路径
+            '--alluredir', './report/tmp',  # 原始结果路径不变
             "--clean-alluredir",
         ]
 
-        # 添加测试文件参数（如果有）
+        # ========== 保留文件选择核心逻辑 ==========
         if test_file:
             pytest_args.append(test_file)
 
-        # 调试执行命令
+        # 保留原有执行日志
         print(f"开始执行测试 执行命令为: pytest {' '.join(pytest_args)}")
-
-        # 执行pytest测试
         exit_code = pytest.main(pytest_args)
 
-        # 生成allure文件（Jenkins环境下不生成HTML，由Jenkins插件处理）
-        if not is_jenkins:
-            # 本地运行时生成HTML报告
-            os.system(r"allure generate ./report/tmp -o ./report/html --clean")
-        else:
-            # Jenkins环境下：复制Allure结果到jenkins识别的目录
-            # 确保allure-results目录存在
+        # ========== 核心修改：统一报告生成路径（本地/Jenkins都生成到report/html） ==========
+        # 1. 统一生成HTML报告到 report/html（删除环境判断）
+        print("📊 生成Allure HTML报告到 report/html...")
+        os.system(r"allure generate ./report/tmp -o ./report/html --clean")
+
+        # 2. Jenkins环境额外动作：复制原始结果到allure-results（供插件使用）
+        if is_jenkins:
             os.makedirs("allure-results", exist_ok=True)
-            # 复制report/tmp下的所有文件到allure-results（供Jenkins Allure插件读取）
             for file in os.listdir("./report/tmp"):
                 src = os.path.join("./report/tmp", file)
                 dst = os.path.join("allure-results", file)
                 if os.path.isfile(src):
                     shutil.copy2(src, dst)
-            print(f"✅ 已将Allure结果复制到 allure-results 目录")
+            print(f"✅ 已将Allure原始结果复制到 allure-results 目录")
 
-        # 生成错误用例Excel（保持原有逻辑）
+        # ========== 保留原有功能：生成错误用例Excel ==========
         if config.excel_report:
             ErrorCaseExcel().write_case()
 
-        # ===== 调整：Jenkins环境不启动本地报告服务 =====
+        # ========== 保留原有功能：本地启动报告服务 ==========
         if not is_jenkins:
-            # 本地运行时启动报告服务
-            # 程序运行之后，自动启动报告，如果不想启动报告，可注释这段代码
-            # os.system(f"allure serve ./report/tmp -h 127.0.0.1 -p 9999")
-
-            # 启动本地服务供内网查看报告
             server = ReportServer(report_path=ensure_path_sep("\\report\\html"), port=9999, host='0.0.0.0')
             server.start_server()
         else:
             print("✅ Jenkins环境下跳过本地报告服务启动")
 
-        # ===== 调整：Jenkins环境不发送通知（由Jenkinsfile处理） =====
+        # ========== 保留原有功能：本地发送通知 ==========
         if not is_jenkins and config.notification_type != NotificationType.DEFAULT.value:
             allure_data = AllureFileClean().get_case_count()
             notification_mapping = {
@@ -157,11 +146,11 @@ def run():
                     except Exception as e:
                         print(f"❌ 发送{notify_key}通知失败: {str(e)}")
 
-        # 返回测试执行结果码
+        # 保留原有退出逻辑
         sys.exit(exit_code)
 
     except Exception:
-        # 如有异常，相关异常发送邮件
+        # 保留原有异常处理逻辑
         e = traceback.format_exc()
         print("==========自动化执行异常=========")
         print(e)
