@@ -20,11 +20,13 @@ pipeline {
                 script {
                     echo "🎯 选择环境: ${params.TEST_ENV}"
                     checkout scm
-                    sh """
+                    // 核心修复：改用单引号包裹sed命令，避免转义冲突
+                    sh '''
                         set +x
-                        sed -i "s/current_environment:.*/current_environment: \\\\"${params.TEST_ENV}\\\\"/" common/config.yaml
-                        echo "✅ 环境已设置为: ${params.TEST_ENV}"
-                    """
+                        # 用单引号避免转义问题，直接替换current_environment配置
+                        sed -i 's/current_environment:.*/current_environment: "'"${TEST_ENV}"'"/' common/config.yaml
+                        echo "✅ 环境已设置为: '${TEST_ENV}'"
+                    '''.replace('${TEST_ENV}', params.TEST_ENV) // Groovy替换变量，避免Shell转义
                 }
             }
         }
@@ -343,7 +345,7 @@ EOF
                     echo "🎯 测试环境: ${params.TEST_ENV}"
                     echo "📄 执行测试文件: ${params.TEST_FILE ?: '全部文件'}"
                 }
-                // 关键修复：把需要传Groovy变量的部分拆成两个sh块，避免转义冲突
+                // 拆分Shell块，避免转义冲突
                 sh '''
                     set +x
                     . venv/bin/activate
@@ -377,7 +379,7 @@ except Exception as e:
                     export PYTHONPATH="${PWD}:${PYTHONPATH}"
                     START_TIME=$(date +%s)
                 '''
-                // 单独处理需要传Groovy变量的部分，避免转义冲突
+                // 单独处理测试文件执行逻辑
                 script {
                     if (params.TEST_FILE) {
                         sh """
