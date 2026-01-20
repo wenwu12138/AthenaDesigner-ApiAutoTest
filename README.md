@@ -6,4 +6,7 @@
 后需要执行的三个目标
 1.增加jenkins执行配置  环境，单独执行文件==
 2.增加发邮件
-3.优化jenkins输出
+3.优化jenkins输出!!![](C:\Users\闻武\Downloads\case_detail.png)
+
+
+![img.png](img.png)

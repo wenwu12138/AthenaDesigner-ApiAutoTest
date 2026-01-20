@@ -1,0 +1,30 @@
+# 公共参数
+case_common:
+  allureEpic: 开发平台接口
+  allureFeature: 公用
+  allureStory: 资产
+
+
+# 查询后台管理数据卡片
+background_QueryDataCard_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryDataCard
+  method: GET
+  detail: 查询后台管理数据卡片
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: True
+  data: {}
+  # 是否有依赖业务，为空或者False则表示没有
+  dependence_case: False
+  # 依赖的数据
+  dependence_case_data: []
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType:
+  current_request_set_cache: []

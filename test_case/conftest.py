@@ -19,6 +19,50 @@ import json
 from utils.read_files_tools.regular_control import regular
 from utils import config
 
+import pytest
+from utils.logging_tool.log_control import INFO
+
+# 全局变量存储进度信息
+_test_progress = {'total': 0, 'current': 0}
+
+
+# 橙色（使用亮黄色93）
+ORANGE = '\033[93m'
+RESET = '\033[0m'
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """每个测试用例执行后打印进度"""
+    outcome = yield
+    rep = outcome.get_result()
+
+    if rep.when == "call":  # 只统计测试执行阶段
+        try:
+            # 如果是第一个用例，获取总数
+            if _test_progress['total'] == 0:
+                _test_progress['total'] = len(item.session.items) if hasattr(item.session, 'items') else 1
+
+            _test_progress['current'] += 1
+
+            # 获取测试名称（简化显示）
+            test_name = item.name if hasattr(item, 'name') else str(item)
+            # 去掉参数化生成的冗余信息
+            if '[' in test_name and ']' in test_name:
+                test_name = test_name.split('[')[0]
+
+            # 计算进度百分比
+            current = _test_progress['current']
+            total = _test_progress['total']
+            progress = (current / total * 100) if total > 0 else 0
+
+            # 简洁的进度显示
+            INFO.logger.info(f"{ORANGE}📊 [{current}/{total}] ({progress:.1f}%) - {test_name}")
+
+        except Exception:
+            # 简化异常处理，不打印任何错误信息
+            pass
+
 
 @pytest.fixture(scope="session", autouse=False)
 def clear_report():
@@ -218,5 +262,9 @@ def pytest_terminal_summary(terminalreporter):
         INFO.logger.info("用例成功率: %.2f" % _RATE + " %")
     except ZeroDivisionError:
         INFO.logger.info("用例成功率: 0.00 %")
+
+
+
+
 
 

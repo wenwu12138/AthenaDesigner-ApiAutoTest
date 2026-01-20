@@ -46,6 +46,25 @@ pipeline {
                 }
                 sh '''
                     set +x
+
+                    # 检查Python3是否安装，未安装则自动安装（Debian/Ubuntu系统）
+                    if ! command -v python3 &> /dev/null; then
+                        echo "⚠️  未检测到Python3，开始自动安装..."
+                        # 切换root权限安装（需确保jenkins用户有免密sudo权限）
+                        sudo apt-get update -y > /dev/null 2>&1
+                        sudo apt-get install -y python3 python3-pip python3-venv > /dev/null 2>&1
+                        # 建立python -> python3软链接，兼容脚本调用
+                        sudo ln -sf /usr/bin/python3 /usr/bin/python
+                        sudo ln -sf /usr/bin/pip3 /usr/bin/pip
+                        # 验证安装结果
+                        if command -v python3 &> /dev/null; then
+                            echo "✅ Python3安装成功"
+                        else
+                            echo "❌ Python3安装失败，请手动检查系统环境"
+                            exit 1
+                        fi
+                    fi
+                    # =====环境初始化=====
                     echo "🐍 系统Python信息:"
                     echo "Python3路径: $(which python3 || echo '未找到')"
                     echo "Python3版本:"
