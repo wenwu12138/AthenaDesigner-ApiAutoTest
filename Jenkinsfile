@@ -54,7 +54,343 @@ pipeline {
             }
         }
 
-        // 省略「环境初始化」「安装核心依赖」「安装项目依赖」「验证依赖」阶段（完全保留原有代码）
+        stage('环境初始化') {
+            steps {
+                script {
+                    echo "🔧 阶段 2/7: 环境初始化"
+                }
+                sh '''
+                    set +x
+                    # ========== 核心配置：定义备选Python3路径（适配多容器） ==========
+                    # 备选路径1：系统默认Python3（优先尝试）
+                    PYTHON3_DEFAULT="python3"
+                    # 备选路径2：运维指定的容器绝对路径（默认Python3找不到时使用）
+                    PYTHON3_BACKUP="/var/jenkins_home/python3/bin/python3"
+                    # 最终使用的Python3路径（初始化为空）
+                    PYTHON3_USE=""
+
+                    echo "🐍 系统Python3路径检测（自适应多环境）..."
+                    # 第一步：尝试使用系统默认Python3
+                    if which ${PYTHON3_DEFAULT} >/dev/null 2>&1; then
+                        PYTHON3_USE=${PYTHON3_DEFAULT}
+                        echo "✅ 检测到系统默认Python3: $(which ${PYTHON3_USE})"
+                        echo "   Python3版本: $(${PYTHON3_USE} --version 2>&1)"
+                    else
+                        echo "⚠️ 系统默认Python3未找到，尝试备用路径: ${PYTHON3_BACKUP}"
+                        # 第二步：尝试使用运维指定的绝对路径
+                        if [ -f "${PYTHON3_BACKUP}" ]; then
+                            PYTHON3_USE=${PYTHON3_BACKUP}
+                            echo "✅ 检测到备用Python3路径: ${PYTHON3_USE}"
+                            echo "   Python3版本: $(${PYTHON3_USE} --version 2>&1)"
+                        else
+                            echo "❌ 所有Python3路径都未找到！"
+                            echo "   尝试的路径1: ${PYTHON3_DEFAULT} (系统默认)"
+                            echo "   尝试的路径2: ${PYTHON3_BACKUP} (容器绝对路径)"
+                            exit 1
+                        fi
+                    fi
+
+                    # ========== 清理旧虚拟环境 ==========
+                    echo -e "\\n🧹 清理旧环境..."
+                    if [ -d "venv" ]; then
+                        rm -rf venv && echo "✅ 旧虚拟环境已清理"
+                    else
+                        echo "ℹ️ 未发现旧虚拟环境，跳过清理"
+                    fi
+
+                    # ========== 创建新虚拟环境（使用检测到的Python3路径） ==========
+                    echo -e "\\n📦 创建新虚拟环境..."
+                    ${PYTHON3_USE} -m venv venv
+                    if [ $? -eq 0 ]; then
+                        echo "✅ 虚拟环境创建成功（使用Python3: ${PYTHON3_USE}）"
+                    else
+                        echo "❌ 虚拟环境创建失败！"
+                        echo "   使用的Python3路径: ${PYTHON3_USE}"
+                        exit 1
+                    fi
+
+                    # ========== 激活虚拟环境并验证 ==========
+                    echo -e "\\n🔌 激活虚拟环境..."
+                    . venv/bin/activate
+                    echo "✅ 虚拟环境激活成功"
+                    echo "   激活后Python路径: $(which python)"
+                    echo "   激活后Python版本: $(python --version 2>&1 || echo '获取失败')"
+
+                    # ========== 升级基础工具（容错处理） ==========
+                    echo -e "\\n⬆️ 升级基础工具（容错处理）..."
+                    pip install --upgrade pip setuptools wheel --quiet
+                    if [ $? -eq 0 ]; then
+                        echo "✅ 基础工具升级成功"
+                        echo "   升级后pip版本: $(pip --version | cut -d' ' -f2)"
+                    else
+                        echo "⚠️ 基础工具升级失败（非致命），使用当前版本"
+                        echo "   当前pip版本: $(pip --version | cut -d' ' -f2)"
+                    fi
+
+                    echo -e "\\n📊 环境初始化完成（适配容器: ${PYTHON3_USE}）"
+                '''
+            }
+        }
+
+        stage('安装核心依赖') {
+            steps {
+                script {
+                    echo "📦 阶段 3/7: 安装核心依赖"
+                }
+                sh '''
+                    set +x
+                    . venv/bin/activate
+
+                    echo "🔍 当前环境信息:"
+                    echo "Python: $(which python)"
+                    echo "版本: $(python --version 2>&1)"
+                    echo "PIP: $(pip --version 2>&1 | head -1)"
+
+                    echo "📥 安装核心包..."
+                    pip install PyYAML==6.0.2 --quiet || { echo "❌ PyYAML安装失败"; exit 1; }
+                    echo "  ✅ PyYAML"
+
+                    pip install requests==2.32.4 --quiet || echo "  ⚠️ requests"
+                    pip install pytest==7.4.4 --quiet || echo "  ⚠️ pytest"
+                    pip install jsonpath==0.82.2 --quiet || { echo "❌ jsonpath安装失败"; exit 1; }
+                    pip install openpyxl==3.1.5 --quiet || echo "  ⚠️ openpyxl"
+                    pip install pymysql==1.1.1 --quiet || echo "  ⚠️ pymysql"
+                    pip install flask==3.1.0 --quiet || echo "  ⚠️ flask"
+                    pip install python-dateutil==2.9.0 --quiet || echo "  ⚠️ python-dateutil"
+                    pip install cryptography==44.0.3 --quiet || echo "  ⚠️ cryptography"
+                    pip install allure-pytest==2.13.2 allure-python-commons==2.13.2 --quiet || echo "  ⚠️ allure"
+
+                    echo "📊 核心依赖安装统计:"
+                    echo "已安装包数量: $(pip list | wc -l)个"
+                    echo "✅ 核心依赖安装完成"
+                '''
+            }
+        }
+
+        stage('安装项目依赖') {
+            steps {
+                script {
+                    echo "📦 阶段 4/7: 安装项目依赖"
+                }
+                sh '''
+                    set +x
+                    . venv/bin/activate
+
+                    echo "🔍 检查requirements.txt..."
+                    if [ ! -f "requirements.txt" ]; then
+                        echo "⚠️ requirements.txt不存在，跳过此阶段"
+                        exit 0
+                    fi
+
+                    echo "🧹 过滤Windows专用包..."
+                    cat > requirements_filtered.txt << 'EOF'
+aiofiles==24.1.0
+aioquic==1.2.0
+allure-pytest==2.13.2
+allure-python-commons==2.13.2
+annotated-types==0.7.0
+argon2-cffi==23.1.0
+argon2-cffi-bindings==21.2.0
+asgiref==3.8.1
+atomicwrites==1.4.1
+attrs==25.3.0
+blinker==1.9.0
+Brotli==1.1.0
+certifi==2025.6.15
+cffi==1.17.1
+chardet==5.2.0
+charset-normalizer==3.4.2
+click==8.2.1
+colorama==0.4.6
+colorlog==6.9.0
+coverage==7.12.0
+cryptography==44.0.3
+DingtalkChatbot==1.5.7
+et_xmlfile==2.0.0
+execnet==2.1.1
+Faker==37.4.0
+Flask==3.1.0
+h11==0.16.0
+h2==4.1.0
+hpack==4.1.0
+httptools==0.6.4
+hyperframe==6.1.0
+idna==3.10
+iniconfig==2.3.0
+itchat==1.3.10
+itsdangerous==2.2.0
+Jinja2==3.1.6
+jsonpath==0.82.2
+kaitaistruct==0.10
+ldap3==2.9.1
+MarkupSafe==3.0.2
+mitmproxy==12.1.1
+mitmproxy_rs==0.12.6
+msgpack==1.1.0
+multidict==6.5.1
+Naked==0.1.32
+openpyxl==3.1.5
+packaging==25.0
+passlib==1.7.4
+pefile==2023.2.7
+pluggy==1.6.0
+protobuf==6.31.1
+psutil==7.1.3
+publicsuffix2==2.20191221
+py==1.11.0
+pyasn1==0.6.1
+pyasn1_modules==0.4.2
+pycparser==2.22
+pydantic==2.11.7
+pydantic_core==2.33.2
+pyDes==2.0.1
+Pygments==2.19.2
+pyinstaller==6.15.0
+pyinstaller-hooks-contrib==2025.8
+pylsqpack==0.3.22
+PyMySQL==1.1.1
+pyOpenSSL==25.0.0
+pyparsing==3.2.3
+pyperclip==1.9.0
+pypng==0.20220715.0
+PyQRCode==1.2.1
+pytest==7.4.4
+pytest-forked==1.6.0
+pytest-xdist==3.5.0
+python-dateutil==2.9.0
+PyYAML==6.0.2
+redis==6.2.0
+requests==2.32.4
+requests-toolbelt==1.0.0
+requests_to_curl==1.1.0
+ruamel.yaml==0.18.10
+ruamel.yaml.clib==0.2.12
+sanic==25.3.0
+sanic-routing==23.12.0
+service-identity==24.2.0
+setuptools==80.9.0
+shellescape==3.8.1
+six==1.17.0
+sortedcontainers==2.4.0
+text-unidecode==1.3
+toml==0.10.2
+tornado==6.5
+tracerite==1.1.3
+typing-inspection==0.4.1
+typing_extensions==4.14.0
+tzdata==2025.2
+urllib3==2.5.0
+urwid==2.6.16
+wcwidth==0.2.13
+websockets==15.0.1
+Werkzeug==3.1.3
+wsproto==1.2.0
+xlrd==2.0.2
+xlutils==2.0.0
+xlwings==0.33.15
+xlwt==1.3.0
+zstandard==0.23.0
+EOF
+
+                    echo "📦 安装过滤后的依赖..."
+                    START_TIME=$(date +%s)
+                    pip install -r requirements_filtered.txt --quiet
+                    INSTALL_STATUS=$?
+                    END_TIME=$(date +%s)
+                    DURATION=$((END_TIME - START_TIME))
+
+                    if [ $INSTALL_STATUS -eq 0 ]; then
+                        echo "✅ 依赖安装成功，耗时 ${DURATION} 秒"
+                    else
+                        echo "⚠️ 部分依赖安装失败，继续执行..."
+                    fi
+
+                    echo "📊 最终依赖统计:"
+                    echo "总包数量: $(pip list | wc -l)个"
+                    echo "✅ 项目依赖安装完成"
+                '''
+            }
+        }
+
+        stage('验证依赖') {
+            steps {
+                script {
+                    echo "🔍 阶段 5/7: 验证依赖"
+                }
+                sh '''
+                    set +x
+                    . venv/bin/activate
+
+                    cat > verify_deps.py << 'EOF'
+import sys
+import traceback
+
+print("=" * 60)
+print("依赖验证报告")
+print("=" * 60)
+print(f"Python 版本: {sys.version}")
+print(f"Python 路径: {sys.executable}")
+print("-" * 60)
+
+critical_modules = [
+    ('yaml', '配置文件处理'),
+    ('requests', 'HTTP请求库'),
+    ('pytest', '测试框架'),
+    ('jsonpath', 'JSON路径查询'),
+    ('openpyxl', 'Excel文件处理'),
+    ('pymysql', 'MySQL数据库'),
+    ('flask', 'Web框架'),
+    ('allure', '测试报告'),
+    ('cryptography', '加密库'),
+    ('redis', 'Redis缓存'),
+]
+
+print("核心模块验证:")
+all_critical_passed = True
+for module_name, description in critical_modules:
+    try:
+        __import__(module_name)
+        version = getattr(sys.modules[module_name], '__version__', '未知版本')
+        print(f"  ✅ {module_name:15} - {description:20} 版本: {version}")
+    except Exception as e:
+        print(f"  ❌ {module_name:15} - {description:20} 错误: {str(e)[:50]}")
+        all_critical_passed = False
+
+print("-" * 60)
+
+print("项目模块验证:")
+try:
+    from utils.other_tools.models import NotificationType
+    print("  ✅ utils.other_tools.models - 通知类型模块")
+except Exception as e:
+    print(f"  ❌ utils.other_tools.models - 错误: {str(e)[:100]}")
+    print(f"      详细错误: {traceback.format_exc()[:200]}")
+
+print("-" * 60)
+
+if all_critical_passed:
+    print("✅ 所有核心模块验证通过")
+    sys.exit(0)
+else:
+    print("❌ 部分核心模块验证失败")
+    sys.exit(1)
+EOF
+
+                    echo "🚀 执行验证脚本..."
+                    python verify_deps.py
+                    VERIFY_STATUS=$?
+
+                    if [ $VERIFY_STATUS -eq 0 ]; then
+                        echo "🎉 依赖验证全部通过!"
+                    else
+                        echo "⚠️ 依赖验证失败，但继续执行测试..."
+                    fi
+
+                    rm -f verify_deps.py
+                    echo "✅ 依赖验证完成"
+                '''
+            }
+        }
 
         stage('执行测试') {
             steps {
