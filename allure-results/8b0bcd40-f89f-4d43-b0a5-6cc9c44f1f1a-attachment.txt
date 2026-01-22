@@ -1,0 +1,11 @@
+INFO     D:\sort\AthenaDesigner-ApiAutoTest\utils\logs\info-2026-01-22.log:log_decorator.py:42 
+======================================================
+用例标题: 获取AES加密密钥
+请求路径: https://iam-test.digiwincloud.com.cn/api/iam/v2/identity/aeskey
+请求方式: POST
+请求头:   {'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'digi-middleware-auth-user': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'token': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'locale': 'zh_CN', 'digi-middleware-auth-app': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImF0aGVuYS1sY2RwIiwiaW5zaWRlIjpmYWxzZSwic2lkIjo0NzEzMTUyMTExMzM1MDR9.pT0WT9qO8j9IVxBBO8HkUFRMd9bSfeQOyw0Oh4xL34U', 'content-type': 'application/json', 'Content-Length': '374'}
+请求内容: {'clientEncryptPublicKey': 'SST+tZq7aR9M4WBlmyzABUHyCCeUwMyc4L7NdkUtPeErd3Y/gyyzr7Ti5VzZhJeoPx+UYeKd51Vxn+nNwtgK+MCczZ2dYDQWAJb2lAWdWUF1Dmw5Smzy0Rr8SA7f8gQ4uagknjnWm8V3dI9I2ekD6jaDDk6qw2ILflFsPqfGznXqXjc1sOsx9o0OzUj2C0F4Y/YIkRSEpSRJy5HYTz2DVKF9pI2UxEktaVAd8BgnDIjGnSJAFuOJOieXoAXcxLPhu9aNqI9TSEjFi0RM6LImcy8OR4GeSTNwnDa3ZLYgotqdkn4zgVWSgYyeap1evfdUtQsitThTAiVo4O9LD/pe1Q=='}
+接口响应内容: {"encryptAesKey":"h2ri5yYW3NLCn1lGVvTZY+bPbmQQGm7e+WB3Y2wWQiyQeNk2lxchYyHOHS3RW8i2RWTxzvdGadCwVN2eA2VoNQYZ4lyMgvGlwinUXOL0HsC2aswo/zy10peiqw2UbDM8S9LrmPswYEDyhy6xKTBSqeAOAahSh+Y3iq0puMwOr1s="}
+接口响应时长: 135.94 ms
+Http状态码: 200
+=====================================================

@@ -1,0 +1,11 @@
+INFO     D:\sort\AthenaDesigner-ApiAutoTest\utils\logs\info-2026-01-22.log:log_decorator.py:42 
+======================================================
+用例标题: 查询用户权限策略
+请求路径: https://adp-test.apps.digiwincloud.com.cn/athena-designer/auth/queryAuthPolicy
+请求方式: POST
+请求头:   {'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'digi-middleware-auth-user': '57c4472e-f639-45f9-a9d4-8e9a34e350aa', 'token': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'locale': 'zh_CN', 'Content-Length': '57', 'Content-Type': 'application/json'}
+请求内容: {'resourceType': 'tenant', 'userId': 'wenwu@digiwin.com'}
+接口响应内容: {"code":0,"data":[{"effect":"deny","action":[],"resourceId":"athenadeveloperTest"},{"effect":"allow","action":["tenant:*"],"resourceId":"athenadeveloperTest"}]}
+接口响应时长: 187.1 ms
+Http状态码: 200
+=====================================================

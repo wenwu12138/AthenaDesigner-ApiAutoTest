@@ -1,0 +1,11 @@
+INFO     D:\sort\AthenaDesigner-ApiAutoTest\utils\logs\info-2026-01-22.log:log_decorator.py:42 
+======================================================
+用例标题: 获取用户盐值用于密码加密
+请求路径: https://iam-test.digiwincloud.com.cn/api/iam/v2/user/salt
+请求方式: POST
+请求头:   {'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'digi-middleware-auth-user': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'token': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'locale': 'zh_CN', 'digi-middleware-auth-app': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImF0aGVuYS1sY2RwIiwiaW5zaWRlIjpmYWxzZSwic2lkIjo0NzEzMTUyMTExMzM1MDR9.pT0WT9qO8j9IVxBBO8HkUFRMd9bSfeQOyw0Oh4xL34U', 'content-type': 'application/json', 'Content-Length': '27'}
+请求内容: {'id': 'wenwu@digiwin.com'}
+接口响应内容: {"salt":""}
+接口响应时长: 160.43 ms
+Http状态码: 200
+=====================================================

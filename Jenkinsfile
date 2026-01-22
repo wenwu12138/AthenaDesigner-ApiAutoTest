@@ -99,8 +99,8 @@ except Exception as e:
                     START_TIME=$(date +%s)
 
                     # 清理旧报告
-                    rm -rf allure-results report/tmp report/html
-                    mkdir -p report/tmp
+                    rm -rf report/allure-results report/html
+                    mkdir -p report/html
 
                     # ========== 核心保留：文件选择逻辑 ==========
                     if [ -n "${TEST_FILE}" ]; then
@@ -117,17 +117,16 @@ except Exception as e:
 
                     echo "✅ 测试执行完成，耗时 ${DURATION} 秒，退出码: ${TEST_STATUS}"
 
-                    # ========== 核心修改：验证统一路径报告 ==========
+
                     if [ -d "report/html" ] && [ "$(ls -A report/html)" ]; then
-                        echo "✅ 统一路径报告生成成功: report/html"
+                        echo "✅ Allure HTML报告生成成功: report/html"
                     else
-                        echo "⚠️ report/html为空，重新生成"
-                        allure generate report/tmp -o report/html --clean
+                        echo "⚠️ report/html为空，尝试重新生成"
+                        allure generate report/allure-results -o report/html --clean
                     fi
 
-                    # 保留allure-results供插件使用
-                    if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
-                        echo "✅ Allure原始结果已就绪"
+                    if [ -d "report/allure-results" ] && [ "$(ls -A report/allure-results)" ]; then
+                        echo "✅ Allure原始结果已就绪: report/allure-results"
                     fi
                 '''
             }
@@ -193,7 +192,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
         always {
             // ========== 核心修改：归档统一路径报告 ==========
             archiveArtifacts artifacts: '''
-                allure-results/**,
+                report/allure-results/**,
                 report/**,  // 归档report/html
                 venv/logs/**
             ''', fingerprint: true, allowEmptyArchive: true
@@ -207,7 +206,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
                         jdk: '',
                         properties: [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'allure-results']]
+                        results: [[path: 'report/allure-results']]
                     ])
                 }
 

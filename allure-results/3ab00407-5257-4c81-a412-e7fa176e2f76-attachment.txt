@@ -1,0 +1,11 @@
+INFO     D:\sort\AthenaDesigner-ApiAutoTest\utils\logs\info-2026-01-22.log:log_decorator.py:42 
+======================================================
+用例标题: 获取RSA公钥用于数据加密
+请求路径: https://iam-test.digiwincloud.com.cn/api/iam/v2/identity/publickey
+请求方式: GET
+请求头:   {'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'digi-middleware-auth-user': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'token': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'locale': 'zh_CN', 'digi-middleware-auth-app': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImF0aGVuYS1sY2RwIiwiaW5zaWRlIjpmYWxzZSwic2lkIjo0NzEzMTUyMTExMzM1MDR9.pT0WT9qO8j9IVxBBO8HkUFRMd9bSfeQOyw0Oh4xL34U'}
+请求内容: None
+接口响应内容: {"publicKey":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq7CIjfdOxx/HcMm4pv37q8Cc43+FwNVTXtYZbDbAk31BfVLnQ4qfal0NboRH5qlDH0Iv7QsjmhKNPZLidhM2Ffy4EUgCW5nGFU0SIsClCXBUBUU6Ud520zjkyZZkP7oImUtsI3rVwCp9yOCgN85IXu+IqX3xpEUqd2YKQ9/yXC9zxO+j2ksDUXXhUF54eFHncdwgE/il874XZCrfOjEZ6ovW1oIsfCcNvBJxgG01eBevCQF88sw2amAyb3oV6GIwMG4FxVSBXBX4cQ/ejqS680GKLYgTCZ89/mIzqtoFa7f0oXFSZ5MKoNtZbfh7QAKFF3i9Wj51urLQ96MjlDuV2wIDAQAB"}
+接口响应时长: 160.16 ms
+Http状态码: 200
+=====================================================

@@ -1,0 +1,11 @@
+INFO     D:\sort\AthenaDesigner-ApiAutoTest\utils\logs\info-2026-01-22.log:log_decorator.py:42 
+======================================================
+用例标题: 获取设备ID用于登录流程
+请求路径: https://iam-test.digiwincloud.com.cn/api/iam/v2/device/id
+请求方式: GET
+请求头:   {'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'digi-middleware-auth-user': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'token': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'locale': 'zh_CN', 'digi-middleware-auth-app': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImF0aGVuYS1sY2RwIiwiaW5zaWRlIjpmYWxzZSwic2lkIjo0NzEzMTUyMTExMzM1MDR9.pT0WT9qO8j9IVxBBO8HkUFRMd9bSfeQOyw0Oh4xL34U'}
+请求内容: None
+接口响应内容: {"code":200,"message":"success","data":"n547bz1R3olJ2fxNlAt3B+wd1N+XpozMkyLlG2sqd0QDnSuAxNQAWo1QPJH4txE6CQufTrY92vaj09QjvHUA16pWF3qDgOXkJet+ybNlYfU=","success":true}
+接口响应时长: 181.46 ms
+Http状态码: 200
+=====================================================

@@ -89,7 +89,7 @@ def run():
         pytest_args = [
             '-s',
             '-W', 'ignore:Module already imported:pytest.PytestWarning',
-            '--alluredir', './report/tmp',  # 原始结果路径不变
+            '--alluredir', './report/allure-results',
             "--clean-alluredir",
         ]
 
@@ -104,7 +104,7 @@ def run():
         # ========== 核心修改：统一报告生成路径（本地/Jenkins都生成到report/html） ==========
         # 1. 统一生成HTML报告到 report/html（删除环境判断）
         print("📊 生成Allure HTML报告到 report/html...")
-        os.system(r"allure generate ./report/tmp -o ./report/html --clean")
+        os.system(r"allure generate ./report/allure-results -o ./report/html --clean")
 
         # 2. Jenkins环境额外动作：复制原始结果到allure-results（供插件使用）
         if is_jenkins:

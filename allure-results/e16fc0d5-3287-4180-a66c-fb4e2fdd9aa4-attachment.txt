@@ -1,0 +1,11 @@
+INFO     D:\sort\AthenaDesigner-ApiAutoTest\utils\logs\info-2026-01-22.log:log_decorator.py:42 
+======================================================
+用例标题: 用户登录认证
+请求路径: https://adp-test.apps.digiwincloud.com.cn/athena-designer/user/v2/login
+请求方式: POST
+请求头:   {'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'digi-middleware-auth-user': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'token': 'ed6525a5-fa99-4b15-a8f1-f02c047f63b9', 'locale': 'zh_CN', 'content-type': 'application/json', 'branch': 'develop', 'Content-Length': '596'}
+请求内容: {'name': 'wenwu@digiwin.com', 'deviceId': 'n547bz1R3olJ2fxNlAt3B+wd1N+XpozMkyLlG2sqd0QDnSuAxNQAWo1QPJH4txE6CQufTrY92vaj09QjvHUA16pWF3qDgOXkJet+ybNlYfU=', 'identityType': 'query', 'passwordHash': '+4BBRj9DCreOh4iwDs4TAg==', 'clientEncryptPublicKey': 'SST+tZq7aR9M4WBlmyzABUHyCCeUwMyc4L7NdkUtPeErd3Y/gyyzr7Ti5VzZhJeoPx+UYeKd51Vxn+nNwtgK+MCczZ2dYDQWAJb2lAWdWUF1Dmw5Smzy0Rr8SA7f8gQ4uagknjnWm8V3dI9I2ekD6jaDDk6qw2ILflFsPqfGznXqXjc1sOsx9o0OzUj2C0F4Y/YIkRSEpSRJy5HYTz2DVKF9pI2UxEktaVAd8BgnDIjGnSJAFuOJOieXoAXcxLPhu9aNqI9TSEjFi0RM6LImcy8OR4GeSTNwnDa3ZLYgotqdkn4zgVWSgYyeap1evfdUtQsitThTAiVo4O9LD/pe1Q=='}
+接口响应内容: {"code":0,"data":{"name":"wenwu@digiwin.com","userName":"闻武","userId":"wenwu@digiwin.com","passwordHash":"+4BBRj9DCreOh4iwDs4TAg==","clientEncryptPublicKey":"SST+tZq7aR9M4WBlmyzABUHyCCeUwMyc4L7NdkUtPeErd3Y/gyyzr7Ti5VzZhJeoPx+UYeKd51Vxn+nNwtgK+MCczZ2dYDQWAJb2lAWdWUF1Dmw5Smzy0Rr8SA7f8gQ4uagknjnWm8V3dI9I2ekD6jaDDk6qw2ILflFsPqfGznXqXjc1sOsx9o0OzUj2C0F4Y/YIkRSEpSRJy5HYTz2DVKF9pI2UxEktaVAd8BgnDIjGnSJAFuOJOieXoAXcxLPhu9aNqI9TSEjFi0RM6LImcy8OR4GeSTNwnDa3ZLYgotqdkn4zgVWSgYyeap1evfdUtQsitThTAiVo4O9LD/pe1Q==","state":2,"token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3ZW53dUBkaWdpd2luLmNvbSIsImNyZWF0ZWQiOjE3NjkwNDk5NTM0MDIsImV4cCI6MTc2OTY1NDc1M30.WpVaAXza5To8dBFjNYdUIxTc33FR6x35UUle4MbNX6M","currentBranch":"develop","iamToken":"57c4472e-f639-45f9-a9d4-8e9a34e350aa","defaultTenantId":"athenadeveloperTest","defaultTenantName":"配置测试器","agreeAgreement":true,"deviceId":"n547bz1R3olJ2fxNlAt3B+wd1N+XpozMkyLlG2sqd0QDnSuAxNQAWo1QPJH4txE6CQufTrY92vaj09QjvHUA16pWF3qDgOXkJet+ybNlYfU=","identityType":"query"}}
+接口响应时长: 525.8 ms
+Http状态码: 200
+=====================================================
