@@ -23,7 +23,6 @@ from common.setting import ensure_path_sep
 
 
 def run():
-    # ========== 完全保留文件选择功能 ==========
     test_file = sys.argv[1] if len(sys.argv) > 1 else None
     is_jenkins = os.getenv('JENKINS_URL', False)
 
@@ -93,7 +92,7 @@ def run():
             "--clean-alluredir",
         ]
 
-        # ========== 保留文件选择核心逻辑 ==========
+
         if test_file:
             pytest_args.append(test_file)
 
@@ -101,7 +100,6 @@ def run():
         print(f"开始执行测试 执行命令为: pytest {' '.join(pytest_args)}")
         exit_code = pytest.main(pytest_args)
 
-        # ========== 核心修改：统一报告生成路径（本地/Jenkins都生成到report/html） ==========
         # 1. 统一生成HTML报告到 report/html（删除环境判断）
         print("📊 生成Allure HTML报告到 report/html...")
         os.system(r"allure generate ./report/allure-results -o ./report/html --clean")
@@ -109,8 +107,8 @@ def run():
         # 2. Jenkins环境额外动作：复制原始结果到allure-results（供插件使用）
         if is_jenkins:
             os.makedirs("allure-results", exist_ok=True)
-            for file in os.listdir("./report/tmp"):
-                src = os.path.join("./report/tmp", file)
+            for file in os.listdir("./report/allure-results"):
+                src = os.path.join("./report/allure-results", file)
                 dst = os.path.join("allure-results", file)
                 if os.path.isfile(src):
                     shutil.copy2(src, dst)

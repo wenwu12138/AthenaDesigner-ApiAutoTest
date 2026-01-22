@@ -528,8 +528,7 @@ if config.notification_type != NotificationType.DEFAULT.value:
         always {
             // ========== 核心修改：归档统一路径报告 ==========
             archiveArtifacts artifacts: '''
-                report/allure-results/**,
-                report/**,  // 归档report/html
+                report/**,  // 已包含allure-results和html，无需单独归档
                 venv/logs/**
             ''', fingerprint: true, allowEmptyArchive: true
 
