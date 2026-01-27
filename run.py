@@ -125,24 +125,40 @@ def run():
         else:
             print("✅ Jenkins环境下跳过本地报告服务启动")
 
-        # ========== 保留原有功能：本地发送通知 ==========
-        if not is_jenkins and config.notification_type != NotificationType.DEFAULT.value:
-            allure_data = AllureFileClean().get_case_count()
-            notification_mapping = {
-                NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
-                NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
-                NotificationType.EMAIL.value: SendEmail(allure_data).send_main,
-                NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
-            }
-
-            notify_type = config.notification_type.split(",")
-            for i in notify_type:
-                notify_key = i.lstrip("")
-                if notify_key in notification_mapping:
-                    try:
-                        notification_mapping.get(notify_key)()
-                    except Exception as e:
-                        print(f"❌ 发送{notify_key}通知失败: {str(e)}")
+        # ========== 保留原有功能：本地发送通知 ==========if not is_jenkins and config.notification_type != NotificationType.DEFAULT.value:
+        #         #     allure_data = AllureFileClean().get_case_count()
+        #         #     notification_mapping = {
+        #         #         NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
+        #         #         NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
+        #         #         NotificationType.EMAIL.value: SendEmail(allure_data).send_main,
+        #         #         NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
+        #         #     }
+        #         #
+        #         #     notify_type = config.notification_type.split(",")
+        #         #     for i in notify_type:
+        #         #         notify_key = i.lstrip("")
+        #         #         if notify_key in notification_mapping:
+        #         #             try:
+        #         #                 notification_mapping.get(notify_key)()
+        #         #             except Exception as e:
+        #         #                 print(f"❌ 发送{notify_key}通知失败: {str(e)}")
+        # if not is_jenkins and config.notification_type != NotificationType.DEFAULT.value:
+        #     allure_data = AllureFileClean().get_case_count()
+        #     notification_mapping = {
+        #         NotificationType.DING_TALK.value: DingTalkSendMsg(allure_data).send_ding_notification,
+        #         NotificationType.WECHAT.value: WeChatSend(allure_data).send_wechat_notification,
+        #         NotificationType.EMAIL.value: SendEmail(allure_data).send_main,
+        #         NotificationType.FEI_SHU.value: FeiShuTalkChatBot(allure_data).post
+        #     }
+        #
+        #     notify_type = config.notification_type.split(",")
+        #     for i in notify_type:
+        #         notify_key = i.lstrip("")
+        #         if notify_key in notification_mapping:
+        #             try:
+        #                 notification_mapping.get(notify_key)()
+        #             except Exception as e:
+        #                 print(f"❌ 发送{notify_key}通知失败: {str(e)}")
 
         # 保留原有退出逻辑
         sys.exit(exit_code)

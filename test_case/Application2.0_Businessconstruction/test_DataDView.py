@@ -16,18 +16,18 @@ import datetime
 import json
 
 
-case_id = ['iam_GetDeviceId_001', 'iam_GetUserSalt_001', 'iam_GetPublicKey_001', 'iam_GetAesKey_001', 'auth_UserLogin_001', 'tenant_QueryUserTenants_001', 'tenant_QueryIndividualCaseUserTenants_001', 'tenant_ChangeTenant_001', 'auth_QueryAuthPolicy_001', 'auth_QueryResourceRoleUser_001', 'dataStandard_QueryAuth_001', 'iam_QueryUserPermission_001', 'message_QueryTopic_001', 'application_QuerySolutionDesigner_001', 'individualCase_QueryAuth_001', 'presetData_GetPresetData_001', 'application_QuerySolutionCards_001', 'message_QueryValid_001', 'auth_QueryResourceRoleUserNull_001', 'tenant_QueryUserTenants_002', 'deployer_QueryTenantPipeline_001', 'application_QueryPopularSolutionCards_001', 'message_QueryAll_001', 'application_QueryAuthTimeout_001', 'application_QueryRecentVisit_001']
+case_id = ['dataView_testing_create_business_001', 'dataView_testing_query_business_001', 'dataView_testing_generate_plan_001', 'businessDir_query_list_001', 'dataView_get_detail_001', 'dataView_query_fields_001', 'presetData_get_filter_rule_001', 'presetData_get_mysql_function_001', 'tbb_check_bind_relation_001', 'dataView_save_data_view_001', 'tbb_check_bind_relation_002', 'tenant_query_customer_tenants_002', 'module_publish_data_view_001', 'modulePublish_modelSingle_publish_view_test_001', 'dataView_get_preview_config_001', 'dataView_get_preview_result_001', 'dataView_testing_cleanup_business_001']
 TestData = GetTestCase.case_data(case_id)
 re_data = regular(str(TestData))
 
 
 @allure.epic("开发平台接口")
-@allure.feature("登录")
-class TestLogin:
+@allure.feature("2.0应用详情")
+class TestDatadview:
 
-    @allure.story("登录")
+    @allure.story("业务搭建-查询方案（视图）")
     @pytest.mark.parametrize('in_data', eval(re_data), ids=[i['detail'] for i in TestData])
-    def test_Login(self, in_data, case_skip):
+    def test_DataDView(self, in_data, case_skip):
         """
         :param :
         :return:
@@ -49,4 +49,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_test_Login.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])
+    pytest.main(['test_test_DataDView.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])

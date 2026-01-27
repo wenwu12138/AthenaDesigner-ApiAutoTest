@@ -16,18 +16,18 @@ import datetime
 import json
 
 
-case_id = ['iam_GetDeviceId_001', 'iam_GetUserSalt_001', 'iam_GetPublicKey_001', 'iam_GetAesKey_001', 'auth_UserLogin_001', 'tenant_QueryUserTenants_001', 'tenant_QueryIndividualCaseUserTenants_001', 'tenant_ChangeTenant_001', 'auth_QueryAuthPolicy_001', 'auth_QueryResourceRoleUser_001', 'dataStandard_QueryAuth_001', 'iam_QueryUserPermission_001', 'message_QueryTopic_001', 'application_QuerySolutionDesigner_001', 'individualCase_QueryAuth_001', 'presetData_GetPresetData_001', 'application_QuerySolutionCards_001', 'message_QueryValid_001', 'auth_QueryResourceRoleUserNull_001', 'tenant_QueryUserTenants_002', 'deployer_QueryTenantPipeline_001', 'application_QueryPopularSolutionCards_001', 'message_QueryAll_001', 'application_QueryAuthTimeout_001', 'application_QueryRecentVisit_001']
+case_id = ['template_CreateServiceOrchestration_001', 'template_GetAllTemplates_001', 'template_UpdateServiceOrchestration_001', 'template_PublishServiceOrchestration_001', 'template_GetTemplateByObjectId_001', 'template_DeleteTemplate_001', 'template_FindSvcParamList_001', 'template_SaveSvcParam_001', 'template_UpdateSvcParam_001', 'template_DeleteSvcParam_001']
 TestData = GetTestCase.case_data(case_id)
 re_data = regular(str(TestData))
 
 
 @allure.epic("开发平台接口")
-@allure.feature("登录")
-class TestLogin:
+@allure.feature("2.0应用详情")
+class TestTemplate:
 
-    @allure.story("登录")
+    @allure.story("服务编排")
     @pytest.mark.parametrize('in_data', eval(re_data), ids=[i['detail'] for i in TestData])
-    def test_Login(self, in_data, case_skip):
+    def test_Template(self, in_data, case_skip):
         """
         :param :
         :return:
@@ -49,4 +49,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_test_Login.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])
+    pytest.main(['test_test_Template.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])

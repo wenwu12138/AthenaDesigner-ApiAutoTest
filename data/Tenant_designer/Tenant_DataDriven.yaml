@@ -1225,7 +1225,6 @@ add_AddTenantSingleDtd_001:
       type: ==
       value: 0
       AssertType:
-
 #查询租户设计器单一项目列表
 tenant_project_QuerySinglePageTriggerProjectList_001:
   host: ${{athena_tenant_deployer_host()}}
@@ -1236,6 +1235,7 @@ tenant_project_QuerySinglePageTriggerProjectList_001:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
     locale: zh_CN
+    level: tenant
     content-type: application/json
   requestType: json
   is_run: true

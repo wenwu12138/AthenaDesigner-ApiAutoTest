@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time   : 2026-01-27 10:01:44
+# @Time   : 2026-01-27 10:01:43
 
 
 import allure
@@ -16,18 +16,18 @@ import datetime
 import json
 
 
-case_id = ['iam_GetDeviceId_001', 'iam_GetUserSalt_001', 'iam_GetPublicKey_001', 'iam_GetAesKey_001', 'auth_UserLogin_001', 'tenant_QueryUserTenants_001', 'tenant_QueryIndividualCaseUserTenants_001', 'tenant_ChangeTenant_001', 'auth_QueryAuthPolicy_001', 'auth_QueryResourceRoleUser_001', 'dataStandard_QueryAuth_001', 'iam_QueryUserPermission_001', 'message_QueryTopic_001', 'application_QuerySolutionDesigner_001', 'individualCase_QueryAuth_001', 'presetData_GetPresetData_001', 'application_QuerySolutionCards_001', 'message_QueryValid_001', 'auth_QueryResourceRoleUserNull_001', 'tenant_QueryUserTenants_002', 'deployer_QueryTenantPipeline_001', 'application_QueryPopularSolutionCards_001', 'message_QueryAll_001', 'application_QueryAuthTimeout_001', 'application_QueryRecentVisit_001']
+case_id = ['aimEvent_QueryList_001', 'aimEvent_QueryPlatformList_001', 'aimEvent_CreateEvent_001', 'aimEvent_GetDetail_001', 'aimScene_QueryByCondition_001', 'aimEvent_EditEvent_001', 'aimEvent_GetDetail_002', 'aimEvent_DeleteEvent_001', 'aimScene_QueryPlatformByCondition_001', 'aimScene_QueryApplicationByCondition_001', 'aimScene_CreateScene_001', 'aimScene_QueryApplicationByCondition_002', 'aimScene_GetDetail_001', 'aimScene_QueryChannels_001', 'eoc_GetUserList_001', 'eoc_GetDutyList_001', 'aimEvent_QueryPlatformAndAppEvents_001', 'aimScene_UpdateScene_001', 'aimScene_DeleteScene_001', 'aimScene_QueryApplicationByCondition_003']
 TestData = GetTestCase.case_data(case_id)
 re_data = regular(str(TestData))
 
 
 @allure.epic("开发平台接口")
-@allure.feature("登录")
-class TestLogin:
+@allure.feature("业务搭建")
+class TestAimevent:
 
-    @allure.story("登录")
+    @allure.story("消息管理")
     @pytest.mark.parametrize('in_data', eval(re_data), ids=[i['detail'] for i in TestData])
-    def test_Login(self, in_data, case_skip):
+    def test_aimEvent(self, in_data, case_skip):
         """
         :param :
         :return:
@@ -49,4 +49,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_test_Login.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])
+    pytest.main(['test_test_aimEvent.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])

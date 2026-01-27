@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time   : 2026-01-27 10:01:44
+# @Time   : 2026-01-27 10:01:43
 
 
 import allure
@@ -16,18 +16,18 @@ import datetime
 import json
 
 
-case_id = ['iam_GetDeviceId_001', 'iam_GetUserSalt_001', 'iam_GetPublicKey_001', 'iam_GetAesKey_001', 'auth_UserLogin_001', 'tenant_QueryUserTenants_001', 'tenant_QueryIndividualCaseUserTenants_001', 'tenant_ChangeTenant_001', 'auth_QueryAuthPolicy_001', 'auth_QueryResourceRoleUser_001', 'dataStandard_QueryAuth_001', 'iam_QueryUserPermission_001', 'message_QueryTopic_001', 'application_QuerySolutionDesigner_001', 'individualCase_QueryAuth_001', 'presetData_GetPresetData_001', 'application_QuerySolutionCards_001', 'message_QueryValid_001', 'auth_QueryResourceRoleUserNull_001', 'tenant_QueryUserTenants_002', 'deployer_QueryTenantPipeline_001', 'application_QueryPopularSolutionCards_001', 'message_QueryAll_001', 'application_QueryAuthTimeout_001', 'application_QueryRecentVisit_001']
+case_id = ['basis_QueryParadigm_001', 'basis_AccessRecord_001', 'basis_AuthAppInfo_001', 'basis_QueryAuthPolicy_001', 'basis_QueryAppAuthPolicy_001', 'basis_QueryDataStandardAuth_001', 'basis_GetPresetData_001', 'basis_QueryApplicationDetail_001', 'basis_QueryServiceCodeList_001', 'basis_UpdateApplicationV3_001', 'asset_QueryAllAssetList_001', 'asset_QueryDTDAssetList_001', 'asset_QueryAllExternalDependentAssets_001', 'asset_QueryDTDExternalDependentAssets_001', 'modelDriver_GetAppBackendInfo_001', 'customConfig_AddCustomConfig_001', 'customConfig_QueryCustomConfig_001', 'customConfig_QueryCustomConfigDetail_001', 'customConfig_UpdateCustomConfig_001', 'customConfig_QueryCustomConfigShare_001', 'customConfig_DeleteCustomConfig_001']
 TestData = GetTestCase.case_data(case_id)
 re_data = regular(str(TestData))
 
 
 @allure.epic("开发平台接口")
-@allure.feature("登录")
-class TestLogin:
+@allure.feature("2.0应用详情")
+class TestApplicationOverview:
 
-    @allure.story("登录")
+    @allure.story("应用总览")
     @pytest.mark.parametrize('in_data', eval(re_data), ids=[i['detail'] for i in TestData])
-    def test_Login(self, in_data, case_skip):
+    def test_Application_overview(self, in_data, case_skip):
         """
         :param :
         :return:
@@ -49,4 +49,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_test_Login.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])
+    pytest.main(['test_test_Application_overview.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])

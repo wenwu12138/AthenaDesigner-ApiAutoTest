@@ -16,18 +16,18 @@ import datetime
 import json
 
 
-case_id = ['iam_GetDeviceId_001', 'iam_GetUserSalt_001', 'iam_GetPublicKey_001', 'iam_GetAesKey_001', 'auth_UserLogin_001', 'tenant_QueryUserTenants_001', 'tenant_QueryIndividualCaseUserTenants_001', 'tenant_ChangeTenant_001', 'auth_QueryAuthPolicy_001', 'auth_QueryResourceRoleUser_001', 'dataStandard_QueryAuth_001', 'iam_QueryUserPermission_001', 'message_QueryTopic_001', 'application_QuerySolutionDesigner_001', 'individualCase_QueryAuth_001', 'presetData_GetPresetData_001', 'application_QuerySolutionCards_001', 'message_QueryValid_001', 'auth_QueryResourceRoleUserNull_001', 'tenant_QueryUserTenants_002', 'deployer_QueryTenantPipeline_001', 'application_QueryPopularSolutionCards_001', 'message_QueryAll_001', 'application_QueryAuthTimeout_001', 'application_QueryRecentVisit_001']
+case_id = ['project_FindAppEffectAdpVersion_004', 'tenant_projectAddProjectData_001', 'tenant_codeGenerateDataOrgProjectCode_001', 'tenant_projectSaveProject_001', 'tenant_codeGenerateTrackableProjectCode_001', 'tenant_projectSaveTrackableProject_001', 'tenant_codeGenerateSubProjectCode_001', 'tenant_projectSaveSubProject_001', 'tenant_processUpsertSingleProject_001', 'tenant_basis_Compile_002', 'tenant_basis_PublishTest_002', 'tenant_basis_PublishHuaweiProd_002', 'tenant_basisPublishAzureProd_002', 'tenant_basis_QueryTenantPipeline_local001', 'tenant_basis_PublishTest_local001', 'tenant_project_QueryCombinationProjectList_001', 'add_AddTenantSingleDtd_001', 'tenant_project_QuerySinglePageTriggerProjectList_001', 'publish_PublishTenantProcessModule_001', 'tenant_WithdrawTenantSingleDtd_001', 'tenant_AddTenantDtd_001', 'tenant_QueryCombinationProject_001', 'tenant_PublishCombinationProject_001', 'tenant_WithdrawTenantDtd_001', 'tenant_RemoveTenantDtd_001', 'tenant_RemoveTenantSingleDtd_001', 'tenant_projectDeleteProjectData_001', 'tenant_projectDeleteSubProject_001', 'tenant_projectDeleteParentProject_001', 'tenant_projectDeleteTrackableProject_001', 'tenant_process_RemoveProcess_001']
 TestData = GetTestCase.case_data(case_id)
 re_data = regular(str(TestData))
 
 
 @allure.epic("开发平台接口")
-@allure.feature("登录")
-class TestLogin:
+@allure.feature("租户设计器")
+class TestTenantDatadriven:
 
-    @allure.story("登录")
+    @allure.story("租户级项目任务")
     @pytest.mark.parametrize('in_data', eval(re_data), ids=[i['detail'] for i in TestData])
-    def test_Login(self, in_data, case_skip):
+    def test_Tenant_DataDriven(self, in_data, case_skip):
         """
         :param :
         :return:
@@ -49,4 +49,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_test_Login.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])
+    pytest.main(['test_test_Tenant_DataDriven.py', '-s', '-W', 'ignore:Module already imported:pytest.PytestWarning'])

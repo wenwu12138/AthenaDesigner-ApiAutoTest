@@ -221,7 +221,7 @@ class AsynchronousAssert:
 
 
                     # 判断删除成功条件（进度为1或详情包含完成标识）
-                    if json.loads(deleteprocess_res.response_data)["data"] == 1 or any(
+                    if json.loads(deleteprocess_res.response_data).get("data") == 1 or any(
                             "finish" in obj["result"] for obj in json.loads(deletedetail_res.response_data)['data']):
                         result = True
                         INFO.logger.info("\n"
@@ -229,7 +229,7 @@ class AsynchronousAssert:
                                          "删除应用成功\n"
                                          "⁽ଘ( ˊᵕˋ )ଓ⁾⁾\n")
                         return result
-                    elif json.loads(deleteprocess_res.response_data)["data"] == "-1":
+                    elif json.loads(deleteprocess_res.response_data).get("data") == "-1":
                         result = False
                         INFO.logger.info("\n"
                                          "⁽ଘ( ˊᵕˋ )ଓ⁾⁾\n"
