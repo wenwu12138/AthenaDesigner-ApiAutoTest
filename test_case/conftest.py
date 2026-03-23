@@ -105,10 +105,10 @@ def get_iam_token():
 
     data = {
     "userId": "wenwu@digiwin.com",
-    "passwordHash": "lOqy40uSwNkSrh2WxxkQdQ==",
-    "clientEncryptPublicKey": "eKUub4lLDSwDkyc5kyLzkTyqtWEtOYTDLW4pd95sbMkO94OJIE9ClHzKgKw0HxeCnJuG1KdbMKaR6I58bESQWNbifxMsO1zcroBffXU6ZUewq1kKfz2S8O83384BS7Aw+UPawwUQlKzZwUGUPqreZU5LSD4+1iir/NIdp2658CcY0oFZdXdXiCLc+dDNng8hC2t13u8q//bgIhTNwKF2W/z3JCeziZzL42jx1/hsrrNlhnXeN/4w+Kfbklr7XSvJSLz6zgu4YqYcu4DWUfxdRWn+Khj6NYNr2RrouZQlGjUDZjqgAn+TxGu4j4RF6Mf14xVeaB+6toENoq7gQqL7yw==",
+    "passwordHash": "IqYqscxpotURKHJGFrHI9w==",
+    "clientEncryptPublicKey": "LV2MM445KGBAQbVxR7g14o8UZhvwQqeSJ3udnyfV3+JDraXkkYgregD9Gk10lmW3WaG55tShF2fEDBjfFDkeu2NgLfWuoYZwaBjZd5+yTCofvt3sb7gL+0IwXNx+jFvYdgFy/rKSPdDGHOEyLppTRyLtJHNCJFvIWYhqWQnteaTcnRiJDxLc+58w2FdWU7G+VG8QdgrKOHNRH3mFsQ2Oy6bqNjXuV0AldDMSI+kDTdRglglKftR7KFgd0ZNH8DKIR7J77/EmdRdfgTMaPNiLdiOFXK/mfYf8WnuXW2YlgkmQt5iiqv4RX4EUWPCT6HmSWWWG8k34Hx3aTZHSMgIClQ==",
     "excludeNonVisible": True,
-    "tenantId":"athenadeveloperTest"
+    "tenantId":config.tenantId
 }
     headers = {
         "Content-Type": "application/json",

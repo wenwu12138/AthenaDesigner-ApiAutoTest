@@ -78,7 +78,7 @@ class LogHandler:
             return sys._MEIPASS
         else:
             # 开发环境下的项目根目录（根据实际项目结构调整）
-            return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
     def _ensure_log_dir(self) -> None:
         """确保日志目录存在"""

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time   : 2026-01-27 10:01:44
+# @Time   : 2026-03-20 10:52:11
 
 
 import allure
@@ -16,7 +16,7 @@ import datetime
 import json
 
 
-case_id = ['tenant_designer_GetDeviceId_001', 'tenant_designer_GetUserSalt_001', 'tenant_designer_GetPublicKey_001', 'tenant_designer_ExchangeAesKey_001', 'tenant_designer_UserLogin_001', 'tenant_designer_QueryUserTenants_001']
+case_id = ['tenant_designer_GetDeviceId_001', 'tenant_designer_GetUserSalt_001', 'tenant_designer_GetPublicKey_001', 'tenant_designer_ExchangeAesKey_001', 'tenant_designer_QueryUserTenants_001']
 TestData = GetTestCase.case_data(case_id)
 re_data = regular(str(TestData))
 

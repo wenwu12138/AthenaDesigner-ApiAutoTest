@@ -1383,7 +1383,7 @@ tenant_QueryCombinationProject_001:
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
-    adpversion: $cache{project_adp_version}
+#    adpversion: $cache{project_adp_version}
     adpstatus: effect
     locale: zh_CN
     content-type: application/json

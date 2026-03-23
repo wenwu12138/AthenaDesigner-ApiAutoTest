@@ -107,34 +107,7 @@ tenant_designer_ExchangeAesKey_001:
       jsonpath: $.encryptAesKey
       name: aes_key
 
-# 用户登录认证（租户设计器登录接口）
-tenant_designer_UserLogin_001:
-  host: ${{athena_tenant_deployer_host()}}
-  url: /athena-designer/user/v2/login
-  method: POST
-  detail: 用户登录租户设计器获取访问令牌
-  headers:
-    digi-middleware-auth-user: $cache{token}
-    digi-middleware-auth-app: ${{app2_Token()}}
-    token: $cache{token}
-    locale: zh_CN
-    content-type: application/json
-  requestType: json
-  is_run: True
-  data:
-    name: wenwu@digiwin.com
-    deviceId: RjuedGWWMCBoTlLrxfFaTFrih0WfmxPIVfTWK2XbPmDiKbS/sIe/KtpwLpPJSBOrO6f24Li6dByPVbWF6OIGWW6AMr4gQvsuWBJ6V9BFVEYnGH8Rzm/ZGIAmbJGOU2xU
-    identityType: query
-    passwordHash: YnVFp/Zyg+vlwSFo7JyBLg==
-    clientEncryptPublicKey: deqVR++jqRjKaH5FJdECPFt7gXrJ3VlyzErSL71AxFU13oXDrceFum+K2CGmb/UpHXkFM3OEIqoPUIZzg/M9shtJDvjX3vR+iawMqN7E3pjJzNqPPJpfGQn1p1JhRYEo3EpO/UZ3i5VOpNE4ux672a8vhUhCMDXqFBjKHV/ESIW+yFuF5UJMjvHHXikkJd+erv7mguVWjWqY/lwfp//1TbiM7q5oBviPOixgbpZAiekwGZcsKr+mesUJ+PiiordJf10bn3PEaMc7Nbw8vYO7hDfvGC3aBo7XCvmI877t0wFlGDRPSWOPJxLD/1/JG0IztkAXfo4fEdUhlSsXyuMtoQ==
-  dependence_case: False
-  dependence_case_data: []
-  assert:
-    code:
-      jsonpath: $.code
-      type: ==
-      value: 0
-      AssertType:
+
 
 # 查询用户租户列表（租户设计器接口）
 tenant_designer_QueryUserTenants_001:

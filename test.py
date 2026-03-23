@@ -1,33 +1,35 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time    : 2025/12/17 15:00  
-# @Author  : wenwu        
-# @Desc    :      
-# @File    : test.py       
-# @Software: PyCharm
-
-"""
-配置管理模块 - 支持环境隔离的动态配置平铺
-"""
 import os
-import yaml
-from typing import Dict, Any
-from utils.read_files_tools.yaml_control import GetYamlData
-from common.setting import ensure_path_sep
-from utils.other_tools.models import Config
+import google.generativeai as genai
+import sys
+
+# 1. 配置 API Key
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    print("错误: 请先配置环境变量 GEMINI_API_KEY")
+    sys.exit(1)
+
+genai.configure(api_key=api_key)
+
+# 2. 初始化模型 (推荐使用 gemini-1.5-flash，速度快且免费额度高)
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 
-class City():
-    def __init__(self,age):
-        self.age = age
+def start_chat():
+    print("--- 已连接至 Gemini (输入 'exit' 退出) ---")
+    chat = model.start_chat(history=[])
 
-    def get_age(self):
-        return self.age
+    while True:
+        user_input = input("\n你: ")
+        if user_input.lower() in ['exit', 'quit', '退出']:
+            break
+
+        # 使用流式传输，增加实时感
+        response = chat.send_message(user_input, stream=True)
+        print("Gemini: ", end="")
+        for chunk in response:
+            print(chunk.text, end="", flush=True)
+        print()
 
 
-
-if __name__ == '__main__':
-    test_age1 = 18
-    city = City(age=test_age1)
-    test_age1 =19
-    print(city.get_age());
+if __name__ == "__main__":
+    start_chat()
