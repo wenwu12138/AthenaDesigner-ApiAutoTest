@@ -46,10 +46,10 @@ environments:
     athena_deployer_host: https://aadc-paas.apps.digiwincloud.com.cn
     athena_tenant_deployer_host: https://atdp-paas.apps.digiwincloud.com.cn
     iam_host: https://iam-test.digiwincloud.com.cn
-    app1_code: A5f1a0f58aAT
-    app1_Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IkE1ZjFhMGY1OGFBVCIsInNpZCI6MH0.mesrYxqbgyvShHD0FBqilTXNDzyvPEoOnpuEaPAJmpI
-    app2_code: Aded5e0256AT
-    app2_Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IkFkZWQ1ZTAyNTZBVCIsInNpZCI6MH0.1VL2mxXiVR1tKSxn-Wjr_JfcnCiJ-mj9pEob6waLkSs
+    app1_code: A8c58f0e17AT
+    app1_Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IkE4YzU4ZjBlMTdBVCIsInNpZCI6MH0.mg3QLScbA0fd4Cpd_vYHIJGe58MOVpkDwbeu6XertpE
+    app2_code: A942ffe869AT
+    app2_Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IkE5NDJmZmU4NjlBVCIsInNpZCI6MH0.tKU_yyTkrxr4rCVDMIYmnkPguVSZcVEwAF2ywEBSzPI
     tenantId: "athenadeveloperTest"
     tenantSid: 847600433497088
     tenantName: "配置测试器"

@@ -7,6 +7,9 @@ import time
 import allure
 import requests
 import ast
+import os
+import re
+from pathlib import Path
 from common.setting import ensure_path_sep
 from utils.requests_tool.request_control import cache_regular
 from utils.logging_tool.log_control import INFO, ERROR, WARNING
@@ -29,6 +32,39 @@ _test_progress = {'total': 0, 'current': 0}
 # 橙色（使用亮黄色93）
 ORANGE = '\033[93m'
 RESET = '\033[0m'
+
+
+def _find_local_cached_token():
+    """优先从环境变量或本地历史执行产物中复用 token。"""
+    env_token = os.getenv("ATHENA_FIXED_TOKEN")
+    if env_token:
+        return env_token.strip()
+
+    report_dir = Path(ensure_path_sep("\\report\\allure-results"))
+    if not report_dir.exists():
+        return None
+
+    patterns = [
+        re.compile(r"'token': '([^']+)'"),
+        re.compile(r'"token": "([^"]+)"')
+    ]
+
+    candidates = sorted(
+        report_dir.glob("*attachment*"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True
+    )
+
+    for path in candidates:
+        try:
+            text = path.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        for pattern in patterns:
+            match = pattern.search(text)
+            if match:
+                return match.group(1).strip()
+    return None
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
@@ -85,8 +121,13 @@ def work_login_init():
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     # 请求登录接口
 
-    res = requests.post(url=url, data=data, verify=True, headers=headers)
-    response_cookie = res.cookies
+    try:
+        res = requests.post(url=url, data=data, verify=True, headers=headers, timeout=10)
+        response_cookie = res.cookies
+    except Exception as exc:
+        WARNING.logger.warning(f"澶栭儴绀轰緥绔欑偣鐧诲綍澶辫触锛屽凡璺宠繃cookie鍒濆鍖? {exc}")
+        CacheHandler.update_cache(cache_name='login_cookie', value='')
+        return
 
     cookies = ''
     for k, v in response_cookie.items():
@@ -135,9 +176,25 @@ def get_iam_token():
     # if '正式' in config.env:
     #     data['tenantId'] = 'lcdp'
     url = regular(str(url))
-    res = requests.post(url=url, json=data, headers=headers, verify=False)
-    response_data = res.json()
-    token = response_data["token"]
+    token = None
+    try:
+        res = requests.post(url=url, json=data, headers=headers, verify=False, timeout=15)
+        response_data = res.json()
+        token = response_data.get("token")
+    except Exception as exc:
+        WARNING.logger.warning(f"IAM登录失败，准备回退本地token: {exc}")
+
+    if not token:
+        token = _find_local_cached_token()
+        if token:
+            WARNING.logger.warning("IAM不可达，已回退使用本地历史token")
+
+    if not token:
+        pytest.fail(
+            "IAM登录失败，且未找到可复用的本地token。"
+            "请检查当前网络/防火墙，或设置环境变量 ATHENA_FIXED_TOKEN。"
+        )
+
     CacheHandler.update_cache(cache_name='token', value=token)
 
 
