@@ -1,0 +1,2913 @@
+﻿case_common:
+  allureEpic: 开发平台接口
+  allureFeature: AI闭环用例
+  allureStory: 活动与消息闭环
+activity_configs_get_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityByCode
+  method: GET
+  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈡椿鍔ㄤ俊鎭紱褰撳墠鐜杩斿洖绮剧畝瀵硅薄涓旂己灏戠ǔ瀹氱瀛愶紝鍏堥€€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{activity_configs_first_code}
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_config_detail_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: $cache{activity_configs_first_code}
+      AssertType: null
+    activity_config_detail_name_match:
+      jsonpath: $.data.name
+      type: ==
+      value: $cache{activity_configs_first_name}
+      AssertType: null
+    activity_config_detail_application_match:
+      jsonpath: $.data.application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    activity_config_detail_pattern_match:
+      jsonpath: $.data.pattern
+      type: ==
+      value: DATA_ENTRY
+      AssertType: null
+activity_configs_get_basic_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityBasicInfo
+  method: GET
+  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈡椿鍔ㄥ熀纭€淇℃伅锛涘綋鍓嶇幆澧冭繑鍥炵┖鍒楄〃锛屽厛閫€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    codes: $cache{activity_configs_first_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_basic_info_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_basic_info_first_code_match:
+      jsonpath: $.data[0].code
+      type: ==
+      value: $cache{activity_configs_first_code}
+      AssertType: null
+    activity_basic_info_first_name_match:
+      jsonpath: $.data[0].name
+      type: ==
+      value: $cache{activity_configs_first_name}
+      AssertType: null
+    activity_basic_info_first_pattern_match:
+      jsonpath: $.data[0].pattern
+      type: ==
+      value: DATA_ENTRY
+      AssertType: null
+activity_configs_get_list_by_application_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityListByApplication
+  method: GET
+  detail: 鎸夊簲鐢ㄦ煡璇㈡椿鍔ㄥ垪琛紱鍒楄〃鎺掑簭涓嶇ǔ瀹氾紝鍏堥€€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_list_by_application_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_list_by_application_first_code_match:
+      jsonpath: $.data[0].code
+      type: ==
+      value: $cache{activity_configs_first_code}
+      AssertType: null
+    activity_list_by_application_first_name_match:
+      jsonpath: $.data[0].name
+      type: ==
+      value: $cache{activity_configs_first_name}
+      AssertType: null
+    activity_list_by_application_first_application_match:
+      jsonpath: $.data[0].application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+activity_config_seed_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityListByPatternAndApplication
+  method: GET
+  detail: 鏌ヨ鏁版嵁褰曞叆娲诲姩鍒楄〃骞剁紦瀛橀鏉℃椿鍔ㄧ紪鐮侊紱褰撳墠鐜鏃犵ǔ瀹氱瀛愶紝鍏堥€€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    pattern: DATA_ENTRY
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_seed_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_seed_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_seed_first_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_seed_first_application_match:
+      jsonpath: $.data[0].application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: activity_config_seed_code
+  - type: response
+    jsonpath: $.data[0].name
+    name: activity_config_seed_name
+activity_config_get_config_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityConfigByCode/$cache{activity_config_seed_code}
+  method: GET
+  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈤厤缃鎯咃紱渚濊禆涓嶇ǔ瀹氱瀛愶紝鍏堥€€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_config_by_code_empty_object:
+      jsonpath: $.data
+      type: ==
+      value: {}
+      AssertType: null
+activity_config_get_data_entry_by_application_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getDataEntryByApplication
+  method: GET
+  detail: 鎸夊簲鐢ㄦ煡璇㈡暟鎹綍鍏ユ椿鍔ㄥ苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_data_entry_by_application_empty:
+      jsonpath: $.data
+      type: ==
+      value: []
+      AssertType: null
+activity_config_get_data_entry_user_table_name_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getDataEntryUserTableName
+  method: GET
+  detail: 鎸夌紦瀛樻椿鍔ㄧ紪鐮佹煡璇㈠綍鍏ヨ〃鍚嶅苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍊?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{activity_config_seed_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_data_entry_user_table_name_none:
+      jsonpath: $.data
+      type: ==
+      value: null
+      AssertType: null
+activity_config_get_sign_metadata_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getSignDataEntryMetaData
+  method: GET
+  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈠綍鍏ュ厓鏁版嵁锛涗緷璧栦笉绋冲畾绉嶅瓙锛屽厛閫€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{activity_config_seed_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_sign_metadata_action_id_not_empty:
+      jsonpath: $.data.actionId
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_sign_metadata_service_name_not_empty:
+      jsonpath: $.data.serviceName
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_sign_metadata_action_name_not_empty:
+      jsonpath: $.data.actionName
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_sign_metadata_request_exists:
+      jsonpath: $.data.request
+      type: not_eq
+      value: null
+      AssertType: null
+    activity_sign_metadata_response_exists:
+      jsonpath: $.data.response
+      type: not_eq
+      value: null
+      AssertType: null
+activity_config_get_custom_id_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getCustomId
+  method: GET
+  detail: 鏌ヨ褰撳墠绉熸埛鑷畾涔夋爣璇嗕俊鎭苟鏍￠獙绉熸埛鍚嶇О瀹㈡埛缂栧彿涓庡綊灞炴爣璇嗗瓨鍦?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_custom_id_is_owner_true:
+      jsonpath: $.data.isOwner
+      type: ==
+      value: true
+      AssertType: null
+    activity_custom_id_tenant_id_not_empty:
+      jsonpath: $.data.tenant.id
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_custom_id_tenant_name_not_empty:
+      jsonpath: $.data.tenant.name
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_custom_id_tenant_customer_id_not_empty:
+      jsonpath: $.data.tenant.customerId
+      type: not_eq
+      value: ''
+      AssertType: null
+activity_config_validate_exist_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/validateExist
+  method: GET
+  detail: 鏍￠獙娲诲姩瀛樺湪锛涗緷璧栦笉绋冲畾绉嶅瓙锛屽厛閫€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{activity_config_seed_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_validate_exist_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: $cache{activity_config_seed_code}
+      AssertType: null
+    activity_validate_exist_name_match:
+      jsonpath: $.data.name
+      type: ==
+      value: $cache{activity_config_seed_name}
+      AssertType: null
+    activity_validate_exist_pattern_match:
+      jsonpath: $.data.pattern
+      type: ==
+      value: DATA_ENTRY
+      AssertType: null
+    activity_validate_exist_namespace_match:
+      jsonpath: $.data.nameSpace
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+activity_config_post_get_activity_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityList
+  method: POST
+  detail: 鎸夊簲鐢ㄤ笌妯″紡鍒嗛〉鏌ヨ娲诲姩鍒楄〃锛涗笌绉嶅瓙鍒楄〃棣栨潯瀵归綈涓嶇ǔ瀹氾紝鍏堥€€鍑虹ǔ瀹氶泦
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    pattern: DATA_ENTRY
+    queryActions: false
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_post_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_post_list_first_code_match:
+      jsonpath: $.data[0].code
+      type: ==
+      value: $cache{activity_config_seed_code}
+      AssertType: null
+    activity_post_list_first_name_match:
+      jsonpath: $.data[0].name
+      type: ==
+      value: $cache{activity_config_seed_name}
+      AssertType: null
+    activity_post_list_first_pattern_match:
+      jsonpath: $.data[0].pattern
+      type: ==
+      value: DATA_ENTRY
+      AssertType: null
+activity_config_get_activity_list_by_pattern_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityListByPattern
+  method: GET
+  detail: 鎸夋ā寮忔煡璇㈠叏灞€娲诲姩鍒嗙粍鍒楄〃骞舵牎楠岄缁勫簲鐢ㄦ爣璇嗗瓨鍦ㄤ笖娲诲姩鍒楄〃闈炵┖
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    pattern: DATA_ENTRY
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_pattern_group_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_pattern_first_application_not_empty:
+      jsonpath: $.data[0].application
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_pattern_first_activities_not_empty:
+      jsonpath: $.data[0].activities
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_pattern_first_application_name_not_empty:
+      jsonpath: $.data[0].applicationName
+      type: not_eq
+      value: ''
+      AssertType: null
+activity_types_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activity/types
+  method: GET
+  detail: 鏌ヨ娲诲姩绫诲瀷鍒楄〃骞舵牎楠岄鏉＄被鍨嬬紪鐮佸悕绉板瓨鍦?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_types_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_types_first_type_not_empty:
+      jsonpath: $.data[0].type
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_types_first_name_not_empty:
+      jsonpath: $.data[0].typeName
+      type: not_eq
+      value: ''
+      AssertType: null
+activity_query_configs_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activity/queryActivityConfigsByPage
+  method: GET
+  detail: 鍒嗛〉鏌ヨ娲诲姩閰嶇疆鍒楄〃骞剁紦瀛橀鏉℃椿鍔ㄧ紪鐮佺敤浜庡悗缁椿鍔ㄦ牎楠?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_query_page_cur_num_match:
+      jsonpath: $.data.curPageNum
+      type: ==
+      value: 1
+      AssertType: null
+    activity_query_page_total_gt_zero:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    activity_query_page_data_not_empty:
+      jsonpath: $.data.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_query_page_first_code_not_empty:
+      jsonpath: $.data.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.data[0].code
+    name: activity_message_first_code
+activity_check_res_id_used_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activity/checkResIdUsed
+  method: POST
+  detail: 鏍￠獙涓嶅瓨鍦ㄧ殑璧勬簮鏍囪瘑鏈浣跨敤骞舵柇瑷€鐘舵€佷负鏈娇鐢?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+  - non_exist_probe
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_check_res_id_used_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_check_res_id_value_match:
+      jsonpath: $.data[0].resId
+      type: ==
+      value: non_exist_probe
+      AssertType: null
+    activity_check_res_id_status_match:
+      jsonpath: $.data[0].status
+      type: ==
+      value: noUsed
+      AssertType: null
+activity_query_favourite_public_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activity/queryFavourite
+  method: GET
+  detail: 鏌ヨ鍏叡娲诲姩鏀惰棌骞舵牎楠岄鏉℃敹钘忕紪鐮佸簲鐢ㄤ笌鍒嗙被瀛樺湪
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    type: public
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_favourite_public_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_favourite_public_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_favourite_public_first_application_not_empty:
+      jsonpath: $.data[0].application
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_favourite_public_first_category_not_empty:
+      jsonpath: $.data[0].category
+      type: not_eq
+      value: ''
+      AssertType: null
+aim_scene_query_channels_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/queryChannels
+  method: GET
+  detail: 鏌ヨ娑堟伅鍦烘櫙娓犻亾鍒楄〃骞舵牎楠岄鏉℃笭閬撴爣绛惧垎绫诲拰鍊煎瓨鍦?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_channels_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    aim_scene_channels_first_label_not_empty:
+      jsonpath: $.data[0].label
+      type: not_eq
+      value: ''
+      AssertType: null
+    aim_scene_channels_first_value_not_empty:
+      jsonpath: $.data[0].value
+      type: not_eq
+      value: ''
+      AssertType: null
+    aim_scene_channels_first_classification_not_empty:
+      jsonpath: $.data[0].classification
+      type: len_gt
+      value: 0
+      AssertType: null
+aim_event_query_platform_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimEvent/queryListOfPlatForm
+  method: GET
+  detail: 鏌ヨ骞冲彴浜嬩欢鍒楄〃骞剁紦瀛橀鏉′簨浠舵爣璇嗙敤浜庡悗缁秷鎭簨浠堕棴鐜牎楠?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_event_platform_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    aim_event_platform_first_event_id_not_empty:
+      jsonpath: $.data[0].eventId
+      type: not_eq
+      value: ''
+      AssertType: null
+    aim_event_platform_first_event_name_not_empty:
+      jsonpath: $.data[0].eventName
+      type: not_eq
+      value: ''
+      AssertType: null
+    aim_event_platform_first_event_body_explain_not_empty:
+      jsonpath: $.data[0].eventBodyExplain
+      type: len_gt
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].eventId
+    name: aim_event_first_id
+aim_event_query_platform_and_app_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimEvent/queryEventOfPlatFormAndApp
+  method: GET
+  detail: 鏌ヨ骞冲彴涓庡簲鐢ㄤ簨浠跺垪琛ㄥ苟鏍￠獙棣栨潯浜嬩欢鏍囪瘑涓庡钩鍙颁簨浠跺垪琛ㄤ竴鑷?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_event_platform_and_app_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    aim_event_platform_and_app_first_id_match:
+      jsonpath: $.data[0].eventId
+      type: ==
+      value: $cache{aim_event_first_id}
+      AssertType: null
+    aim_event_platform_and_app_first_event_name_not_empty:
+      jsonpath: $.data[0].eventName
+      type: not_eq
+      value: ''
+      AssertType: null
+aim_scene_query_all_open_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/queryAllOpenAimScenes
+  method: GET
+  detail: 鏌ヨ褰撳墠搴旂敤寮€鏀炬秷鎭満鏅苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_query_all_open_empty:
+      jsonpath: $.data
+      type: ==
+      value: []
+      AssertType: null
+aim_scene_insert_for_event_closure_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/insert
+  method: POST
+  detail: 鍒涘缓缁戝畾骞冲彴浜嬩欢鐨勫簲鐢ㄧ骇娑堟伅鍦烘櫙鐢ㄤ簬浜嬩欢鍏宠仈涓庤鏄庨棴鐜牎楠?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    type:
+      name: AI瑕嗙洊鐜囦簨浠跺満鏅?{{get_time()}}
+      eventLevel: 2
+      description: AI瑕嗙洊鐜囦簨浠跺満鏅?
+      triggerId: $cache{aim_event_first_id}
+      triggerLevel: 1
+      lang:
+        name:
+          zh_CN: AI瑕嗙洊鐜囦簨浠跺満鏅?
+          zh_TW: AI瑕嗚搵鐜囦簨浠跺牬鏅?
+          en_US: AI Coverage Event Scene
+        description:
+          zh_CN: AI瑕嗙洊鐜囦簨浠跺満鏅?
+          zh_TW: AI瑕嗚搵鐜囦簨浠跺牬鏅?
+          en_US: AI Coverage Event Scene
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_insert_sid_not_empty:
+      jsonpath: $.data.type.sid
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.type.name
+    name: aim_scene_event_name
+  - type: response
+    jsonpath: $.data.type.sid
+    name: aim_scene_event_sid
+aim_event_query_all_scene_by_event_id_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimEvent/queryAllSceneByEventId
+  method: GET
+  detail: 鏌ヨ骞冲彴浜嬩欢鍏宠仈鍦烘櫙骞舵牎楠屾柊寤哄満鏅悕绉颁笌瑙﹀彂浜嬩欢鏍囪瘑鍙懡涓?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    eventId: $cache{aim_event_first_id}
+    searchValue: $cache{aim_scene_event_name}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_event_query_all_scene_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    aim_event_query_all_scene_name_match:
+      jsonpath: $.data[0].type.name
+      type: ==
+      value: $cache{aim_scene_event_name}
+      AssertType: null
+    aim_event_query_all_scene_trigger_match:
+      jsonpath: $.data[0].type.triggerId
+      type: ==
+      value: $cache{aim_event_first_id}
+      AssertType: null
+aim_scene_query_event_body_explain_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/queryEventBodyExplain
+  method: GET
+  detail: 鏌ヨ鏂板缓娑堟伅鍦烘櫙鐨勪簨浠朵綋璇存槑骞舵牎楠岃鏄庡垪琛ㄩ潪绌?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    sceneId: $cache{aim_scene_event_sid}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_query_event_body_explain_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+aim_scene_detail_for_event_closure_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/detail/$cache{aim_scene_event_sid}
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    eventLevel: 2
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_detail_name_not_empty:
+      jsonpath: $.data.type.name
+      type: not_eq
+      value: ''
+      AssertType: null
+    aim_scene_detail_name_match:
+      jsonpath: $.data.type.name
+      type: ==
+      value: $cache{aim_scene_event_name}
+      AssertType: null
+    aim_scene_detail_application_match:
+      jsonpath: $.data.application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+aim_scene_delete_for_event_closure_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/delete/$cache{aim_scene_event_sid}
+  method: GET
+  detail: 鍒犻櫎浜嬩欢闂幆涓柊寤虹殑娑堟伅鍦烘櫙骞舵仮澶嶇幆澧?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+activity_process_seed_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityListByPatternAndApplication
+  method: GET
+  detail: 鏌ヨ鏁版嵁褰曞叆娲诲姩鍒楄〃骞剁紦瀛橀鏉℃椿鍔ㄧ紪鐮佺敤浜庢椿鍔ㄦā鍨嬩笌娴佺▼瀛楁闂幆鏍￠獙
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    pattern: DATA_ENTRY
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_process_seed_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    activity_process_seed_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: activity_process_seed_code
+activity_process_get_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityByCode
+  method: GET
+  detail: 鎸夌紦瀛樻椿鍔ㄧ紪鐮佹煡璇㈡椿鍔ㄤ俊鎭苟鏍￠獙妯″瀷缂栫爜鏈嶅姟缂栫爜涓庡簲鐢ㄥ綊灞炲瓨鍦?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{activity_process_seed_code}
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_process_detail_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: $cache{activity_process_seed_code}
+      AssertType: null
+    activity_process_detail_application_match:
+      jsonpath: $.data.application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    activity_process_detail_model_code_not_empty:
+      jsonpath: $.data.simpleModelCode
+      type: not_eq
+      value: ''
+      AssertType: null
+    activity_process_detail_service_code_not_empty:
+      jsonpath: $.data.simpleModelServiceCode
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.simpleModelCode
+    name: activity_process_model_code
+  - type: response
+    jsonpath: $.data.simpleModelServiceCode
+    name: activity_process_service_code
+activity_get_abi_inner_token_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getAbiInnerToken
+  method: GET
+  detail: 鏌ヨ ABI 鍐呴儴 token 骞舵牎楠岃繑鍥炲€奸潪绌?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    abi_inner_token_not_empty:
+      jsonpath: $.data
+      type: not_eq
+      value: ''
+      AssertType: null
+activity_get_tbb_inner_token_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getTbbInnerToken
+  method: GET
+  detail: 鏌ヨ TBB 鍐呴儴 token 骞舵牎楠岃繑鍥炲€奸潪绌?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    tbb_inner_token_not_empty:
+      jsonpath: $.data
+      type: not_eq
+      value: ''
+      AssertType: null
+message_notification_query_all_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/messageNotification/queryAll
+  method: GET
+  detail: 鏌ヨ鍏ㄩ儴娑堟伅閫氱煡骞剁紦瀛橀鏉￠€氱煡缂栫爜涓庢爣棰?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    message_notification_all_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    message_notification_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    message_notification_first_title_not_empty:
+      jsonpath: $.data[0].title
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: message_notification_code
+  - type: response
+    jsonpath: $.data[0].title
+    name: message_notification_title
+message_notification_query_by_user_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/messageNotification/queryMessageByUser
+  method: GET
+  detail: 鏌ヨ褰撳墠鐢ㄦ埛娑堟伅閫氱煡骞舵牎楠岄鏉￠€氱煡缂栫爜涓庢爣棰樺拰鍏ㄩ噺閫氱煡涓€鑷?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    message_notification_user_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    message_notification_user_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+message_notification_query_valid_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/messageNotification/queryValid
+  method: GET
+  detail: 鏌ヨ褰撳墠鏈夋晥娑堟伅閫氱煡骞舵牎楠岄鏉￠€氱煡鐘舵€佷笌鐢ㄦ埛鑼冨洿瀛樺湪
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    message_notification_valid_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+message_notification_query_topic_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/messageNotification/queryTopic
+  method: GET
+  detail: 鏌ヨ娑堟伅閫氱煡璁㈤槄涓婚骞舵牎楠岀郴缁熶富棰樹笌鐢ㄦ埛涓婚瀛樺湪
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    message_notification_topic_sys_not_empty:
+      jsonpath: $.data.SYS
+      type: not_eq
+      value: ''
+      AssertType: null
+    message_notification_topic_user_not_empty:
+      jsonpath: $.data.USER
+      type: not_eq
+      value: ''
+      AssertType: null
+    message_notification_topic_tenant_not_empty:
+      jsonpath: $.data.TENANT
+      type: not_eq
+      value: ''
+      AssertType: null
+upgrade_notification_query_history_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/upgradeNotification/queryHistory
+  method: GET
+  detail: 鏌ヨ鍗囩骇閫氱煡鍘嗗彶鍒楄〃骞剁紦瀛橀鏉￠€氱煡缂栫爜涓庣姸鎬?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    upgrade_history_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    upgrade_history_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    upgrade_history_first_status_positive:
+      jsonpath: $.data[0].status
+      type: gt
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: upgrade_notification_code
+  - type: response
+    jsonpath: $.data[0].status
+    name: upgrade_notification_status
+upgrade_notification_query_all_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/upgradeNotification/queryAll
+  method: GET
+  detail: 鏌ヨ鍏ㄩ儴鍗囩骇閫氱煡骞舵牎楠岄鏉￠€氱煡缂栫爜涓庣姸鎬佸拰鍘嗗彶鍒楄〃涓€鑷?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    upgrade_all_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    upgrade_all_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    upgrade_all_first_status_positive:
+      jsonpath: $.data[0].status
+      type: gt
+      value: 0
+      AssertType: null
+upgrade_notification_query_valid_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/upgradeNotification/queryValid
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    upgrade_valid_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+aim_event_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimEvent/detail
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    eventId: $cache{aim_event_first_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+aim_event_query_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimEvent/queryList
+  method: POST
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    pageNum: 1
+    pageSize: 10
+    searchValue: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_event_query_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+aim_scene_query_by_condition_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/queryByCondition
+  method: POST
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    eventId: $cache{aim_event_first_id}
+    searchValue: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_query_by_condition_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+message_notification_query_product_news_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/messageNotification/queryProductNews
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    num: 5
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    message_notification_product_news_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+aim_scene_application_query_by_condition_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/application/queryByCondition
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    condition: ''
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_application_query_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+aim_scene_platform_query_by_condition_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/aimScene/platform/queryByCondition
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    condition: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    aim_scene_platform_query_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_is_manager_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/isManager
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_is_manager_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_application_data_list_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryApplicationDataListByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_application_data_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_application_data_list_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryApplicationDataListTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_application_data_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_all_tenant_application_data_list_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/allTenantApplicationDataListByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_tenant_application_data_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_all_tenant_application_data_list_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/allTenantApplicationDataListTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_tenant_application_data_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_application_data_num_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryApplicationDataNum
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_application_data_num_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_all_tenant_application_data_num_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/allTenantApplicationDataNum
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_tenant_application_data_num_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_application_num_by_type_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryApplicationNumByType
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_application_num_by_type_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_all_tenant_application_num_by_type_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/allTenantApplicationNumByType
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_tenant_application_num_by_type_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_data_card_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryDataCard
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_data_card_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_all_data_card_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryAllDataCard
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_data_card_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_data_card2_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryDataCard2
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_data_card2_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_all_tenant_data_card2_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/allTenantDataCard2
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_tenant_data_card2_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_date_driven_line_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryDateDrivenLine
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    startTime: '2026-01-01'
+    endTime: '2026-04-10'
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_date_driven_line_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_all_date_driven_line_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/AllDateDrivenLine
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    startTime: '2026-01-01'
+    endTime: '2026-04-10'
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_all_date_driven_line_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_application_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryApplicationByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_application_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_application_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryApplicationTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_application_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_model_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryModelByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_model_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_model_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryModelTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_model_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_work_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryWorkByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_work_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_work_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryWorkTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_work_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_action_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryActionByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_action_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_action_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryActionTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_action_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_detection_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryDetectionByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_detection_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_detection_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryDetectionTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_detection_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_scheme_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/querySchemeByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_scheme_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_scheme_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/querySchemeTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_scheme_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_user_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryUserByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_user_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_user_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryUserTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_user_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_process_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryProcessByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_process_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_process_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryProcessTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_process_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_task_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryTaskByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_task_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_task_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryTaskTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_task_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_hooks_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryHooksByPage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    currentPage: 1
+    pageSize: 10
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_hooks_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+backendmanage_query_hooks_total_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/backgroundManagement/queryHooksTotal
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    name: ''
+    tenantName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    backendmanage_hooks_total_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+activity_message_visible_config_query_by_application_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityVisibleConfig/${{app2_code()}}
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_visible_config_application_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+activity_visible_config_query_avc_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityVisibleConfig/avc/${{app2_code()}}
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_visible_config_avc_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+activity_configs_query_full_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/${{app2_code()}}
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_configs_full_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+activity_configs_recovery_tbb_report_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/recoveryTbbReport
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+activity_configs_query_config_by_code_path_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityConfigs/getActivityConfigByCode/${{app2_code()}}
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_configs_get_by_code_path_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+action_query_esp_action_fields_in_model_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/action/queryEspActionFieldsInModel
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    modelCode: MODEL_TEST
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    action_query_esp_action_fields_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+action_esp_sync_progress_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/action/esp/syncProgess/test_uuid
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    action_esp_sync_progress_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+action_esp_sync_meta_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/action/esp/syncMetaData
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    action_esp_sync_meta_data_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+assistant_query_scene_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/sceneList
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_scene_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+assistant_query_home_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/assistantHomePage
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_home_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+assistant_scene_query_all_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantScene/getAll
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    applicationCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_scene_all_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+assistant_skill_template_auth_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantSkill/template/auth
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_skill_template_auth_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+abi_query_sys_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/abi/sysData
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    abi_sys_data_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+abi_query_data_view_param_fields_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/abi/datasource/queryDataViewParamFields
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    dataViewCode: DATA_VIEW_TEST
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    abi_data_view_param_fields_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+abi_query_action_data_view_fields_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/abi/action/queryDataViewFields
+  method: GET
+
+  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    actionId: 1
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    abi_action_data_view_fields_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+
+
+
+

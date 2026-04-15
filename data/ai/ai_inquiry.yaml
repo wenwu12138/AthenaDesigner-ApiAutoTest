@@ -1,0 +1,1708 @@
+case_common:
+  allureEpic: 开发平台接口
+  allureFeature: AI闭环用例
+  allureStory: 洞察与知识闭环
+knowledge_create_noun_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/createOrUpdate
+  method: POST
+  detail: 新增名词知识用于后续查询和删除
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: knowledge_ai_noun_${{random_id()}}
+    name: AI知识名词${{get_time()}}
+    type: noun
+    businessDefine: AI知识业务定义${{get_time()}}
+    explanation: AI知识解释${{get_time()}}
+    synonym: AI知识同义词${{get_time()}}
+    effectiveScope: all
+    effectiveSets: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.code
+    name: knowledge_ai_noun_code
+  - type: request
+    jsonpath: $.businessDefine
+    name: knowledge_ai_noun_business_define
+knowledge_get_list_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/getList
+  method: POST
+  detail: 按应用和类型查询名词知识列表用于闭环基线校验
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    type: noun
+    codeList:
+    - $cache{knowledge_ai_noun_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    knowledge_noun_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+knowledge_get_page_by_keyword_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/getPageList
+  method: POST
+  detail: 按业务定义关键字分页查询名词知识
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    keyWord: $cache{knowledge_ai_noun_business_define}
+    type: noun
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    knowledge_noun_page_list_not_empty:
+      jsonpath: $.data.list
+      type: len_gt
+      value: 0
+      AssertType: null
+    knowledge_noun_page_first_code_match:
+      jsonpath: $.data.list[0].code
+      type: ==
+      value: $cache{knowledge_ai_noun_code}
+      AssertType: null
+    knowledge_noun_page_first_business_define_match:
+      jsonpath: $.data.list[0].businessDefine
+      type: ==
+      value: $cache{knowledge_ai_noun_business_define}
+      AssertType: null
+knowledge_update_noun_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/createOrUpdate
+  method: POST
+  detail: 复用编码更新名词知识内容
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: $cache{knowledge_ai_noun_code}
+    name: AI知识名词更新${{get_time()}}
+    type: noun
+    businessDefine: AI知识业务定义更新${{get_time()}}
+    explanation: AI知识解释更新${{get_time()}}
+    synonym: AI知识同义词更新${{get_time()}}
+    effectiveScope: all
+    effectiveSets: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.businessDefine
+    name: knowledge_ai_noun_business_define_updated
+knowledge_get_page_after_update_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/getPageList
+  method: POST
+  detail: 按更新后的业务定义分页查询名词知识并校验更新已生效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    keyWord: $cache{knowledge_ai_noun_business_define_updated}
+    type: noun
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    knowledge_noun_updated_page_list_not_empty:
+      jsonpath: $.data.list
+      type: len_gt
+      value: 0
+      AssertType: null
+    knowledge_noun_updated_page_first_code_match:
+      jsonpath: $.data.list[0].code
+      type: ==
+      value: $cache{knowledge_ai_noun_code}
+      AssertType: null
+    knowledge_noun_updated_page_first_business_define_match:
+      jsonpath: $.data.list[0].businessDefine
+      type: ==
+      value: $cache{knowledge_ai_noun_business_define_updated}
+      AssertType: null
+knowledge_batch_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/batchDelete
+  method: POST
+  detail: 按编码批量删除名词知识
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    codeList:
+    - $cache{knowledge_ai_noun_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+knowledge_get_page_after_batch_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/getPageList
+  method: POST
+  detail: 删除后按更新后的业务定义分页查询并确认名词知识已移除
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    keyWord: $cache{knowledge_ai_noun_business_define_updated}
+    type: noun
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    knowledge_noun_deleted_page_empty:
+      jsonpath: $.data.list
+      type: len_eq
+      value: 0
+      AssertType: null
+knowledge_create_habit_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/createOrUpdate
+  method: POST
+  detail: 新增习惯知识用于按对象删除
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: knowledge_ai_habit_${{random_id()}}
+    name: AI知识习惯${{get_time()}}
+    type: habit
+    businessDefine: AI习惯业务定义${{get_time()}}
+    explanation: AI习惯解释${{get_time()}}
+    synonym: AI习惯同义词${{get_time()}}
+    effectiveScope: all
+    effectiveSets: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.code
+    name: knowledge_ai_habit_code
+  - type: request
+    jsonpath: $.explanation
+    name: knowledge_ai_habit_explanation
+knowledge_get_habit_page_and_cache_id_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/getPageList
+  method: POST
+  detail: 分页查询习惯知识并校验删除接口所需编码已可稳定命中
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    keyWord: $cache{knowledge_ai_habit_explanation}
+    type: habit
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    knowledge_habit_page_list_not_empty:
+      jsonpath: $.data.list
+      type: len_gt
+      value: 0
+      AssertType: null
+    knowledge_habit_page_first_code_match:
+      jsonpath: $.data.list[0].code
+      type: ==
+      value: $cache{knowledge_ai_habit_code}
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.list[0].objectId
+    name: knowledge_ai_habit_object_id
+knowledge_delete_by_id_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/delete/$cache{knowledge_ai_habit_code}
+  method: DELETE
+  detail: 按删除接口实际消费的编码路径参数删除习惯知识
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: NONE
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+knowledge_get_page_after_delete_by_id_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/knowledge/getPageList
+  method: POST
+  detail: 删除后按解释关键字分页查询并确认习惯知识已移除
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    keyWord: $cache{knowledge_ai_habit_explanation}
+    type: habit
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    knowledge_habit_deleted_page_empty:
+      jsonpath: $.data.list
+      type: len_eq
+      value: 0
+      AssertType: null
+dataset_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/add
+  method: POST
+  detail: 新增最小数据集用于状态切换和删除
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: dataset_ai_${{random_id()}}
+    name: AI数据集${{get_time()}}
+    description: AI数据集描述${{get_time()}}
+    queryMode: 0
+    status: 1
+    dimensions: []
+    measures: []
+    quickQuestion: manual
+    questions: []
+    notify: false
+    readMode: headContent
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.code
+    name: dataset_ai_code
+  - type: request
+    jsonpath: $.name
+    name: dataset_ai_name
+dataset_get_page_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/getPageList
+  method: POST
+  detail: 按名称关键字分页查询新增数据集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    keyword: $cache{dataset_ai_name}
+    needFilter: false
+    pageNum: 1
+    pageSize: 20
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+dataset_all_datasets_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/allDatasets
+  method: GET
+  detail: 查询应用下全部数据集列表
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+dataset_update_status_disable_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/updateStatus
+  method: POST
+  detail: 将新增数据集状态切换为停用
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: $cache{dataset_ai_code}
+    status: 0
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+dataset_update_status_enable_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/updateStatus
+  method: POST
+  detail: 将停用数据集状态切换回启用
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: $cache{dataset_ai_code}
+    status: 1
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+dataset_query_process_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/queryProcess
+  method: POST
+  detail: 查询数据集处理进度
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    codeList:
+    - $cache{dataset_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+dataset_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/dataset/delete
+  method: POST
+  detail: 删除新增数据集完成闭环
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    codes:
+    - $cache{dataset_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+entity_type_get_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/entityType/getList
+  method: GET
+  detail: 查询实体类型列表并校验列表非空及首条实体名称存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    entity_type_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    entity_type_first_name_not_empty:
+      jsonpath: $.data[0].entityTypeName
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].entityTypeName
+    name: entity_type_name
+entity_type_get_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/entityType/getPage
+  method: GET
+  detail: 分页查询实体类型并校验总数和首条实体名称与列表查询一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    pageNum: 1
+    pageSize: 10
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    entity_type_page_total_positive:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    entity_type_page_list_not_empty:
+      jsonpath: $.data.list
+      type: len_gt
+      value: 0
+      AssertType: null
+    entity_type_page_first_name_match:
+      jsonpath: $.data.list[0].entityTypeName
+      type: ==
+      value: $cache{entity_type_name}
+      AssertType: null
+word_dictionary_foreign_query_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/dataStandard/wordDictionary/foreign/queryByPage
+  method: GET
+  detail: 分页查询内部辞汇字典并缓存首条dataName用于后续闭环查询
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_dictionary_total_positive:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    word_dictionary_query_result_not_empty:
+      jsonpath: $.data.queryResult
+      type: len_gt
+      value: 0
+      AssertType: null
+    word_dictionary_first_data_name_not_empty:
+      jsonpath: $.data.queryResult[0].dataName
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.queryResult[0].dataName
+    name: word_dictionary_data_name
+  - type: response
+    jsonpath: $.data.queryResult[0].descriptionZhCn
+    name: word_dictionary_description_zh_cn
+word_dictionary_query_by_data_name_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/dataStandard/wordDictionary/queryByDataName
+  method: POST
+  detail: 按dataName查询辞汇字典并校验返回dataName与中文描述一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+  - $cache{word_dictionary_data_name}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_dictionary_data_name_result_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    word_dictionary_data_name_match:
+      jsonpath: $.data[0].data_name
+      type: ==
+      value: $cache{word_dictionary_data_name}
+      AssertType: null
+    word_dictionary_description_match:
+      jsonpath: $.data[0].description_zh_cn
+      type: ==
+      value: $cache{word_dictionary_description_zh_cn}
+      AssertType: null
+word_dictionary_check_exist_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/dataStandard/wordDictionary/check/exist
+  method: POST
+  detail: 检查已缓存dataName是否存在并校验存在标识返回为0
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    dataName: $cache{word_dictionary_data_name}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_dictionary_exist_flag_match:
+      jsonpath: $.data.dataNameExistFlag
+      type: ==
+      value: '0'
+      AssertType: null
+favourite_query_template_public_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavouriteTemplate
+  method: GET
+  detail: 查询公开模板收藏列表并缓存首条收藏编码与名称用于后续闭环校验
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    type: public
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_template_public_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    favourite_template_public_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    favourite_template_public_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: favourite_template_code
+  - type: response
+    jsonpath: $.data[0].name
+    name: favourite_template_name
+favourite_query_template_grouped_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavourite
+  method: GET
+  detail: 查询模板收藏分组结果并校验公开收藏首条编码与名称和公开模板列表一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    category: template
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_template_public_group_not_empty:
+      jsonpath: $.data.publicFavourites
+      type: len_gt
+      value: 0
+      AssertType: null
+    favourite_template_group_first_code_match:
+      jsonpath: $.data.publicFavourites[0].code
+      type: ==
+      value: $cache{favourite_template_code}
+      AssertType: null
+    favourite_template_group_first_name_match:
+      jsonpath: $.data.publicFavourites[0].name
+      type: ==
+      value: $cache{favourite_template_name}
+      AssertType: null
+favourite_query_template_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavouriteDetail
+  method: GET
+  detail: 按已缓存模板收藏编码查询收藏详情并校验内容节点非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: $cache{favourite_template_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_template_detail_content_not_empty:
+      jsonpath: $.data.content
+      type: len_gt
+      value: 0
+      AssertType: null
+favourite_query_activity_public_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavouriteActivity
+  method: GET
+  detail: 查询公开活动收藏列表；当前环境返回空列表，先跳过该闭环入口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    type: public
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_activity_public_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    favourite_activity_public_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    favourite_activity_public_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: favourite_activity_code
+  - type: response
+    jsonpath: $.data[0].name
+    name: favourite_activity_name
+favourite_query_activity_grouped_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavourite
+  method: GET
+  detail: 查询活动收藏分组结果；当前环境缺少稳定公开活动收藏数据，先跳过
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    category: activity
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_activity_public_group_not_empty:
+      jsonpath: $.data.publicFavourites
+      type: len_gt
+      value: 0
+      AssertType: null
+    favourite_activity_group_first_code_match:
+      jsonpath: $.data.publicFavourites[0].code
+      type: ==
+      value: $cache{favourite_activity_code}
+      AssertType: null
+    favourite_activity_group_first_name_match:
+      jsonpath: $.data.publicFavourites[0].name
+      type: ==
+      value: $cache{favourite_activity_name}
+      AssertType: null
+favourite_query_activity_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavouriteDetail
+  method: GET
+  detail: 按活动收藏编码查询收藏详情；当前环境无稳定编码来源，先跳过
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{favourite_activity_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_activity_detail_content_not_empty:
+      jsonpath: $.data.content
+      type: len_gt
+      value: 0
+      AssertType: null
+favourite_query_activity_v2_public_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/queryFavouriteV2
+  method: GET
+  detail: Query V2 public activity favourites and assert the current environment stably returns an empty list
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    type: public
+    category: activity
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_activity_v2_empty:
+      jsonpath: $.data
+      type: ==
+      value: []
+      AssertType: null
+favourite_get_dtd_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/getFavouriteDTDList
+  method: GET
+  detail: Query the DTD favourite list; skipped because the current environment returns an empty public favourite list
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_dtd_public_list_not_empty:
+      jsonpath: $.data.publicFavouriteList
+      type: len_gt
+      value: 0
+      AssertType: null
+    favourite_dtd_public_first_code_not_empty:
+      jsonpath: $.data.publicFavouriteList[0].favouriteCode
+      type: not_eq
+      value: ''
+      AssertType: null
+    favourite_dtd_public_first_name_not_empty:
+      jsonpath: $.data.publicFavouriteList[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.publicFavouriteList[0].favouriteCode
+    name: favourite_dtd_code
+favourite_get_dtd_graph_relation_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/favourite/getFavouriteDTDGraphRelation
+  method: GET
+  detail: Query the DTD favourite graph relation by cached code; skipped because the current environment lacks a stable DTD favourite seed and returns NullPointerException
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    favouriteCode: $cache{favourite_dtd_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    favourite_dtd_graph_relation_not_null:
+      jsonpath: $.data.canvasGraph
+      type: not_eq
+      value: null
+      AssertType: null
+common_auth_modules_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/inquiry/common/authModules
+  method: GET
+  detail: 查询授权模块列表
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appType: 12
+    appSystem: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+word_ai_category_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/categorySave
+  method: POST
+  detail: 新增AI词分类作为word闭环种子
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: word_ai_category_${{random_id()}}
+    name: AI词分类${{get_time()}}
+    parentCode: code1
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_category_id_not_null:
+      jsonpath: $.data.id
+      type: not_eq
+      value: null
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.id
+    name: word_ai_category_id
+  - type: request
+    jsonpath: $.code
+    name: word_ai_category_code
+  - type: request
+    jsonpath: $.name
+    name: word_ai_category_name
+word_ai_category_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/categoryQuery
+  method: POST
+  detail: 按分类编码分页查询AI词分类并命中当前新增对象
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    pageIndex: 1
+    pageSize: 10
+    sortField: id
+    sortType: desc
+    q:
+      code: $cache{word_ai_category_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_category_query_total_positive:
+      jsonpath: $.totalCount
+      type: gt
+      value: 0
+      AssertType: null
+    word_ai_category_query_not_empty:
+      jsonpath: $.dataList
+      type: len_gt
+      value: 0
+      AssertType: null
+word_ai_feature_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/featureSave
+  method: POST
+  detail: 新增AI词特征作为word闭环种子
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    feature: word_ai_feature_${{random_id()}}
+    featureName: AI词特征${{get_time()}}
+    pattern: subjectMatterTargets
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_feature_id_not_null:
+      jsonpath: $.data.id
+      type: not_eq
+      value: null
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.id
+    name: word_ai_feature_id
+  - type: request
+    jsonpath: $.feature
+    name: word_ai_feature_code
+  - type: request
+    jsonpath: $.featureName
+    name: word_ai_feature_name
+word_ai_feature_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/featureQuery
+  method: POST
+  detail: 查询词特征列表并确认返回结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_feature_query_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+word_ai_word_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/wordSave
+  method: POST
+  detail: 新增AI词条并消费当前分类与特征闭环缓存
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: word_ai_word_${{random_id()}}
+    name: AI词条${{get_time()}}
+    domain: esp
+    categoryCode: $cache{word_ai_category_code}
+    feature: $cache{word_ai_feature_code}
+    cateCode1: code1
+    cateCode2: $cache{word_ai_category_code}
+    cateName1: 一级分类
+    cateName2: $cache{word_ai_category_name}
+    cateName3: $cache{word_ai_category_name}
+    featureName: $cache{word_ai_feature_name}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_word_id_not_null:
+      jsonpath: $.data.id
+      type: not_eq
+      value: null
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.id
+    name: word_ai_word_id
+  - type: request
+    jsonpath: $.code
+    name: word_ai_word_code
+  - type: request
+    jsonpath: $.name
+    name: word_ai_word_name
+word_ai_word_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/wordQuery
+  method: POST
+  detail: 按词条编码分页查询并命中当前新增词条
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    pageIndex: 1
+    pageSize: 10
+    sortField: id
+    sortType: desc
+    q:
+      code: $cache{word_ai_word_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_word_query_total_positive:
+      jsonpath: $.totalCount
+      type: gt
+      value: 0
+      AssertType: null
+    word_ai_word_query_not_empty:
+      jsonpath: $.dataList
+      type: len_gt
+      value: 0
+      AssertType: null
+word_ai_observer_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/observerSave
+  method: POST
+  detail: 为当前AI词条新增观察者关系
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    type: duty
+    value: AI_DUTY_${{random_id()}}
+    name: AI观察者${{get_time()}}
+    wordId: $cache{word_ai_word_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_observer_id_not_null:
+      jsonpath: $.data.id
+      type: not_eq
+      value: null
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.id
+    name: word_ai_observer_id
+word_ai_observer_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/observerQuery
+  method: POST
+  detail: 按词条和类型分页查询观察者关系
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    pageIndex: 1
+    pageSize: 10
+    sortField: id
+    sortType: desc
+    q:
+      wordId: $cache{word_ai_word_id}
+      type: duty
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_observer_query_total_positive:
+      jsonpath: $.totalCount
+      type: gt
+      value: 0
+      AssertType: null
+    word_ai_observer_query_not_empty:
+      jsonpath: $.dataList
+      type: len_gt
+      value: 0
+      AssertType: null
+word_ai_entity_type_insert_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/entityType/insertSysEntity
+  method: POST
+  detail: 新增AI实体类型作为同义词闭环前置
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    entityTypeName: AI实体类型${{get_time()}}
+    lang: '{}'
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.entityTypeName
+    name: word_ai_entity_type_name
+word_ai_entity_type_get_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/entityType/getPage
+  method: GET
+  detail: 按实体类型名称分页查询并缓存当前实体类型objectId
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    entityName: $cache{word_ai_entity_type_name}
+    pageNum: 1
+    pageSize: 10
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_entity_type_page_total_positive:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    word_ai_entity_type_page_not_empty:
+      jsonpath: $.data.list
+      type: len_gt
+      value: 0
+      AssertType: null
+    word_ai_entity_type_page_object_id_not_empty:
+      jsonpath: $.data.list[0].objectId
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.list[0].objectId
+    name: word_ai_entity_type_id
+word_ai_entity_type_get_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/entityType/getList
+  method: GET
+  detail: 查询实体类型全量列表并确认当前环境返回非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_entity_type_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+word_ai_synonym_create_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/synonym/creatOrUpdate
+  method: POST
+  detail: 新增AI同义词并消费当前实体类型缓存
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+    properNoun: AI同义词专有名词${{get_time()}}
+    entityTypeName: $cache{word_ai_entity_type_name}
+    zh_CN_Str: AI同义词${{get_time()}},AI别名${{get_time()}}
+    description: AI同义词描述${{get_time()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.properNoun
+    name: word_ai_synonym_proper_noun
+word_ai_synonym_get_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/synonym/getList
+  method: POST
+  detail: 按专有名词分页查询AI同义词并缓存objectId
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    properNoun: $cache{word_ai_synonym_proper_noun}
+    entityTypeName: $cache{word_ai_entity_type_name}
+    appCode: ${{app2_code()}}
+    des: ''
+    page: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_synonym_list_total_positive:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    word_ai_synonym_list_not_empty:
+      jsonpath: $.data.list
+      type: len_gt
+      value: 0
+      AssertType: null
+    word_ai_synonym_object_id_not_empty:
+      jsonpath: $.data.list[0].objectId
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.list[0].objectId
+    name: word_ai_synonym_id
+word_ai_synonym_check_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/synonym/checkSynonym
+  method: POST
+  detail: 校验当前专有名词的同义词匹配结果
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    targetList:
+    - $cache{word_ai_synonym_proper_noun}
+    synonymTargetList:
+    - AI同义词
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_synonym_check_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+word_ai_synonym_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/synonym/delete
+  method: POST
+  detail: 删除当前AI同义词并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    ids:
+    - $cache{word_ai_synonym_id}
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+word_ai_entity_type_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/entityType/deleteSys
+  method: POST
+  detail: 删除当前AI实体类型并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    id: $cache{word_ai_entity_type_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+word_ai_observer_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/observerDelete
+  method: POST
+  detail: 删除当前AI词条观察者并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    id: $cache{word_ai_observer_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_observer_delete_success:
+      jsonpath: $.data
+      type: ==
+      value: 1
+      AssertType: null
+word_ai_word_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/wordDelete
+  method: POST
+  detail: 删除当前AI词条并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    id: $cache{word_ai_word_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_word_delete_success:
+      jsonpath: $.data
+      type: ==
+      value: 1
+      AssertType: null
+word_ai_feature_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/featureDelete
+  method: POST
+  detail: 删除当前AI词特征并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    id: $cache{word_ai_feature_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_feature_delete_success:
+      jsonpath: $.data
+      type: ==
+      value: 1
+      AssertType: null
+word_ai_category_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/word/categoryDelete
+  method: POST
+  detail: 删除当前AI词分类并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    id: $cache{word_ai_category_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    word_ai_category_delete_success:
+      jsonpath: $.data
+      type: ==
+      value: 1
+      AssertType: null

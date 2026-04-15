@@ -1,181 +1,155 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 发送飞书通知
 """
+
+import datetime
 import json
 import logging
-import time
-import datetime
+import os
+from typing import List
+
 import requests
 import urllib3
-from utils.other_tools.allure_data.allure_report_data import TestMetrics
-from utils import config
 
+from utils import config
+from utils.other_tools.ReportServer import ReportServer
+from utils.other_tools.allure_data.allure_report_data import TestMetrics
 
 urllib3.disable_warnings()
 
-try:
-    JSONDecodeError = json.decoder.JSONDecodeError
-except AttributeError:
-    JSONDecodeError = ValueError
 
-
-def is_not_null_and_blank_str(content):
-    """
-  非空字符串
-  :param content: 字符串
-  :return: 非空 - True，空 - False
-  """
+def is_not_null_and_blank_str(content: str) -> bool:
+    """判断字符串非空且非纯空白。"""
     return bool(content and content.strip())
 
 
 class FeiShuTalkChatBot:
-    """飞书机器人通知"""
+    """飞书机器人通知。"""
+
     def __init__(self, metrics: TestMetrics):
         self.metrics = metrics
+        self.headers = {"Content-Type": "application/json; charset=utf-8"}
 
-    def send_text(self, msg: str):
-        """
-    消息类型为text类型
-    :param msg: 消息内容
-    :return: 返回消息发送结果
-    """
-        data = {"msg_type": "text", "at": {}}
-        if is_not_null_and_blank_str(msg):  # 传入msg非空
-            data["content"] = {"text": msg}
-        else:
-            logging.error("text类型，消息内容不能为空！")
-            raise ValueError("text类型，消息内容不能为空！")
+    @staticmethod
+    def _get_report_url() -> str:
+        """优先使用外部传入的报告地址，其次回退到本地报告服务地址。"""
+        report_url = os.getenv("REPORT_URL")
+        if is_not_null_and_blank_str(report_url):
+            return report_url.strip()
+        host = ReportServer.get_local_ip()
+        if not is_not_null_and_blank_str(host) or "无法获取" in host:
+            host = "localhost"
+        return f"http://{host}:9999"
 
-        logging.debug('text类型：%s', data)
-        return self.post()
+    @staticmethod
+    def _get_notify_flag() -> str:
+        return f"【{config.project_name}接口自动化通知】"
 
-    def post(self):
-        """
-    发送消息（内容UTF-8编码）
-    :return: 返回消息发送结果
-    """
-        rich_text = {
-            "email": "1603453211@qq.com",
+    def _build_rows(self) -> List[List[dict]]:
+        report_url = self._get_report_url()
+        now_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        summary = "通过" if self.metrics.failed == 0 and self.metrics.broken == 0 else "存在失败"
+
+        rows = [
+            [
+                {
+                    "tag": "text",
+                    "text": f"{self._get_notify_flag()} {summary}"
+                }
+            ],
+            [
+                {"tag": "text", "text": "测试环境："},
+                {"tag": "text", "text": str(config.env)}
+            ],
+            [
+                {"tag": "text", "text": "测试负责人："},
+                {"tag": "text", "text": str(config.tester_name)}
+            ],
+            [
+                {"tag": "text", "text": "执行结果："},
+                {"tag": "text", "text": f"成功率 {self.metrics.pass_rate}%"}
+            ],
+            [
+                {"tag": "text", "text": "用例总数："},
+                {"tag": "text", "text": str(self.metrics.total)}
+            ],
+            [
+                {"tag": "text", "text": "成功用例："},
+                {"tag": "text", "text": str(self.metrics.passed)}
+            ],
+            [
+                {"tag": "text", "text": "失败用例："},
+                {"tag": "text", "text": str(self.metrics.failed)}
+            ],
+            [
+                {"tag": "text", "text": "异常用例："},
+                {"tag": "text", "text": str(self.metrics.broken)}
+            ],
+            [
+                {"tag": "text", "text": "跳过用例："},
+                {"tag": "text", "text": str(self.metrics.skipped)}
+            ],
+            [
+                {"tag": "text", "text": "执行时长："},
+                {"tag": "text", "text": f"{self.metrics.time} s"}
+            ],
+            [
+                {"tag": "text", "text": "通知时间："},
+                {"tag": "text", "text": now_date}
+            ],
+            [
+                {"tag": "text", "text": "测试报告："},
+                {"tag": "a", "text": "点击查看报告", "href": report_url}
+            ],
+        ]
+
+        image_key = os.getenv("LARK_IMAGE_KEY", "").strip()
+        if image_key:
+            rows.append([{"tag": "img", "image_key": image_key}])
+
+        return rows
+
+    def _build_post_payload(self) -> dict:
+        return {
             "msg_type": "post",
             "content": {
                 "post": {
                     "zh_cn": {
-                        "title": "【自动化测试通知】",
-                        "content": [
-                            [
-                                {
-                                    "tag": "a",
-                                    "text": "测试报告",
-                                    "href": "https://192.168.xx.72:8080"
-                                },
-                                {
-                                    "tag": "at",
-                                    "user_id": "ou_18eac85d35a26f989317ad4f02e8bbbb"
-                                    # "text":"陈锐男"
-                                }
-                            ],
-                            [
-                                {
-                                    "tag": "text",
-                                    "text": "测试  人员 : "
-                                },
-                                {
-                                    "tag": "text",
-                                    "text": f"{config.tester_name}"
-                                }
-                            ],
-                            [
-                                {
-                                    "tag": "text",
-                                    "text": "运行  环境 : "
-                                },
-                                {
-                                    "tag": "text",
-                                    "text": f"{config.env}"
-                                }
-                            ],
-                            [{
-                                "tag": "text",
-                                "text": "成   功   率 : "
-                            },
-                                {
-                                    "tag": "text",
-                                    "text": f"{self.metrics.pass_rate} %"
-                                }],  # 成功率
-
-                            [{
-                                "tag": "text",
-                                "text": "成功用例数 : "
-                            },
-                                {
-                                    "tag": "text",
-                                    "text": f"{self.metrics.passed}"
-                                }],  # 成功用例数
-
-                            [{
-                                "tag": "text",
-                                "text": "失败用例数 : "
-                            },
-                                {
-                                    "tag": "text",
-                                    "text": f"{self.metrics.failed}"
-                                }],  # 失败用例数
-                            [{
-                                "tag": "text",
-                                "text": "异常用例数 : "
-                            },
-                                {
-                                    "tag": "text",
-                                    "text": f"{self.metrics.failed}"
-                                }],  # 损坏用例数
-                            [
-                                {
-                                    "tag": "text",
-                                    "text": "时  间 : "
-                                },
-                                {
-                                    "tag": "text",
-                                    "text": f"{datetime.datetime.now().strftime('%Y-%m-%d')}"
-                                }
-                            ],
-
-                            [
-                                {
-                                    "tag": "img",
-                                    "image_key": "d640eeea-4d2f-4cb3-88d8-c964fab53987",
-                                    "width": 300,
-                                    "height": 300
-                                }
-                            ]
-                        ]
+                        "title": self._get_notify_flag(),
+                        "content": self._build_rows()
                     }
                 }
             }
         }
-        headers = {'Content-Type': 'application/json; charset=utf-8'}
 
-        post_data = json.dumps(rich_text)
+    def send_text(self, msg: str):
+        """发送文本消息。"""
+        if not is_not_null_and_blank_str(msg):
+            raise ValueError("text 类型消息内容不能为空")
+
+        payload = {"msg_type": "text", "content": {"text": msg}}
+        return self._request(payload)
+
+    def _request(self, payload: dict) -> dict:
         response = requests.post(
-                config.lark.webhook,
-                headers=headers,
-                data=post_data,
-                verify=False
+            config.lark.webhook,
+            headers=self.headers,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            verify=False,
+            timeout=15,
         )
+        response.raise_for_status()
         result = response.json()
 
-        if result.get('StatusCode') != 0:
-            time_now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-            result_msg = result['errmsg'] if result.get('errmsg', False) else '未知异常'
-            error_data = {
-                "msgtype": "text",
-                "text": {
-                            "content": f"[注意-自动通知]飞书机器人消息发送失败，时间：{time_now}，"
-                                       f"原因：{result_msg}，请及时跟进，谢谢!"
-                },
-                "at": {
-                            "isAtAll": False
-                        }
-                    }
-            logging.error("消息发送失败，自动通知：%s", error_data)
-            requests.post(config.lark.webhook, headers=headers, data=json.dumps(error_data))
+        if result.get("code", 0) != 0:
+            error_msg = result.get("msg", "未知异常")
+            logging.error("飞书通知发送失败: %s", error_msg)
+            raise ValueError(f"飞书通知发送失败: {error_msg}")
+
         return result
+
+    def post(self):
+        """发送飞书富文本通知。"""
+        return self._request(self._build_post_payload())

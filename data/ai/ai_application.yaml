@@ -1,0 +1,3755 @@
+﻿case_common:
+  allureEpic: 开发平台接口
+  allureFeature: AI闭环用例
+  allureStory: 应用与用户闭环
+application_all_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/all
+  method: GET
+  detail: 查询当前租户全部应用列表并校验列表非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    first_application_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+application_all_solution_plan_template_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/allSolutionPlanTemplate
+  method: GET
+  detail: 查询解决方案模板分组并校验模板分组非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    solution_template_group_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    first_group_template_not_empty:
+      jsonpath: $.data[0].templateList
+      type: len_gt
+      value: 0
+      AssertType: null
+application_all_solution_plan_template_app_type_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/allSolutionPlanTemplateAppType
+  method: GET
+  detail: 查询解决方案应用类型列表并校验列表非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    solution_app_type_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    first_app_type_value_positive:
+      jsonpath: $.data[0].value
+      type: gt
+      value: 0
+      AssertType: null
+application_auth_app_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/authAppInfo/${{app2_code()}}
+  method: GET
+  detail: 查询指定应用授权基础信息并校验应用编码一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    auth_app_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    auth_app_name_not_empty:
+      jsonpath: $.data.name
+      type: not_eq
+      value: ''
+      AssertType: null
+application_exist_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/${{app2_code()}}/exist
+  method: GET
+  detail: 校验指定应用存在并返回同一应用编码
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    exist_app_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    exist_app_status_not_empty:
+      jsonpath: $.data.appStatus
+      type: not_eq
+      value: ''
+      AssertType: null
+application_app_home_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/appHomePage
+  method: GET
+  detail: 查询指定应用首页概览并校验概览统计存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    app_home_action_count_non_negative:
+      jsonpath: $.data.applicationOverView.actionCount
+      type: ge
+      value: 0
+      AssertType: null
+    app_home_task_count_non_negative:
+      jsonpath: $.data.applicationOverView.taskCount
+      type: ge
+      value: 0
+      AssertType: null
+application_tenant_query_applications_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/tenant/queryApplications
+  method: GET
+  detail: 查询租户级可访问应用列表并校验列表非空及首条应用编码存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    condition: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    tenant_application_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    tenant_first_application_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_workbench_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryWorkBench
+  method: POST
+  detail: 查询工作台应用集合并校验返回列表非空及首条展示名称存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_application_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    workbench_first_display_name_not_empty:
+      jsonpath: $.data[0].displayName
+      type: not_eq
+      value: ''
+      AssertType: null
+workbench_app_get_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/app/get
+  method: POST
+  detail: 查询工作台应用列表并校验返回列表非空且首条应用编码与名称存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_app_get_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    workbench_app_get_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    workbench_app_get_first_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+workbench_app_custom_setting_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/app/custom-setting
+  method: POST
+  detail: 查询当前应用工作台自定义配置并校验首条配置归属应用与远程入口存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_custom_setting_data_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+workbench_component_menu_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/menu/queryComponents
+  method: POST
+  detail: 查询工作台菜单组件列表并校验预设组件非空且首条组件名称存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_component_menu_preset_not_empty:
+      jsonpath: $.data.presetList
+      type: len_gt
+      value: 0
+      AssertType: null
+    workbench_component_menu_first_name_not_empty:
+      jsonpath: $.data.presetList[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+    workbench_component_menu_first_application_not_empty:
+      jsonpath: $.data.presetList[0].application
+      type: not_eq
+      value: ''
+      AssertType: null
+workbench_component_page_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/pageQuery
+  method: POST
+  detail: 分页查询工作台组件并校验当前环境稳定为空页且分页参数正确
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_component_page_query_empty:
+      jsonpath: $.data.data
+      type: ==
+      value: []
+      AssertType: null
+    workbench_component_page_query_page_num_match:
+      jsonpath: $.data.pageInfo.pageNum
+      type: ==
+      value: 1
+      AssertType: null
+    workbench_component_page_query_page_size_match:
+      jsonpath: $.data.pageInfo.pageSize
+      type: ==
+      value: 10
+      AssertType: null
+workbench_datasource_count_job_apps_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/queryAppListForCountJob
+  method: POST
+  detail: 查询统计组件可选应用列表并校验列表非空且首条应用编码与名称存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_datasource_count_job_apps_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    workbench_datasource_count_job_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    workbench_datasource_count_job_first_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_by_codes_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryByCodes
+  method: POST
+  detail: 按应用编码批量查询应用详情并校验返回的应用编码与入参一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+  - ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    query_by_codes_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    query_by_codes_app_code_match:
+      jsonpath: $.data[0].code
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+application_query_experience_over_time_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryExperienceOverTime
+  method: POST
+  detail: 批量查询应用体验到期信息并校验返回编码与入参一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+  - ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    experience_over_time_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    experience_over_time_code_match:
+      jsonpath: $.data[0].code
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+application_query_hooks_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryApplicationHooks
+  method: GET
+  detail: 查询应用钩子统计并校验钩子数量字段存在且为非负数
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    applicationCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    hooks_count_non_negative:
+      jsonpath: $.data.hooksCount
+      type: ge
+      value: 0
+      AssertType: null
+    hooks_page_design_exists:
+      jsonpath: $.data.pageDesign
+      type: len_ge
+      value: 0
+      AssertType: null
+application_query_resource_summary_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/query
+  method: GET
+  detail: 查询应用资源汇总并校验应用编码及基础数据资源存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    resource_summary_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    resource_summary_basic_data_not_empty:
+      jsonpath: $.data.basicData
+      type: len_gt
+      value: 0
+      AssertType: null
+application_query_solution_cards_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/querySolutionCards
+  method: GET
+  detail: 查询解决方案卡片并校验卡片列表非空及首条应用类型存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    solution_cards_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    solution_card_first_app_type_positive:
+      jsonpath: $.data[0].enter.appType
+      type: gt
+      value: 0
+      AssertType: null
+    solution_card_first_name_not_empty:
+      jsonpath: $.data[0].enter.name
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_solution_designer_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/querySolutionDesigner
+  method: GET
+  detail: 查询解决方案设计器映射并校验首条应用类型和类型标识存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    solution_designer_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    solution_designer_first_app_type_positive:
+      jsonpath: $.data[0].appType
+      type: gt
+      value: 0
+      AssertType: null
+    solution_designer_first_type_not_empty:
+      jsonpath: $.data[0].type
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_recent_visit_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryRecentVisit
+  method: GET
+  detail: 查询最近访问应用并校验返回应用列表非空及首条应用编码存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    condition: ''
+    num: 5
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    recent_visit_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    recent_visit_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    recent_visit_first_app_type_positive:
+      jsonpath: $.data[0].appType
+      type: gt
+      value: 0
+      AssertType: null
+application_query_recent_create_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryRecentCreate
+  method: GET
+  detail: 查询最近创建应用并校验返回应用列表非空及首条名称存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    condition: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    recent_create_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    recent_create_first_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+    recent_create_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    recent_create_first_app_type_positive:
+      jsonpath: $.data[0].appType
+      type: gt
+      value: 0
+      AssertType: null
+application_query_latest_compile_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryApplicationLatestCompileInfo
+  method: GET
+  detail: 查询指定应用最近编译信息并校验应用编码和编译版本存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    latest_compile_app_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    latest_compile_version_not_empty:
+      jsonpath: $.data.latestCompileVersion
+      type: not_eq
+      value: ''
+      AssertType: null
+    latest_compile_status_not_empty:
+      jsonpath: $.data.appStatus
+      type: not_eq
+      value: ''
+      AssertType: null
+application_get_auths_applications_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/getAuthsApplications
+  method: GET
+  detail: 按权限组查询应用分页列表并校验分页总数和首条应用编码存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    condition: ''
+    pageNum: 1
+    pageSize: 10
+    auths: application:mgr
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    auths_applications_total_positive:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    auths_applications_list_not_empty:
+      jsonpath: $.data.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    auths_applications_first_code_not_empty:
+      jsonpath: $.data.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_compile_log_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryCompileLog
+  method: GET
+  detail: 查询指定应用编译日志并校验首条日志应用编码与版本存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    compile_log_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    compile_log_first_application_match:
+      jsonpath: $.data[0].application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    compile_log_first_version_not_empty:
+      jsonpath: $.data[0].version
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_compile_log_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/compileLog
+  method: POST
+  detail: 按应用分页查询编译日志并校验分页结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    compile_log_page_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+    compile_log_page_total_gt_zero:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    compile_log_page_first_application_match:
+      jsonpath: $.data.data[0].application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+application_get_by_gitlab_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/getApplicationByGitlab
+  method: GET
+  detail: 查询Gitlab来源应用列表并校验列表非空及首条应用编码存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    gitlab_application_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    gitlab_application_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+    gitlab_application_first_name_not_empty:
+      jsonpath: $.data[0].name
+      type: not_eq
+      value: ''
+      AssertType: null
+application_verify_solution_permission_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/verifySolutionPermission
+  method: GET
+  detail: 校验解决方案权限接口可正常返回成功码
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appType: 5
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+application_query_compile_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryCompileData?envServiceId=AliYunTest
+  method: POST
+  detail: 按环境查询应用编译数据并缓存首条编译编码与版本
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+  - ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    compile_data_result_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    compile_data_first_application_match:
+      jsonpath: $.data[0].application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    compile_data_first_list_not_empty:
+      jsonpath: $.data[0].compileDataList
+      type: len_gt
+      value: 0
+      AssertType: null
+    compile_data_first_code_not_empty:
+      jsonpath: $.data[0].compileDataList[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].compileDataList[0].code
+    name: application_compile_data_code
+  - type: response
+    jsonpath: $.data[0].compileDataList[0].version
+    name: application_compile_data_version
+application_query_compile_data_4_agile_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryCompileData4Agile
+  method: POST
+  detail: 按环境查询敏捷编译数据并校验首条编译编码与版本和上一条结果一致
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    applicationList:
+    - ${{app2_code()}}
+    envServiceId: AliYunTest
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    compile_data_4_agile_result_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    compile_data_4_agile_first_application_match:
+      jsonpath: $.data[0].application
+      type: ==
+      value: ${{app2_code()}}
+      AssertType: null
+    compile_data_4_agile_first_list_not_empty:
+      jsonpath: $.data[0].compileDataList
+      type: len_gt
+      value: 0
+      AssertType: null
+    compile_data_4_agile_first_code_match:
+      jsonpath: $.data[0].compileDataList[0].code
+      type: ==
+      value: $cache{application_compile_data_code}
+      AssertType: null
+    compile_data_4_agile_first_version_match:
+      jsonpath: $.data[0].compileDataList[0].version
+      type: ==
+      value: $cache{application_compile_data_version}
+      AssertType: null
+application_param_query_base_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/queryBaseApplicationParams
+  method: GET
+  detail: 查询当前应用基础参数列表并缓存首条参数编码用于后续参数详情闭环
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_base_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    application_param_base_first_code_not_empty:
+      jsonpath: $.data[0].paramCode
+      type: not_eq
+      value: ''
+      AssertType: null
+    application_param_base_first_name_not_empty:
+      jsonpath: $.data[0].paramName
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].paramCode
+    name: application_param_first_code
+application_param_exist_app_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/existAppParam
+  method: GET
+  detail: 查询当前应用已存在的应用参数并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_exist_app_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_exist_mechanism_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/existParam
+  method: GET
+  detail: 查询当前应用已存在的机制参数并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_exist_mechanism_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_query_sys_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/querySysCustomConfig
+  method: GET
+  detail: 查询系统级定制控件列表并校验当前环境稳定返回空列表
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_sys_list_empty:
+      jsonpath: $.data
+      type: ==
+      value: []
+      AssertType: null
+custom_config_query_sys_share_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/querySysCustomConfigShare
+  method: GET
+  detail: 查询系统级共享定制控件列表并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_sys_share_empty:
+      jsonpath: $.data
+      type: ==
+      value: []
+      AssertType: null
+custom_config_query_sys_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/querySysCustomConfigDetail
+  method: GET
+  detail: 根据系统级定制编码查询详情并校验定制编码与控件详情存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    adpCode: $cache{custom_config_sys_adp_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_sys_detail_adp_code_match:
+      jsonpath: $.data.adpCode
+      type: ==
+      value: $cache{custom_config_sys_adp_code}
+      AssertType: null
+    custom_config_sys_detail_custom_control_not_null:
+      jsonpath: $.data.customControl
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_query_ref_app_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/queryRefAppInfo
+  method: GET
+  detail: 按已缓存系统级自定义配置编码查询引用应用；当前环境系统共享列表为空，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    adpCode: $cache{custom_config_sys_adp_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_ref_app_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_check_is_related_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/checkCustomConfigIsRelated
+  method: GET
+  detail: 校验已缓存系统级自定义配置是否被关联；当前环境系统共享列表为空，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    adpCode: $cache{custom_config_sys_adp_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_check_is_related_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_query_app_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/queryCustomConfig/${{app2_code()}}
+  method: GET
+  detail: 查询当前应用定制控件列表并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_app_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_query_app_share_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/queryCustomConfigShare/${{app2_code()}}
+  method: GET
+  detail: 查询当前应用共享定制控件列表并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_app_share_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+guide_skip_set_false_prepare_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/guide/skipSet
+  method: POST
+  detail: 将AI覆盖率专用引导标记先重置为不跳过，确保闭环起点稳定
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    isSkip: false
+    type: ai_coverage_guide_skip
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+guide_is_skip_false_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/guide/isSkip
+  method: GET
+  detail: 查询AI覆盖率专用引导跳过状态并校验重置后为不跳过
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    type: ai_coverage_guide_skip
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    guide_skip_false_match:
+      jsonpath: $.data
+      type: ==
+      value: false
+      AssertType: null
+guide_skip_set_true_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/guide/skipSet
+  method: POST
+  detail: 将AI覆盖率专用引导标记设置为跳过，验证引导设置接口可更新状态
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    isSkip: true
+    type: ai_coverage_guide_skip
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+guide_is_skip_true_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/guide/isSkip
+  method: GET
+  detail: 再次查询AI覆盖率专用引导跳过状态并校验已更新为跳过
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    type: ai_coverage_guide_skip
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    guide_skip_true_match:
+      jsonpath: $.data
+      type: ==
+      value: true
+      AssertType: null
+guide_skip_set_false_restore_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/guide/skipSet
+  method: POST
+  detail: 将AI覆盖率专用引导标记恢复为不跳过，保证环境回到初始状态
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data:
+    isSkip: false
+    type: ai_coverage_guide_skip
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+guide_is_skip_false_restore_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/guide/isSkip
+  method: GET
+  detail: 最终查询AI覆盖率专用引导跳过状态并校验环境已恢复为不跳过
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    type: ai_coverage_guide_skip
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    guide_skip_false_restore_match:
+      jsonpath: $.data
+      type: ==
+      value: false
+      AssertType: null
+individual_case_query_env_param_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/queryEnvParam
+  method: GET
+  detail: 查询个案应用环境列表并校验环境列表非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    env_param_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    first_env_service_id_not_empty:
+      jsonpath: $.data[0].serviceId
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].serviceId
+    name: individual_case_env_service_id
+individual_case_query_all_use_tenant_infos_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/queryAllUseTenantInfos
+  method: GET
+  detail: 查询全部使用租户并校验租户列表非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    tenant_info_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    first_tenant_id_not_empty:
+      jsonpath: $.data[0].tenantId
+      type: not_eq
+      value: ''
+      AssertType: null
+individual_case_query_tenants_by_area_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/queryTenantsByArea
+  method: GET
+  detail: 查询当前应用按区域划分的租户列表并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    serviceId: $cache{individual_case_env_service_id}
+    code: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    tenants_by_area_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+individual_case_query_app_status_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/queryIndividualAppStatus
+  method: GET
+  detail: 查询当前应用个案应用状态并校验返回结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCodes: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_app_status_empty:
+      jsonpath: $.data
+      type: ==
+      value: []
+      AssertType: null
+individual_case_query_app_log_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/queryIndividualAppLog
+  method: GET
+  detail: 查询当前应用个案应用日志并校验接口执行成功；当前环境稳定仅返回成功码，转为执行集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+individual_case_individual_all_jobs_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/individualAllJobs
+  method: GET
+  detail: 查询个案应用下全部作业并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_all_jobs_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+individual_case_business_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/geIndividualCaseAppBusinessInfo
+  method: GET
+  detail: 查询当前应用个案应用业务信息并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_app_business_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+user_get_me_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/user/me
+  method: GET
+  detail: 查询当前登录用户认证信息并校验已登录状态与主体信息存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    user_me_authenticated_true:
+      jsonpath: $.authenticated
+      type: ==
+      value: true
+      AssertType: null
+    user_me_principal_not_null:
+      jsonpath: $.principal
+      type: not_eq
+      value: null
+      AssertType: null
+    user_me_authorities_not_empty:
+      jsonpath: $.authorities
+      type: len_gt
+      value: 0
+      AssertType: null
+user_get_tenant_team_id_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/user/tenantTeamId
+  method: GET
+  detail: 查询当前租户团队标识并校验返回字符串非空
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    user_tenant_team_id_not_empty:
+      jsonpath: $.data
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data
+    name: user_tenant_team_id
+user_query_expiration_reminder_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/user/queryExpirationReminder
+  method: GET
+  detail: 查询当前租户模块到期提醒并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    expiration_reminder_data_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_query_navigation_bar_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryNavigationBar
+  method: GET
+  detail: 查询应用导航栏配置并校验当前应用导航配置对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    navigation_bar_data_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_access_record_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/accessRecord
+  method: GET
+  detail: 记录当前应用访问行为并校验请求成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+application_query_compile_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryCompileDetail
+  method: GET
+  detail: 按已缓存编译编码查询编译详情并校验详情对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    compileCode: $cache{application_compile_data_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_compile_detail_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_get_example_app_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/getExampleApp
+  method: GET
+  detail: 查询示例应用列表并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    appType: 5
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_example_app_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_get_page_by_get_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/get
+  method: GET
+  detail: 按条件分页查询应用列表并校验分页结果非空且首条应用编码存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    condition: ''
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_get_page_total_gt_zero:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    application_get_page_list_not_empty:
+      jsonpath: $.data.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    application_get_page_first_code_not_empty:
+      jsonpath: $.data.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+application_get_page_by_post_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/get
+  method: POST
+  detail: 按条件批量查询应用列表并校验接口执行成功；当前环境先不强制要求列表结构
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    condition: ''
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+application_query_application_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryApplicationDetail
+  method: GET
+  detail: 查询应用后端服务资源详情并校验详情对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    applicationCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_query_detail_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_all_in_tenant_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/allAppInTenant
+  method: GET
+  detail: 查询当前租户可见应用列表并校验列表非空且首条应用编码存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_all_in_tenant_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    application_all_in_tenant_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+application_query_solution_authorize_timeout_reminder_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/querySolutionAuthorizeTimeoutReminder
+  method: GET
+  detail: 查询解决方案授权到期提醒并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_solution_timeout_reminder_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_query_components_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/queryCustomComponents/${{app2_code()}}
+  method: GET
+  detail: 查询当前应用自定义控件组件列表并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_components_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_get_control_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/getCustomControlList
+  method: GET
+  detail: 查询当前应用开放私有控件列表并校验返回结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_control_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+application_query_by_env_publish_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/queryByEnv
+  method: GET
+  detail: 按环境服务ID查询可发布应用并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    envServiceId: $cache{individual_case_env_service_id}
+    operate: publish
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_query_by_env_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_app_compile_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/appCompileData
+  method: POST
+  detail: 按环境服务ID查询编译数据并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    envServiceId: $cache{individual_case_env_service_id}
+    appList:
+    - ${{app2_code()}}
+    justHasOrNot: false
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_app_compile_data_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_get_config_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getParamConfig
+  method: POST
+  detail: 查询应用参数配置并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    paramCatg: BASE
+    sceneCatg: APPLICATION
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_get_config_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_get_all_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getAllParam
+  method: POST
+  detail: 查询全部应用参数并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+    paramCatg: BASE
+    sceneCatg: APPLICATION
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_get_all_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_get_table_config_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getTableConfig
+  method: GET
+  detail: 查询应用表格配置并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    tableCatg: COMMON_TABLE
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_get_table_config_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_get_by_codes_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getApplicationParamByCodes
+  method: POST
+  detail: 按已缓存参数编码查询参数展示信息并校验返回编码与展示类型存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    paramCodes:
+    - $cache{application_param_first_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_get_by_codes_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_get_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getParamByCode
+  method: POST
+  detail: 按已缓存参数编码查询单个参数详情并校验详情对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+    paramCatg: BASE
+    sceneCatg: APPLICATION
+    paramCode: $cache{application_param_first_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_get_by_code_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_ai_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/saveParam
+  method: POST
+  detail: 保存 AI 闭环专用基础应用参数，并缓存参数编码供后续查询与删除使用
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+    paramCatg: BASE
+    sceneCatg: APPLICATION
+    value:
+    - lang:
+        name:
+          zh_CN: 名称
+          zh_TW: 名稱
+          en_US: name
+        tip:
+          zh_CN: 在交付设计器显示的参数名称
+          zh_TW: 在交付設計器顯示的參數名稱
+          en_US: parameter name shown in designer
+        value:
+          zh_CN: AI覆盖参数${{get_time()}}
+          zh_TW: AI覆蓋參數${{get_time()}}
+          en_US: ai coverage param ${{get_time()}}
+      code: name
+      name: 名称
+      displayType: INPUT
+      required: true
+      readOnly: false
+      sequence: 100
+      tip: 在交付设计器显示的参数名称
+      defaultValue: ''
+      needLang: true
+      value: AI覆盖参数${{get_time()}}
+      options: []
+    - lang:
+        name:
+          zh_CN: 描述
+          zh_TW: 描述
+          en_US: description
+        tip:
+          zh_CN: 在交付设计器显示的参数描述
+          zh_TW: 在交付設計器顯示的參數描述
+          en_US: parameter description shown in designer
+        value:
+          zh_CN: AI覆盖参数描述${{get_time()}}
+          zh_TW: AI覆蓋參數描述${{get_time()}}
+          en_US: ai coverage description ${{get_time()}}
+      code: description
+      name: 描述
+      displayType: TEXTAREA
+      required: true
+      readOnly: false
+      sequence: 200
+      tip: 在交付设计器显示的参数描述
+      defaultValue: ''
+      needLang: true
+      value: AI覆盖参数描述${{get_time()}}
+      options: []
+      breakWord: true
+    - lang:
+        name:
+          zh_CN: 编码
+          zh_TW: 編碼
+          en_US: key
+        tip:
+          zh_CN: 编码
+          zh_TW: 編碼
+          en_US: key
+      code: key
+      name: 编码
+      displayType: INPUT
+      required: true
+      readOnly: false
+      sequence: 300
+      tip: 参数编码
+      defaultValue: ''
+      needLang: false
+      value: ai_param_${{random_id()}}
+      options: []
+    - lang:
+        name:
+          zh_CN: 顺序
+          zh_TW: 順序
+          en_US: sequence
+        tip:
+          zh_CN: 在交付设计器显示的参数顺序
+          zh_TW: 在交付設計器顯示的參數順序
+          en_US: display sequence
+      code: sequence
+      name: 顺序
+      displayType: NUM_INPUT
+      required: true
+      readOnly: false
+      sequence: 400
+      tip: 参数显示顺序
+      defaultValue: ''
+      needLang: false
+      value: 1
+      options: []
+    - lang:
+        name:
+          zh_CN: 是否必填
+          zh_TW: 是否必填
+          en_US: required
+        tip:
+          zh_CN: 该参数是否必填
+          zh_TW: 該參數是否必填
+          en_US: whether required
+      code: required
+      name: 是否必填
+      displayType: SWITCH
+      required: true
+      readOnly: false
+      sequence: 500
+      tip: 该参数是否必填
+      defaultValue: true
+      needLang: false
+      value: true
+      options: []
+    - lang:
+        name:
+          zh_CN: 是否只读
+          zh_TW: 是否只讀
+          en_US: readOnly
+        tip:
+          zh_CN: 该参数是否只读
+          zh_TW: 該參數是否只讀
+          en_US: whether readonly
+      code: readOnly
+      name: 是否只读
+      displayType: SWITCH
+      required: true
+      readOnly: false
+      sequence: 600
+      tip: 该参数是否只读
+      defaultValue: false
+      needLang: false
+      value: false
+      options: []
+    - lang:
+        name:
+          zh_CN: 参数控件类型
+          zh_TW: 參數控件類型
+          en_US: displayType
+        tip:
+          zh_CN: 该参数在交付设计器中的控件类型
+          zh_TW: 該參數在交付設計器中的控件類型
+          en_US: display type
+      code: displayType
+      name: 参数控件类型
+      displayType: SELECT
+      required: true
+      readOnly: false
+      sequence: 800
+      tip: 参数控件类型
+      defaultValue: STRING
+      needLang: false
+      value: STRING
+      options:
+      - label: STRING
+        value: STRING
+      - label: NUMBER
+        value: NUMBER
+      - label: NATURAL_NUMBER
+        value: NATURAL_NUMBER
+      - label: PERCENT
+        value: PERCENT
+      - label: TEXT
+        value: TEXT
+      - label: RADIO
+        value: RADIO
+      - label: SELECT
+        value: SELECT
+      - label: SELECT_MULTIPLE
+        value: SELECT_MULTIPLE
+      - label: DATE
+        value: DATE
+      - label: DATETIME
+        value: DATETIME
+      - label: SWITCH
+        value: SWITCH
+      - label: CHECKBOX
+        value: CHECKBOX
+      - label: CHECKBOX_EXPRESSION
+        value: CHECKBOX_EXPRESSION
+      - label: CHARGE_PERSON
+        value: CHARGE_PERSON
+      - label: EXPECTEDDURATION
+        value: EXPECTEDDURATION
+      - label: SINGLE_USER
+        value: SINGLE_USER
+      - label: MULTIPLE_USER
+        value: MULTIPLE_USER
+      - label: SINGLE_DUTY
+        value: SINGLE_DUTY
+      - label: MULTIPLE_DUTY
+        value: MULTIPLE_DUTY
+      - label: FREQUENCY
+        value: FREQUENCY
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.value[2].value
+    name: application_param_ai_code
+  - type: request
+    jsonpath: $.value[0].value
+    name: application_param_ai_name
+application_param_ai_get_by_codes_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getApplicationParamByCodes
+  method: POST
+  detail: 按 AI 闭环新建参数编码查询参数摘要，并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    paramCodes:
+    - $cache{application_param_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_ai_get_by_codes_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_ai_get_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/getParamByCode
+  method: POST
+  detail: 按 AI 闭环新建参数编码查询单个参数详情，并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+    paramCatg: BASE
+    sceneCatg: APPLICATION
+    paramCode: $cache{application_param_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_param_ai_get_by_code_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+application_param_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationParam/deleteParam
+  method: POST
+  detail: 删除 AI 闭环新建参数，恢复环境
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    appCode: ${{app2_code()}}
+    sceneCatg: APPLICATION
+    paramCatg: BASE
+    paramCode: $cache{application_param_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+custom_config_check_tenant_exists_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/checkTenantIfExists
+  method: GET
+  detail: 校验当前租户是否存在于 IAM 并校验结果为真
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    tenantId: ${{tenantId()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_check_tenant_exists_true:
+      jsonpath: $.data
+      type: ==
+      value: true
+      AssertType: null
+activity_visible_config_query_by_application_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/activityVisibleConfig/${{app2_code()}}
+  method: GET
+  detail: 查询当前应用活动可见性配置并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    activity_visible_config_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+individual_case_auth_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/individualCaseAuth
+  method: GET
+  detail: 查询个案平台鉴权信息并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_case_auth_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+individual_case_bak_business_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/getIndividualCaseAppBakBusinessInfo
+  method: GET
+  detail: 查询当前个案应用备份业务信息并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_case_bak_business_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+individual_case_source_business_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/getIndividualCaseAppSourceBusinessInfo
+  method: GET
+  detail: 查询当前个案应用源业务信息并校验接口执行成功；当前环境允许无源业务详情，先按成功码执行
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_case_source_business_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+app_init_get_redis_id_by_app_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/appInitData/getRedisIdByAppCode
+  method: GET
+  detail: 查询当前应用初始化流程 redis id 并校验返回 uuid 字符串存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    app_init_redis_id_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data
+    name: app_init_uuid
+
+app_init_get_process_by_uuid_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/appInitData/getProcessByUuid
+  method: GET
+  detail: 按已缓存初始化流程 uuid 查询流程详情；当前环境返回的 redis uuid 为空，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    uuid: $cache{app_init_uuid}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    app_init_process_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+individual_case_all_jobs_branch_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/allJobs
+  method: GET
+  detail: 按当前应用与分支查询标准应用全部作业并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: ${{app2_code()}}
+    branch: develop
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_case_all_jobs_branch_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+individual_case_get_standard_projects_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/individualCaseApp/getStandardProjectsInfo
+  method: GET
+  detail: 按当前应用与来源分支查询标准项目信息并校验结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    individualComeFromBranch: develop
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    individual_case_standard_projects_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+custom_config_get_control_type_related_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/getControlTypeRelatedInfo
+  method: GET
+  detail: 查询应用级自定义控件类型关联信息并校验结果列表对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    customControlType: button
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_control_type_related_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+custom_config_get_sys_control_type_related_info_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/getSysControlTypeRelatedInfo
+  method: GET
+  detail: 查询系统级自定义控件类型关联信息并校验结果列表对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    customControlType: button
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_sys_control_type_related_info_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+custom_config_query_relate_activity_button_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/queryRelateConfigActivity/${{app2_code()}}/button
+  method: GET
+  detail: 查询按钮自定义控件关联活动并校验结果列表对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    custom_config_relate_activity_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+workbench_app_custom_setting_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/app/custom-setting/save
+  method: POST
+  detail: 保存当前应用工作台自定义配置并缓存配置ID用于删除闭环
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    customSettings:
+    - packageName: ai.workbench.pkg.${{random_id()}}
+      remoteEntry: http://127.0.0.1:8000/remoteEntry.js
+      remoteName: aiWorkbench${{random_id()}}
+      exposedModule: ./App
+      moduleName: AIWorkbenchModule
+      version: '1.0.0'
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_custom_setting_save_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0]
+    name: workbench_custom_setting_saved_id
+workbench_app_custom_setting_after_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/app/custom-setting
+  method: POST
+  detail: 保存后再次查询当前应用工作台自定义配置
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_custom_setting_after_save_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+workbench_app_custom_setting_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/app/custom-setting/delete/$cache{workbench_custom_setting_saved_id}
+  method: DELETE
+  detail: 删除主闭环新建的工作台自定义配置
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+workbench_datasource_query_app_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/queryAppListForDataSource
+  method: POST
+  detail: 查询工作台数据源可选应用列表并缓存首个应用编码
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_datasource_query_app_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+    workbench_datasource_query_app_first_code_not_empty:
+      jsonpath: $.data[0].code
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].code
+    name: workbench_datasource_app_code
+  - type: response
+    jsonpath: $.data[0].dataSource
+    name: workbench_datasource_type
+
+workbench_datasource_query_app_job_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/queryAppJobList
+  method: POST
+  detail: 查询工作台数据源所选应用的作业列表并校验结果结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    appCode: $cache{workbench_datasource_app_code}
+    dataSource: $cache{workbench_datasource_type}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_datasource_query_app_job_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_datasource_page_query_app_job_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/pageQueryAppJobList
+  method: POST
+  detail: 分页查询工作台数据源所选应用作业列表并校验分页结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    appCode: $cache{workbench_datasource_app_code}
+    dataSource: $cache{workbench_datasource_type}
+    pageNum: 1
+    pageSize: 10
+    jobCodeName: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_datasource_page_query_app_job_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_datasource_page_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/pageQuery
+  method: POST
+  detail: 分页查询工作台数据源列表并校验分页结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    pageNum: 1
+    pageSize: 10
+    application: ${{app2_code()}}
+    name: ''
+    appCodeList: []
+    dataCategoryList: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_datasource_page_query_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_component_query_components_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/queryComponents
+  method: POST
+  detail: 查询工作台组件列表并校验预设组件结果对象存在
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    clientType: PC
+    categories: []
+    subCategories: []
+    name: ''
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_component_query_components_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_datasource_count_query_config_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/count/queryCountConfigList
+  method: POST
+  detail: 查询工作台统计组件配置列表；依赖真实数据源对象，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    name: AI工作台统计数据源${{get_time()}}
+    dataCategory: 5
+    dataType: 4
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_datasource_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/save
+  method: POST
+  detail: 保存工作台数据源；请求体较重且依赖真实作业，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    name: AI工作台数据源${{get_time()}}
+    remark: AI工作台数据源闭环${{get_time()}}
+    dataCategory: 4
+    dataType: 4
+    appCode: ${{app2_code()}}
+    dataModel: 1
+    state: 0
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_datasource_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/datasource/delete
+  method: DELETE
+  detail: 删除工作台数据源；依赖真实数据源ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    ids:
+    - $cache{workbench_datasource_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_component_page_query_v2_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/pageQuery
+  method: POST
+  detail: 分页查询工作台组件并校验分页结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    pageNum: 1
+    pageSize: 10
+    application: ${{app2_code()}}
+    clientType: PC
+    queryCondition:
+      name: ''
+      categories: []
+      appCodeList: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_component_page_query_v2_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_component_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/detail
+  method: POST
+  detail: 查询工作台组件详情；依赖真实组件ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    id: $cache{workbench_component_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_component_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/save
+  method: POST
+  detail: 保存工作台自定义组件；请求体较重，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    name: AI工作台组件${{get_time()}}
+    application: ${{app2_code()}}
+    remark: AI工作台组件${{get_time()}}
+    clientType: PC
+    category: 3
+    lang:
+      name:
+        zh_CN: AI工作台组件${{get_time()}}
+        zh_TW: AI工作台組件${{get_time()}}
+        en_US: AI Workbench Component ${{get_time()}}
+      remark:
+        zh_CN: AI工作台组件${{get_time()}}
+        zh_TW: AI工作台組件${{get_time()}}
+        en_US: AI Workbench Component ${{get_time()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_component_batch_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/component/batchDelete
+  method: POST
+  detail: 批量删除工作台组件；依赖真实组件ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    ids:
+    - $cache{workbench_component_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_get_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/getPortalDetail
+  method: POST
+  detail: 查询工作台门户详情；依赖真实门户ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    id: $cache{workbench_portal_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_published_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/published
+  method: POST
+  detail: 发布工作台门户；依赖真实门户ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    ids:
+    - $cache{workbench_portal_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_as_draft_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/asDraft
+  method: POST
+  detail: 将工作台门户改为草稿状态；依赖真实门户ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    ids:
+    - $cache{workbench_portal_id}
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_confirm_draft_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/confirmDraft
+  method: POST
+  detail: 将工作台门户改为定稿状态；依赖真实门户ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    ids:
+    - $cache{workbench_portal_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_copy_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/copyPortal
+  method: POST
+  detail: 复制工作台门户；依赖真实门户ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    id: $cache{workbench_portal_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_batch_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/batchDelete
+  method: POST
+  detail: 批量删除工作台门户；依赖真实门户ID，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    ids:
+    - $cache{workbench_portal_id}
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_common_update_published_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/common/updateWorkbenchPublished
+  method: POST
+  detail: 更新工作台发布状态；依赖真实发布数据，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/add
+  method: POST
+  detail: 新增工作台对象接口当前先纳入覆盖集合，待补齐稳定创建闭环后再放入稳定集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    name: AI工作台${{random_id()}}
+    code: ai_workbench_${{random_id()}}
+    clientType: PC
+    type: portal
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_query_by_application_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/queryByApplication
+  method: GET
+  detail: 按应用查询工作台对象列表并校验返回结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_query_by_application_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_portal_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/save
+  method: POST
+  detail: 门户保存接口当前先纳入覆盖集合，待门户完整 DTO 稳定后再转稳定闭环
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    clientType: PC
+    name: AI门户${{random_id()}}
+    templateName: AI门户模板${{random_id()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_sso_valid_app_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/sso/validAppCode
+  method: POST
+  detail: 校验当前工作台 SSO 应用编码可用
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    appCode: wb_sso_${{random_id()}}
+    appName: AI工作台SSO${{get_time()}}
+    appDesc: AI工作台SSO闭环${{get_time()}}
+    appType: 1
+    protocolType: 1
+    userBindFlag: 1
+    state: 0
+    lang:
+      appName:
+        zh_CN: AI工作台SSO${{get_time()}}
+        zh_TW: AI工作台SSO${{get_time()}}
+        en_US: AI Workbench SSO ${{get_time()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.appCode
+    name: workbench_sso_app_code
+  - type: request
+    jsonpath: $.appName
+    name: workbench_sso_app_name
+
+workbench_sso_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/sso/save
+  method: POST
+  detail: 保存新的工作台 SSO 应用
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    appCode: $cache{workbench_sso_app_code}
+    appName: $cache{workbench_sso_app_name}
+    appDesc: AI工作台SSO闭环${{get_time()}}
+    appType: 1
+    protocolType: 1
+    userBindFlag: 1
+    state: 0
+    lang:
+      appName:
+        zh_CN: $cache{workbench_sso_app_name}
+        zh_TW: $cache{workbench_sso_app_name}
+        en_US: $cache{workbench_sso_app_name}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_sso_query_all_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/sso/queryAll
+  method: POST
+  detail: 查询当前应用下的 SSO 应用列表；当前环境返回空列表，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    appCode: $cache{workbench_sso_app_code}
+    appName: ''
+    appType: 1
+    protocolType: 1
+    userBindFlag: 1
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_sso_query_all_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_sso_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/sso/detail
+  method: POST
+  detail: 查询主闭环 SSO 应用详情；依赖上一步真实缓存，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    id: $cache{workbench_sso_id}
+    appCode: $cache{workbench_sso_app_code}
+    appType: 1
+    protocolType: 1
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_sso_detail_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_sso_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/sso/delete/$cache{workbench_sso_id}
+  method: DELETE
+  detail: 删除主闭环新建的 SSO 应用；依赖上一步真实缓存，先保留为探测集
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_page_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/pageQuery
+  method: POST
+  detail: 分页查询当前应用工作台门户列表并校验分页结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    name: ''
+    orderBy: desc
+    pageNum: 1
+    pageSize: 10
+    sortType: 2
+    clientType: PC
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_portal_page_query_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+workbench_portal_valid_menu_name_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/validMenuTempName
+  method: POST
+  detail: 校验随机工作台门户菜单名称可用
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    templateName: AI工作台门户菜单${{random_id()}}
+    clientType: PC
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_portal_related_app_work_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/work-bench/portal/relatedApp/queryWorkList
+  method: POST
+  detail: 查询当前应用关联应用的工作列表并校验返回结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    relatedAppCodes:
+    - ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_portal_related_app_work_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+
+
+

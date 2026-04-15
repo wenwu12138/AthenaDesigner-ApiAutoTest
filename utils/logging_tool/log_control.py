@@ -15,6 +15,22 @@ import sys
 from common.setting import ensure_path_sep
 
 
+# 控制控制台编码和日志编码统一 避免乱码
+if os.name == "nt":
+    try:
+        import ctypes
+        ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+        ctypes.windll.kernel32.SetConsoleCP(65001)
+    except Exception:
+        pass
+
+# Align console streams to UTF-8 so manual pytest runs print Chinese logs correctly.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
+
 class LogHandler:
     """ 日志打印封装，支持PyInstaller打包环境 """
     # 日志级别关系映射
@@ -53,7 +69,7 @@ class LogHandler:
         # 设置日志级别
         self.logger.setLevel(self.level_relations.get(level))
         # 往屏幕上输出
-        screen_output = logging.StreamHandler()
+        screen_output = logging.StreamHandler(sys.stdout)
         # 设置屏幕上显示的格式
         screen_output.setFormatter(formatter)
         # 往文件里写入#指定间隔时间自动生成文件的处理器

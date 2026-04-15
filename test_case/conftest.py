@@ -157,6 +157,10 @@ def get_iam_token():
 
     }
 
+
+
+
+    """
     #     #  双虎地端环境
     #     data = {
     #     "userId": "default",
@@ -168,7 +172,24 @@ def get_iam_token():
     #    'digi-middleware-auth-app': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczMjY2ODk0NjEsInNpZCI6NDA3MTI4ODI1NTM0NDY0MSwiaWQiOiJEaWdpd2luQ2xvdWQifQ.XGPl3brNeNTCivWN_bIYj8TfcxqlkQ0sFV2woPOr0TY',
     #    'digi-middleware-device-id': 'bYdVWJHMnxMl/wj0DPeFlkpHNWO12g/RNg9oc+CtSxRkdmQUJVyFvAp5lBcJB8ytn5SeAhsp+YDfZk50ohrJU/Rw/AcHjlIoqE2wRByylk8=',
     #    'Content-Type': 'application/json'
+    # } 
+    
+    
+    # #  诺斯贝尔地端环境
+    # data = {
+    #     "userId": "default",
+    #     "passwordHash": "faseWaUCaK8Hf93hC+PJI9H5q4tCt3M8s7BJB745FN0=",
+    #     "clientEncryptPublicKey": "SLQ9N8+RkhJeXv/HfsnFgVqCkWaMjHqR2x/rIHT/KCBZctdr+/urJ1aWmnBqMbPDmC3vf2AAhqseAoRgaZc86oYkIjQ+M1QQXLezDH/RX3uIDPDzvX2bQ5YB6LCB5OrM3EHF/kWhZFbvFCaidnR9nqGNgZJhdMQ9UWGkWKf/EZPYbgvYeuADqvGP+865WnpdwKGjHcBD+IQN9mWpy4vT5901jiCeeBJTh7ancaoGYXN9rlr9FdsAnMEaTzWm3JP0Y/hpyl8TbuP98e21L7SFnv1qHooTcIohQtHU9sNXryf/Cyll2K2w1Sy3vvPYyC3bNyL/KhoaqHrIk0pxeg6YDg==",
+    #     "excludeNonVisible": True,
+    #     "tenantId":config.tenantId
     # }
+    # headers = {
+    #    'digi-middleware-auth-app': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzczMjY2ODk0NjEsInNpZCI6NDA3MTI4ODI1NTM0NDY0MSwiaWQiOiJEaWdpd2luQ2xvdWQifQ.XGPl3brNeNTCivWN_bIYj8TfcxqlkQ0sFV2woPOr0TY',
+    #    'digi-middleware-device-id': 'bYdVWJHMnxMl/wj0DPeFltZH+TCZtgamWMy/niJTac0Z8x+glj4ZxegziksoZkLoCCpxpDwhdxdnPbJQqL/3JQCfh7cPtUAOCYd+840bDF8=',
+    #    'Content-Type': 'application/json'
+    # }
+    
+    """
 
 
 
