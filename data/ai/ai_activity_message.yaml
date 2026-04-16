@@ -6,7 +6,7 @@ activity_configs_get_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityByCode
   method: GET
-  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈡椿鍔ㄤ俊鎭紱褰撳墠鐜杩斿洖绮剧畝瀵硅薄涓旂己灏戠ǔ瀹氱瀛愶紝鍏堥€€鍑虹ǔ瀹氶泦
+  detail: 按活动编码查询活动信息；当前环境返回精简对象且缺少稳定种子，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -48,7 +48,7 @@ activity_configs_get_basic_info_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityBasicInfo
   method: GET
-  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈡椿鍔ㄥ熀纭€淇℃伅锛涘綋鍓嶇幆澧冭繑鍥炵┖鍒楄〃锛屽厛閫€鍑虹ǔ瀹氶泦
+  detail: 按活动编码查询活动基础信息；当前环境返回空列表，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -89,7 +89,7 @@ activity_configs_get_list_by_application_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityListByApplication
   method: GET
-  detail: 鎸夊簲鐢ㄦ煡璇㈡椿鍔ㄥ垪琛紱鍒楄〃鎺掑簭涓嶇ǔ瀹氾紝鍏堥€€鍑虹ǔ瀹氶泦
+  detail: 按应用查询活动列表；列表排序不稳定，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -130,7 +130,7 @@ activity_config_seed_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityListByPatternAndApplication
   method: GET
-  detail: 鏌ヨ鏁版嵁褰曞叆娲诲姩鍒楄〃骞剁紦瀛橀鏉℃椿鍔ㄧ紪鐮侊紱褰撳墠鐜鏃犵ǔ瀹氱瀛愶紝鍏堥€€鍑虹ǔ瀹氶泦
+  detail: 查询数据录入活动列表并缓存首条活动编码；当前环境无稳定种子，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -179,7 +179,7 @@ activity_config_get_config_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityConfigByCode/$cache{activity_config_seed_code}
   method: GET
-  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈤厤缃鎯咃紱渚濊禆涓嶇ǔ瀹氱瀛愶紝鍏堥€€鍑虹ǔ瀹氶泦
+  detail: 按活动编码查询配置详情；依赖不稳定种子，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -204,7 +204,7 @@ activity_config_get_data_entry_by_application_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getDataEntryByApplication
   method: GET
-  detail: 鎸夊簲鐢ㄦ煡璇㈡暟鎹綍鍏ユ椿鍔ㄥ苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
+  detail: 按应用查询数据录入活动并校验当前环境下稳定返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -230,7 +230,7 @@ activity_config_get_data_entry_user_table_name_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getDataEntryUserTableName
   method: GET
-  detail: 鎸夌紦瀛樻椿鍔ㄧ紪鐮佹煡璇㈠綍鍏ヨ〃鍚嶅苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍊?
+  detail: 按缓存活动编码查询录入表名并校验当前环境下稳定返回空值
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -256,7 +256,7 @@ activity_config_get_sign_metadata_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getSignDataEntryMetaData
   method: GET
-  detail: 鎸夋椿鍔ㄧ紪鐮佹煡璇㈠綍鍏ュ厓鏁版嵁锛涗緷璧栦笉绋冲畾绉嶅瓙锛屽厛閫€鍑虹ǔ瀹氶泦
+  detail: 按活动编码查询录入元数据；依赖不稳定种子，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -302,7 +302,7 @@ activity_config_get_custom_id_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getCustomId
   method: GET
-  detail: 鏌ヨ褰撳墠绉熸埛鑷畾涔夋爣璇嗕俊鎭苟鏍￠獙绉熸埛鍚嶇О瀹㈡埛缂栧彿涓庡綊灞炴爣璇嗗瓨鍦?
+  detail: 查询当前租户自定义标识信息并校验租户名称、客户编号与归属标识存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -342,7 +342,7 @@ activity_config_validate_exist_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/validateExist
   method: GET
-  detail: 鏍￠獙娲诲姩瀛樺湪锛涗緷璧栦笉绋冲畾绉嶅瓙锛屽厛閫€鍑虹ǔ瀹氶泦
+  detail: 校验活动存在；依赖不稳定种子，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -383,7 +383,7 @@ activity_config_post_get_activity_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityList
   method: POST
-  detail: 鎸夊簲鐢ㄤ笌妯″紡鍒嗛〉鏌ヨ娲诲姩鍒楄〃锛涗笌绉嶅瓙鍒楄〃棣栨潯瀵归綈涓嶇ǔ瀹氾紝鍏堥€€鍑虹ǔ瀹氶泦
+  detail: 按应用与模式分页查询活动列表；与种子列表首条对齐不稳定，先退出稳定集
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -427,7 +427,7 @@ activity_config_get_activity_list_by_pattern_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityListByPattern
   method: GET
-  detail: 鎸夋ā寮忔煡璇㈠叏灞€娲诲姩鍒嗙粍鍒楄〃骞舵牎楠岄缁勫簲鐢ㄦ爣璇嗗瓨鍦ㄤ笖娲诲姩鍒楄〃闈炵┖
+  detail: 按模式查询全局活动分组列表并校验首组应用标识存在且活动列表非空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -468,7 +468,7 @@ activity_types_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activity/types
   method: GET
-  detail: 鏌ヨ娲诲姩绫诲瀷鍒楄〃骞舵牎楠岄鏉＄被鍨嬬紪鐮佸悕绉板瓨鍦?
+  detail: 查询活动类型列表并校验首条类型编码与名称存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -503,7 +503,7 @@ activity_query_configs_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activity/queryActivityConfigsByPage
   method: GET
-  detail: 鍒嗛〉鏌ヨ娲诲姩閰嶇疆鍒楄〃骞剁紦瀛橀鏉℃椿鍔ㄧ紪鐮佺敤浜庡悗缁椿鍔ㄦ牎楠?
+  detail: 分页查询活动配置列表并缓存首条活动编码用于后续活动校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -549,7 +549,7 @@ activity_check_res_id_used_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activity/checkResIdUsed
   method: POST
-  detail: 鏍￠獙涓嶅瓨鍦ㄧ殑璧勬簮鏍囪瘑鏈浣跨敤骞舵柇瑷€鐘舵€佷负鏈娇鐢?
+  detail: 校验不存在的资源标识未被使用并断言状态为未使用
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -586,7 +586,7 @@ activity_query_favourite_public_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activity/queryFavourite
   method: GET
-  detail: 鏌ヨ鍏叡娲诲姩鏀惰棌骞舵牎楠岄鏉℃敹钘忕紪鐮佸簲鐢ㄤ笌鍒嗙被瀛樺湪
+  detail: 查询公共活动收藏并校验首条收藏编码应用与分类存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -627,7 +627,7 @@ aim_scene_query_channels_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimScene/queryChannels
   method: GET
-  detail: 鏌ヨ娑堟伅鍦烘櫙娓犻亾鍒楄〃骞舵牎楠岄鏉℃笭閬撴爣绛惧垎绫诲拰鍊煎瓨鍦?
+  detail: 查询消息场景渠道列表并校验首条渠道标签、分类和值存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -667,7 +667,7 @@ aim_event_query_platform_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimEvent/queryListOfPlatForm
   method: GET
-  detail: 鏌ヨ骞冲彴浜嬩欢鍒楄〃骞剁紦瀛橀鏉′簨浠舵爣璇嗙敤浜庡悗缁秷鎭簨浠堕棴鐜牎楠?
+  detail: 查询平台事件列表并缓存首条事件标识用于后续消息事件闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -711,7 +711,7 @@ aim_event_query_platform_and_app_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimEvent/queryEventOfPlatFormAndApp
   method: GET
-  detail: 鏌ヨ骞冲彴涓庡簲鐢ㄤ簨浠跺垪琛ㄥ苟鏍￠獙棣栨潯浜嬩欢鏍囪瘑涓庡钩鍙颁簨浠跺垪琛ㄤ竴鑷?
+  detail: 查询平台与应用事件列表并校验首条事件标识与平台事件列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -747,7 +747,7 @@ aim_scene_query_all_open_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimScene/queryAllOpenAimScenes
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤寮€鏀炬秷鎭満鏅苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
+  detail: 查询当前应用弢放消息场景并校验当前环境下稳定返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -773,7 +773,7 @@ aim_scene_insert_for_event_closure_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimScene/insert
   method: POST
-  detail: 鍒涘缓缁戝畾骞冲彴浜嬩欢鐨勫簲鐢ㄧ骇娑堟伅鍦烘櫙鐢ㄤ簬浜嬩欢鍏宠仈涓庤鏄庨棴鐜牎楠?
+  detail: 创建绑定平台事件的应用级消息场景，用于事件关联与说明闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -784,19 +784,19 @@ aim_scene_insert_for_event_closure_001:
   data:
     application: ${{app2_code()}}
     type:
-      name: AI瑕嗙洊鐜囦簨浠跺満鏅?{{get_time()}}
+      name: AI事件场景闭环${{get_time()}}
       eventLevel: 2
-      description: AI瑕嗙洊鐜囦簨浠跺満鏅?
+      description: AI事件场景闭环
       triggerId: $cache{aim_event_first_id}
       triggerLevel: 1
       lang:
         name:
-          zh_CN: AI瑕嗙洊鐜囦簨浠跺満鏅?
-          zh_TW: AI瑕嗚搵鐜囦簨浠跺牬鏅?
+          zh_CN: AI事件场景闭环
+          zh_TW: AI事件場景閉環
           en_US: AI Coverage Event Scene
         description:
-          zh_CN: AI瑕嗙洊鐜囦簨浠跺満鏅?
-          zh_TW: AI瑕嗚搵鐜囦簨浠跺牬鏅?
+          zh_CN: AI事件场景闭环
+          zh_TW: AI事件場景閉環
           en_US: AI Coverage Event Scene
   dependence_case: false
   dependence_case_data: null
@@ -822,7 +822,7 @@ aim_event_query_all_scene_by_event_id_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimEvent/queryAllSceneByEventId
   method: GET
-  detail: 鏌ヨ骞冲彴浜嬩欢鍏宠仈鍦烘櫙骞舵牎楠屾柊寤哄満鏅悕绉颁笌瑙﹀彂浜嬩欢鏍囪瘑鍙懡涓?
+  detail: 查询平台事件关联场景并校验新建场景名称与触发事件标识可用
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -859,7 +859,7 @@ aim_scene_query_event_body_explain_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimScene/queryEventBodyExplain
   method: GET
-  detail: 鏌ヨ鏂板缓娑堟伅鍦烘櫙鐨勪簨浠朵綋璇存槑骞舵牎楠岃鏄庡垪琛ㄩ潪绌?
+  detail: 查询新建消息场景的事件体说明并校验说明列表非空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -886,7 +886,7 @@ aim_scene_detail_for_event_closure_001:
   url: /athena-designer/aimScene/detail/$cache{aim_scene_event_sid}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询新建消息场景详情并校验场景名称与应用归属
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -923,7 +923,7 @@ aim_scene_delete_for_event_closure_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/aimScene/delete/$cache{aim_scene_event_sid}
   method: GET
-  detail: 鍒犻櫎浜嬩欢闂幆涓柊寤虹殑娑堟伅鍦烘櫙骞舵仮澶嶇幆澧?
+  detail: 删除事件闭环中新建的消息场景并恢复环境
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -943,7 +943,7 @@ activity_process_seed_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityListByPatternAndApplication
   method: GET
-  detail: 鏌ヨ鏁版嵁褰曞叆娲诲姩鍒楄〃骞剁紦瀛橀鏉℃椿鍔ㄧ紪鐮佺敤浜庢椿鍔ㄦā鍨嬩笌娴佺▼瀛楁闂幆鏍￠獙
+  detail: 查询数据录入活动列表并缓存首条活动编码用于活动模型与流程字段闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -979,7 +979,7 @@ activity_process_get_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getActivityByCode
   method: GET
-  detail: 鎸夌紦瀛樻椿鍔ㄧ紪鐮佹煡璇㈡椿鍔ㄤ俊鎭苟鏍￠獙妯″瀷缂栫爜鏈嶅姟缂栫爜涓庡簲鐢ㄥ綊灞炲瓨鍦?
+  detail: 按缓存活动编码查询活动信息并校验模型编码、服务编码与应用归属存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1028,7 +1028,7 @@ activity_get_abi_inner_token_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getAbiInnerToken
   method: GET
-  detail: 鏌ヨ ABI 鍐呴儴 token 骞舵牎楠岃繑鍥炲€奸潪绌?
+  detail: 查询 ABI 内部 token 并校验返回值非空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1053,7 +1053,7 @@ activity_get_tbb_inner_token_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/activityConfigs/getTbbInnerToken
   method: GET
-  detail: 鏌ヨ TBB 鍐呴儴 token 骞舵牎楠岃繑鍥炲€奸潪绌?
+  detail: 查询 TBB 内部 token 并校验返回值非空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1078,7 +1078,7 @@ message_notification_query_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/messageNotification/queryAll
   method: GET
-  detail: 鏌ヨ鍏ㄩ儴娑堟伅閫氱煡骞剁紦瀛橀鏉￠€氱煡缂栫爜涓庢爣棰?
+  detail: 查询全部消息通知并缓存首条通知编码与标题
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1120,7 +1120,7 @@ message_notification_query_by_user_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/messageNotification/queryMessageByUser
   method: GET
-  detail: 鏌ヨ褰撳墠鐢ㄦ埛娑堟伅閫氱煡骞舵牎楠岄鏉￠€氱煡缂栫爜涓庢爣棰樺拰鍏ㄩ噺閫氱煡涓€鑷?
+  detail: 查询当前用户消息通知并校验首条通知编码与标题和全量通知一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1150,7 +1150,7 @@ message_notification_query_valid_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/messageNotification/queryValid
   method: GET
-  detail: 鏌ヨ褰撳墠鏈夋晥娑堟伅閫氱煡骞舵牎楠岄鏉￠€氱煡鐘舵€佷笌鐢ㄦ埛鑼冨洿瀛樺湪
+  detail: 查询当前有效消息通知并校验首条通知状态与用户范围存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1175,7 +1175,7 @@ message_notification_query_topic_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/messageNotification/queryTopic
   method: GET
-  detail: 鏌ヨ娑堟伅閫氱煡璁㈤槄涓婚骞舵牎楠岀郴缁熶富棰樹笌鐢ㄦ埛涓婚瀛樺湪
+  detail: 查询消息通知订阅主题并校验系统主题与用户主题存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1210,7 +1210,7 @@ upgrade_notification_query_history_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/upgradeNotification/queryHistory
   method: GET
-  detail: 鏌ヨ鍗囩骇閫氱煡鍘嗗彶鍒楄〃骞剁紦瀛橀鏉￠€氱煡缂栫爜涓庣姸鎬?
+  detail: 查询升级通知历史列表并缓存首条通知编码与状态
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1252,7 +1252,7 @@ upgrade_notification_query_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/upgradeNotification/queryAll
   method: GET
-  detail: 鏌ヨ鍏ㄩ儴鍗囩骇閫氱煡骞舵牎楠岄鏉￠€氱煡缂栫爜涓庣姸鎬佸拰鍘嗗彶鍒楄〃涓€鑷?
+  detail: 查询全部升级通知并校验首条通知编码与状态和历史列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1288,7 +1288,7 @@ upgrade_notification_query_valid_001:
   url: /athena-designer/upgradeNotification/queryValid
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询当前有效升级通知并校验返回结果结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1314,7 +1314,7 @@ aim_event_detail_001:
   url: /athena-designer/aimEvent/detail
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询平台事件详情并校验事件标识与名称存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1336,7 +1336,7 @@ aim_event_query_list_001:
   url: /athena-designer/aimEvent/queryList
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询事件列表并校验分页结果与事件信息存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1367,7 +1367,7 @@ aim_scene_query_by_condition_001:
   url: /athena-designer/aimScene/queryByCondition
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按条件查询消息场景并校验场景列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1397,7 +1397,7 @@ message_notification_query_product_news_001:
   url: /athena-designer/messageNotification/queryProductNews
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询产品动态消息并校验返回结果结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1424,7 +1424,7 @@ aim_scene_application_query_by_condition_001:
   url: /athena-designer/aimScene/application/queryByCondition
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按应用条件查询消息场景并校验场景列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1454,7 +1454,7 @@ aim_scene_platform_query_by_condition_001:
   url: /athena-designer/aimScene/platform/queryByCondition
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按平台条件查询消息场景并校验场景列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1483,7 +1483,7 @@ backendmanage_is_manager_001:
   url: /athena-designer/backgroundManagement/isManager
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询后台管理权限标记并校验返回结果结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1510,7 +1510,7 @@ backendmanage_query_application_data_list_by_page_001:
   url: /athena-designer/backgroundManagement/queryApplicationDataListByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询应用数据列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1540,7 +1540,7 @@ backendmanage_query_application_data_list_total_001:
   url: /athena-designer/backgroundManagement/queryApplicationDataListTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询应用数据总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1568,7 +1568,7 @@ backendmanage_all_tenant_application_data_list_by_page_001:
   url: /athena-designer/backgroundManagement/allTenantApplicationDataListByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询全租户应用数据列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1598,7 +1598,7 @@ backendmanage_all_tenant_application_data_list_total_001:
   url: /athena-designer/backgroundManagement/allTenantApplicationDataListTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全租户应用数据总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1626,7 +1626,7 @@ backendmanage_query_application_data_num_001:
   url: /athena-designer/backgroundManagement/queryApplicationDataNum
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询应用数据数量统计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1653,7 +1653,7 @@ backendmanage_all_tenant_application_data_num_001:
   url: /athena-designer/backgroundManagement/allTenantApplicationDataNum
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全租户应用数据数量统计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1680,7 +1680,7 @@ backendmanage_query_application_num_by_type_001:
   url: /athena-designer/backgroundManagement/queryApplicationNumByType
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询按类型统计的应用数量并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1707,7 +1707,7 @@ backendmanage_all_tenant_application_num_by_type_001:
   url: /athena-designer/backgroundManagement/allTenantApplicationNumByType
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全租户按类型统计的应用数量并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1734,7 +1734,7 @@ backendmanage_query_data_card_001:
   url: /athena-designer/backgroundManagement/queryDataCard
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询后台数据卡片统计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1761,7 +1761,7 @@ backendmanage_query_all_data_card_001:
   url: /athena-designer/backgroundManagement/queryAllDataCard
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全租户数据卡片统计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1788,7 +1788,7 @@ backendmanage_query_data_card2_001:
   url: /athena-designer/backgroundManagement/queryDataCard2
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询后台数据卡片扩展统计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1815,7 +1815,7 @@ backendmanage_all_tenant_data_card2_001:
   url: /athena-designer/backgroundManagement/allTenantDataCard2
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全租户数据卡片扩展统计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1842,7 +1842,7 @@ backendmanage_query_date_driven_line_001:
   url: /athena-designer/backgroundManagement/queryDateDrivenLine
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询按日期驱动的数据趋势并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1871,7 +1871,7 @@ backendmanage_all_date_driven_line_001:
   url: /athena-designer/backgroundManagement/AllDateDrivenLine
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全租户按日期驱动的数据趋势并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1900,7 +1900,7 @@ backendmanage_query_application_by_page_001:
   url: /athena-designer/backgroundManagement/queryApplicationByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询应用列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1931,7 +1931,7 @@ backendmanage_query_application_total_001:
   url: /athena-designer/backgroundManagement/queryApplicationTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询应用总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1960,7 +1960,7 @@ backendmanage_query_model_by_page_001:
   url: /athena-designer/backgroundManagement/queryModelByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询模型列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1991,7 +1991,7 @@ backendmanage_query_model_total_001:
   url: /athena-designer/backgroundManagement/queryModelTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询模型总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2020,7 +2020,7 @@ backendmanage_query_work_by_page_001:
   url: /athena-designer/backgroundManagement/queryWorkByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询工作项列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2051,7 +2051,7 @@ backendmanage_query_work_total_001:
   url: /athena-designer/backgroundManagement/queryWorkTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询工作项总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2080,7 +2080,7 @@ backendmanage_query_action_by_page_001:
   url: /athena-designer/backgroundManagement/queryActionByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询动作列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2111,7 +2111,7 @@ backendmanage_query_action_total_001:
   url: /athena-designer/backgroundManagement/queryActionTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询动作总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2140,7 +2140,7 @@ backendmanage_query_detection_by_page_001:
   url: /athena-designer/backgroundManagement/queryDetectionByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询监测项列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2171,7 +2171,7 @@ backendmanage_query_detection_total_001:
   url: /athena-designer/backgroundManagement/queryDetectionTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询监测项总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2200,7 +2200,7 @@ backendmanage_query_scheme_by_page_001:
   url: /athena-designer/backgroundManagement/querySchemeByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询方案列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2231,7 +2231,7 @@ backendmanage_query_scheme_total_001:
   url: /athena-designer/backgroundManagement/querySchemeTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询方案总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2260,7 +2260,7 @@ backendmanage_query_user_by_page_001:
   url: /athena-designer/backgroundManagement/queryUserByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询用户列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2291,7 +2291,7 @@ backendmanage_query_user_total_001:
   url: /athena-designer/backgroundManagement/queryUserTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询用户总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2320,7 +2320,7 @@ backendmanage_query_process_by_page_001:
   url: /athena-designer/backgroundManagement/queryProcessByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询流程列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2351,7 +2351,7 @@ backendmanage_query_process_total_001:
   url: /athena-designer/backgroundManagement/queryProcessTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询流程总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2380,7 +2380,7 @@ backendmanage_query_task_by_page_001:
   url: /athena-designer/backgroundManagement/queryTaskByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询任务列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2411,7 +2411,7 @@ backendmanage_query_task_total_001:
   url: /athena-designer/backgroundManagement/queryTaskTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询任务总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2440,7 +2440,7 @@ backendmanage_query_hooks_by_page_001:
   url: /athena-designer/backgroundManagement/queryHooksByPage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询钩子列表并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2471,7 +2471,7 @@ backendmanage_query_hooks_total_001:
   url: /athena-designer/backgroundManagement/queryHooksTotal
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询钩子总数并校验统计结果存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2500,7 +2500,7 @@ activity_message_visible_config_query_by_application_001:
   url: /athena-designer/activityVisibleConfig/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按应用查询活动可见性配置并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2527,7 +2527,7 @@ activity_visible_config_query_avc_by_code_001:
   url: /athena-designer/activityVisibleConfig/avc/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按编码查询活动可见性配置详情并校验编码匹配
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2554,7 +2554,7 @@ activity_configs_query_full_by_code_001:
   url: /athena-designer/activityConfigs/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按编码查询活动完整配置并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2581,7 +2581,7 @@ activity_configs_recovery_tbb_report_001:
   url: /athena-designer/activityConfigs/recoveryTbbReport
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 恢复 TBB 报表配置并校验接口执行成功
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2604,7 +2604,7 @@ activity_configs_query_config_by_code_path_001:
   url: /athena-designer/activityConfigs/getActivityConfigByCode/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按路径编码查询活动配置并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2631,7 +2631,7 @@ action_query_esp_action_fields_in_model_001:
   url: /athena-designer/action/queryEspActionFieldsInModel
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 ESP 动作模型字段并校验字段列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2660,7 +2660,7 @@ action_esp_sync_progress_001:
   url: /athena-designer/action/esp/syncProgess/test_uuid
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 ESP 同步进度并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2687,7 +2687,7 @@ action_esp_sync_meta_data_001:
   url: /athena-designer/action/esp/syncMetaData
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 ESP 同步元数据并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2715,7 +2715,7 @@ assistant_query_scene_list_001:
   url: /athena-designer/assistant/sceneList
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询助手场景列表并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2743,7 +2743,7 @@ assistant_query_home_page_001:
   url: /athena-designer/assistant/assistantHomePage
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询助手首页配置并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2771,7 +2771,7 @@ assistant_scene_query_all_001:
   url: /athena-designer/assistantScene/getAll
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全部助手场景并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2799,7 +2799,7 @@ assistant_skill_template_auth_001:
   url: /athena-designer/assistantSkill/template/auth
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询助手技能模板权限并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2827,7 +2827,7 @@ abi_query_sys_data_001:
   url: /athena-designer/abi/sysData
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 ABI 系统数据并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2855,7 +2855,7 @@ abi_query_data_view_param_fields_001:
   url: /athena-designer/abi/datasource/queryDataViewParamFields
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 ABI 数据视图参数字段并校验字段列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2884,7 +2884,7 @@ abi_query_action_data_view_fields_001:
   url: /athena-designer/abi/action/queryDataViewFields
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 ABI 动作数据视图字段并校验字段列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2907,7 +2907,320 @@ abi_query_action_data_view_fields_001:
       value: null
       AssertType: null
 
+assistant_scene_ai_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantScene/add
+  method: POST
+  detail: 新增助手场景，作为助手场景闭环前置数据
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: asa_scene_${{random_hexcode()}}
+    name: AI助手场景${{get_time()}}
+    description: AI助手场景闭环${{get_time()}}
+    inspirationPhrase:
+    - AI助手触发语${{get_time()}}
+    itemSteps: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.code
+    name: assistant_scene_ai_code
+  - type: request
+    jsonpath: $.name
+    name: assistant_scene_ai_name
 
+assistant_scene_ai_get_all_after_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantScene/getAll
+  method: GET
+  detail: 查询助手场景列表，确认新增后列表接口稳定返回
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    applicationCode: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_scene_ai_get_all_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
 
+assistant_scene_ai_modify_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantScene/modify
+  method: POST
+  detail: 更新当前助手场景名称与描述，形成助手场景更新闭环
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: $cache{assistant_scene_ai_code}
+    name: AI助手场景更新${{get_time()}}
+    description: AI助手场景更新闭环${{get_time()}}
+    inspirationPhrase:
+    - AI助手更新触发语${{get_time()}}
+    itemSteps: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+assistant_scene_ai_update_sort_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantScene/update/sort
+  method: POST
+  detail: 调整当前助手场景排序，补齐助手场景排序接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+  - $cache{assistant_scene_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+assistant_scene_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistantScene/deleteByCode
+  method: DELETE
+  detail: 删除当前助手场景，回收助手场景闭环残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: $cache{assistant_scene_ai_code}
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+assistant_model_synonym_ai_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/ai/synonym/add
+  method: POST
+  detail: 新增助手模型同义词，作为同义词闭环前置数据
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    synonymType: '1'
+    properNoun: AI助手同义词标准词${{get_time()}}
+    synonymWord: AI助手别名${{get_time()}}/AI助手别称${{get_time()}}
+    description: AI助手同义词闭环${{get_time()}}
+    lang:
+      properNoun:
+        zh_CN: AI助手同义词标准词${{get_time()}}
+        zh_TW: AI助手同義詞標準詞${{get_time()}}
+        en_US: "AI assistant synonym standard ${{get_time()}}"
+      synonymWord:
+        zh_CN: AI助手别名${{get_time()}}/AI助手别称${{get_time()}}
+        zh_TW: AI助手別名${{get_time()}}/AI助手別稱${{get_time()}}
+        en_US: "ai assistant alias ${{get_time()}}/ai assistant nickname ${{get_time()}}"
+      description:
+        zh_CN: AI助手同义词闭环${{get_time()}}
+        zh_TW: AI助手同義詞閉環${{get_time()}}
+        en_US: AI assistant synonym closure ${{get_time()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.properNoun
+    name: assistant_model_synonym_ai_proper_noun
+
+assistant_model_synonym_ai_list_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/ai/synonym/list
+  method: POST
+  detail: 按标准词查询助手模型同义词列表并缓存 synonymCode
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    synonymType: '1'
+    searchWord: $cache{assistant_model_synonym_ai_proper_noun}
+    pageIndex: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_model_synonym_ai_list_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+    assistant_model_synonym_ai_list_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data[0].synonymCode
+    name: assistant_model_synonym_ai_code
+
+assistant_model_synonym_ai_modify_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/ai/synonym/modify
+  method: POST
+  detail: 更新当前助手模型同义词内容，补齐同义词更新接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    synonymCode: $cache{assistant_model_synonym_ai_code}
+    properNoun: $cache{assistant_model_synonym_ai_proper_noun}
+    synonymWord: AI助手同义词更新${{get_time()}}/AI助手别称更新${{get_time()}}
+    description: AI助手同义词更新闭环${{get_time()}}
+    lang:
+      properNoun:
+        zh_CN: $cache{assistant_model_synonym_ai_proper_noun}
+        zh_TW: $cache{assistant_model_synonym_ai_proper_noun}
+        en_US: $cache{assistant_model_synonym_ai_proper_noun}
+      synonymWord:
+        zh_CN: AI助手同义词更新${{get_time()}}/AI助手别称更新${{get_time()}}
+        zh_TW: AI助手同義詞更新${{get_time()}}/AI助手別稱更新${{get_time()}}
+        en_US: "ai assistant synonym update ${{get_time()}}/ai assistant alias update ${{get_time()}}"
+      description:
+        zh_CN: AI助手同义词更新闭环${{get_time()}}
+        zh_TW: AI助手同義詞更新閉環${{get_time()}}
+        en_US: AI assistant synonym update ${{get_time()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+assistant_model_synonym_ai_export_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/ai/synonym/export
+  method: POST
+  detail: 导出当前助手模型同义词查询结果并校验返回结构稳定
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    synonymType: '1'
+    searchWord: $cache{assistant_model_synonym_ai_proper_noun}
+    pageIndex: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    assistant_model_synonym_ai_export_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+assistant_model_synonym_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/assistant/ai/synonym/delete
+  method: POST
+  detail: 删除当前助手模型同义词，回收同义词闭环残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    synonymCode:
+    - $cache{assistant_model_synonym_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null

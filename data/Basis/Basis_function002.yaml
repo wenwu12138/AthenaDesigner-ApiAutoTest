@@ -27,7 +27,7 @@ basis_AddBranch_002:
         en_US: ""
         zh_CN: ""
         zh_TW: ""
-    application: ${{app2_code()}}
+    application: ${{app_Basicfunction()}}
   # 是否有依赖业务，为空或者false则表示没有
   dependence_case: False
   # 依赖的数据
@@ -57,7 +57,7 @@ basis_Compile_002:
   requestType: json
   is_run: true
   data:
-    application: ${{app2_code()}}
+    application: ${{app_Basicfunction()}}
     description: ${{get_time()}}-備份分支(備份分支2)編譯
     branch: bak
     versionNum:
@@ -96,7 +96,7 @@ basis_PublishTest_002:
   is_run: "'正式' in '${{env()}}' or '测试' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         compileDataCode: $cache{compileDataCode}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
@@ -113,7 +113,7 @@ basis_PublishTest_002:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -168,7 +168,7 @@ basis_SwitchPlanTest_002:
   is_run: "'正式' in '${{env()}}' or '测试' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
           createDate: '2025-05-16 00:50:37'
@@ -184,7 +184,7 @@ basis_SwitchPlanTest_002:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -237,7 +237,7 @@ basis_PublishHuaweiProd_002:
   is_run: "'正式' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         compileDataCode: $cache{compileDataCode}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
@@ -254,7 +254,7 @@ basis_PublishHuaweiProd_002:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -305,7 +305,7 @@ basis_SwitchPlanHuaweiProd_002:
   is_run: "'正式' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
           createDate: '2025-05-16 00:50:37'
@@ -321,7 +321,7 @@ basis_SwitchPlanHuaweiProd_002:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -370,7 +370,7 @@ basis_PublishAzureProd_002:
   is_run: "'正式' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         compileDataCode: $cache{compileDataCode}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
@@ -387,7 +387,7 @@ basis_PublishAzureProd_002:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -438,7 +438,7 @@ basis_SwitchPlanAzureProd_002:
   is_run: "'正式' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
           createDate: '2025-05-16 00:50:37'
@@ -454,7 +454,7 @@ basis_SwitchPlanAzureProd_002:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -507,7 +507,7 @@ basis_QueryTenantPipeline_local001:
   requestType: params
   is_run: "'地端' in '${{env()}}'"
   data:
-    application: ${{app2_code()}}
+    application: ${{app_Basicfunction()}}
   # 是否有依赖业务，为空或者false则表示没有
   dependence_case: false
   # 依赖的数据
@@ -543,7 +543,7 @@ basis_PublishTest_local001:
   is_run: "'地端' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         compileDataCode: $cache{compileDataCode}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
@@ -560,7 +560,7 @@ basis_PublishTest_local001:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}
@@ -615,7 +615,7 @@ basis_SwitchPlanTest_local001:
   is_run: "'地端' in '${{env()}}'"
   data:
     applicationDataList:
-      - application: ${{app2_code()}}
+      - application: ${{app_Basicfunction()}}
         applicationInfoDto:
           createBy: wenwu@digiwin.com
           createDate: '2025-05-16 00:50:37'
@@ -631,7 +631,7 @@ basis_SwitchPlanTest_local001:
               zh_TW: 通用驗證Z
               en_US: 通用驗證Z
           objectId: 68261b5d42bd111dc73b7976
-          code: ${{app2_code()}}
+          code: ${{app_Basicfunction()}}
           name: 通用驗證Z
           description: 通用驗證Z
           tenantId: ${{tenantId()}}

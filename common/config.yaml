@@ -21,6 +21,7 @@ environments:
     tenantName: "配置测试器"
     serviceCode: DPBAS
     api_serviceCode: dpbas
+    app_Basicfunction: Ab337572cfAT
 
   # 华为测试区（current_environment: "huawei-test" 时使用此配置）
   huawei-test:
@@ -38,6 +39,7 @@ environments:
     tenantName: "配置测试器"
     serviceCode: DPBAS
     api_serviceCode: dpbas
+    app_Basicfunction: Ac7412cb21AT
 
   # 阿里Paas区（current_environment: "ali-paas" 时使用此配置）
   ali-paas:
@@ -55,6 +57,7 @@ environments:
     tenantName: "配置测试器"
     serviceCode: DPBAS
     api_serviceCode: dpbas
+    app_Basicfunction: A68c17b067AT
 
   # 地端双虎环境（current_environment: "on-premise" 时使用此配置）
   on-premise:
@@ -72,6 +75,7 @@ environments:
     tenantName: "武汉双虎涂料股份有限公司测试"
     serviceCode: dtdapp
     api_serviceCode: dtdapp
+    app_Basicfunction: A68c17b067AT
 
   zsnbc:
     env: "诺斯贝尔地端环境"
@@ -88,6 +92,7 @@ environments:
     tenantName: "诺斯贝尔化妆品股份有限公司测试"
     serviceCode: dtdapp
     api_serviceCode: dtdapp
+    app_Basicfunction: A68c17b067AT
 
 
 

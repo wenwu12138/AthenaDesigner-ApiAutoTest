@@ -3750,6 +3750,706 @@ workbench_portal_related_app_work_list_001:
       value: null
       AssertType: null
 
+application_get_base_info_export_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/getApplicationBaseInfo
+  method: GET
+  detail: 导出应用基础信息表，校验下载接口返回成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    status_code: 200
+
+application_export_ad_template_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/exportAdTemplate
+  method: GET
+  detail: 导出当前应用服务编排模板，校验下载接口返回成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    status_code: 200
+
+application_export_activity_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/application/exportActivity
+  method: GET
+  detail: 导出当前应用活动配置，校验下载接口返回成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    status_code: 200
+
+application_group_ai_create_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationGroup/upsertApplicationGroup
+  method: POST
+  detail: 创建应用分组并缓存真实 groupCode
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    groupName: AI应用分组${{random_id()}}
+    version: v1
+    groupSort: '1'
+    lang:
+      groupName:
+        zh_CN: AI应用分组${{random_id()}}
+        zh_TW: AI應用分組${{random_id()}}
+        en_US: AI App Group ${{random_id()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_group_code_not_empty:
+      jsonpath: $.data.groupCode
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.groupCode
+    name: app_group_ai_code
+
+application_group_ai_query_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationGroup/getGroupByApplication
+  method: GET
+  detail: 查询当前应用分组列表并校验返回结构有效
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    application_group_query_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+application_group_ai_modify_empty_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationGroup/modifyApplicationGroup
+  method: POST
+  detail: 执行应用分组调整接口的轻量空载调用并校验成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+application_group_ai_sort_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationGroup/sortList
+  method: POST
+  detail: 对主闭环分组执行排序保存并校验成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    list:
+    - code: $cache{app_group_ai_code}
+      groupCode: $cache{app_group_ai_code}
+      children: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+application_group_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/applicationGroup/deleteApplicationGroup/$cache{app_group_ai_code}
+  method: DELETE
+  detail: 删除主闭环创建的应用分组并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+app_custom_export_ai_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/add
+  method: POST
+  detail: 创建应用级定制配置并缓存 adpCode 用于导出
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    name: AI应用定制配置${{random_id()}}
+    description: AI应用定制配置导出闭环
+    path: /ai/app/custom/${{random_id()}}
+    chunkName: aiAppCustom${{random_id()}}.js
+    isMF: false
+    customControl: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    app_custom_export_adp_code_not_empty:
+      jsonpath: $.data.adpCode
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.adpCode
+    name: app_custom_export_adp_code
+
+app_custom_export_ai_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/exportCustomControl
+  method: GET
+  detail: 导出主闭环应用级定制配置并校验下载接口返回成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    adpCode: $cache{app_custom_export_adp_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    status_code: 200
+
+app_custom_export_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/deleteCustomConfig
+  method: POST
+  detail: 删除主闭环应用级定制配置并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    adpCode: $cache{app_custom_export_adp_code}
+    application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+sys_custom_export_ai_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/addSysCustomConfig
+  method: POST
+  detail: 创建系统级定制配置并缓存 adpCode
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    name: AI系统定制配置${{random_id()}}
+    description: AI系统定制配置导出闭环
+    path: /ai/sys/custom/${{random_id()}}
+    chunkName: aiSysCustom${{random_id()}}.js
+    isMF: false
+    customControl: []
+    shareTenantIdList: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    sys_custom_export_adp_code_not_empty:
+      jsonpath: $.data.adpCode
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.adpCode
+    name: sys_custom_export_adp_code
+
+sys_custom_export_ai_update_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/updateSysCustomConfig
+  method: POST
+  detail: 更新主闭环系统级定制配置并校验成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    adpCode: $cache{sys_custom_export_adp_code}
+    name: AI系统定制配置更新${{random_id()}}
+    description: AI系统定制配置更新闭环
+    path: /ai/sys/custom/update/${{random_id()}}
+    chunkName: aiSysCustomUpdate${{random_id()}}.js
+    isMF: false
+    customControl: []
+    shareTenantIdList: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+sys_custom_export_ai_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/exportSysCustomControl
+  method: GET
+  detail: 导出主闭环系统级定制配置并校验下载接口返回成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    adpCode: $cache{sys_custom_export_adp_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    status_code: 200
+
+sys_custom_export_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/customConfig/deleteSysCustomConfig
+  method: POST
+  detail: 删除主闭环系统级定制配置并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    adpCode: $cache{sys_custom_export_adp_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_asset_ai_add_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/add
+  method: POST
+  detail: 创建工作台对象并缓存真实 code
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    name: AI工作台对象${{random_id()}}
+    description: AI工作台对象闭环
+    sort: 1
+    lang:
+      name:
+        zh_CN: AI工作台对象${{random_id()}}
+        zh_TW: AI工作台對象${{random_id()}}
+        en_US: AI Workbench Asset ${{random_id()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_asset_code_not_empty:
+      jsonpath: $.data
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data
+    name: workbench_asset_code
+
+workbench_asset_ai_query_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/queryByCode
+  method: GET
+  detail: 按 code 查询主闭环工作台对象详情
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: $cache{workbench_asset_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    workbench_asset_query_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: $cache{workbench_asset_code}
+      AssertType: null
+
+workbench_asset_ai_update_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/update
+  method: POST
+  detail: 更新主闭环工作台对象并校验成功
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: $cache{workbench_asset_code}
+    application: ${{app2_code()}}
+    name: AI工作台对象更新${{random_id()}}
+    description: AI工作台对象更新闭环
+    sort: 2
+    lang:
+      name:
+        zh_CN: AI工作台对象更新${{random_id()}}
+        zh_TW: AI工作台對象更新${{random_id()}}
+        en_US: AI Workbench Asset Update ${{random_id()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+workbench_asset_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/workbench/delete
+  method: GET
+  detail: 删除主闭环工作台对象并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    code: $cache{workbench_asset_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+template_asset_ai_create_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/template
+  method: POST
+  detail: 创建最小服务编排模板并缓存 objectId 与 id
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    name: AI服务编排模板${{get_time()}}
+    lang:
+      name:
+        zh_CN: AI服务编排模板${{get_time()}}
+        zh_TW: AI服務編排模板${{get_time()}}
+        en_US: AI Template ${{get_time()}}
+    links: []
+    tasks:
+    - id: Task${{random_id()}}
+      name: node-js-${{random_id()}}
+      description: AI服务编排模板闭环
+      type: JS
+      inputParameters:
+        script: 'return {"msg":"ok"}'
+      graphData:
+        position:
+          x: -45.5
+          y: -53.5
+        size:
+          width: 68
+          height: 40
+        attrs:
+          body:
+            rx: 6
+            ry: 6
+            stroke: '#2113D9'
+            fill: '#DAE8FF'
+            strokeWidth: 1
+            magnet: false
+          label:
+            text: 脚本
+            fontSize: 12
+            textWrap:
+              width: 68
+              ellipsis: true
+        visible: true
+        shape: rect
+        id: node-${{random_id()}}
+        nodeType: js
+        markup:
+        - tagName: rect
+          selector: body
+        - tagName: text
+          selector: label
+        ports:
+          groups:
+            top:
+              position: top
+              attrs:
+                circle:
+                  r: 4
+                  magnet: true
+                  stroke: '#5F95FF'
+                  strokeWidth: 1
+                  fill: '#fff'
+                  style:
+                    visibility: hidden
+          items:
+          - group: top
+            id: port-${{random_id()}}
+        zIndex: 1
+    applicationCode: ${{app2_code()}}
+    addSourceType: auto_perspective
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    template_asset_object_id_not_empty:
+      jsonpath: $.data.objectId
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.objectId
+    name: template_asset_object_id
+  - type: response
+    jsonpath: $.data.id
+    name: template_asset_id
+
+template_asset_ai_get_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/template
+  method: GET
+  detail: 按模板 id 查询主闭环服务编排模板详情
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    id: $cache{template_asset_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    template_asset_id_match:
+      jsonpath: $.data.id
+      type: ==
+      value: $cache{template_asset_id}
+      AssertType: null
+
+template_asset_ai_copy_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/template/copyTemplate
+  method: POST
+  detail: 复制主闭环服务编排模板并缓存复制后的 objectId
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    tenantIds: ${{tenantId()}}
+    objectId: $cache{template_asset_object_id}
+    newTemplateName: AI复制模板${{random_id()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    template_asset_copy_object_not_empty:
+      jsonpath: $.data
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data
+    name: template_asset_copy_object_id
+
+template_asset_ai_delete_copy_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/template/id/$cache{template_asset_copy_object_id}
+  method: DELETE
+  detail: 删除复制得到的服务编排模板并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+template_asset_ai_delete_origin_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/template/id/$cache{template_asset_object_id}
+  method: DELETE
+  detail: 删除主闭环原始服务编排模板并清理残留
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: JSON
+  is_run: true
+  data: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
 
 
 

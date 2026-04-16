@@ -6,7 +6,7 @@ task_application_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/application
   method: GET
-  detail: 鏌ヨ浠诲姟搴旂敤鍒楄〃骞舵牎楠岄鏉″簲鐢ㄧ紪鐮佷笌鍚嶇О瀛樺湪
+  detail: 查询任务应用列表并校验首条应用编码与名称存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -41,7 +41,7 @@ task_project_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/project
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤椤圭洰鍒楄〃骞剁紦瀛橀涓」鐩紪鐮佺敤浜庨〉闈㈡爲闂幆鏍￠獙
+  detail: 查询当前应用项目列表并缓存首个项目编码用于页面树闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -81,7 +81,7 @@ task_page_view_tree_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/pageViewTree
   method: GET
-  detail: 鏌ヨ椤甸潰瑙嗗浘鏍戝苟鏍￠獙棣栦釜椤圭洰鑺傜偣缂栫爜涓庝换鍔￠」鐩垪琛ㄩ鏉￠」鐩竴鑷?
+  detail: 查询页面视图树并校验首个项目节点编码与任务项目列表首条项目一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -117,7 +117,7 @@ task_task_tree_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/taskTree
   method: GET
-  detail: 鏌ヨ浠诲姟鏍戝苟鏍￠獙鏍硅妭鐐逛负褰撳墠搴旂敤涓斿瓙浠诲姟鍒楄〃闈炵┖
+  detail: 查询任务树并校验根节点为当前应用且子任务列表非空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -153,7 +153,7 @@ process_find_field_by_model_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findFiledByModelCode
   method: GET
-  detail: 鎸夌紦瀛樻ā鍨嬬紪鐮佷笌鏈嶅姟缂栫爜鏌ヨ瀛楁鍒楄〃骞舵牎楠岄鏉″瓧娈靛悕绉版弿杩颁笌鍒悕瀛樺湪
+  detail: 按缓存模型编码与服务编码查询字段列表并校验首条字段名称描述与别名存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -195,7 +195,7 @@ process_find_model_info_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findModelByCode
   method: POST
-  detail: 鎸夌紦瀛樻ā鍨嬬紪鐮佷笌鏈嶅姟缂栫爜鏌ヨ妯″瀷淇℃伅骞舵牎楠屾ā鍨嬬紪鐮佹湇鍔＄紪鐮佷笌鍚嶇О涓€鑷?
+  detail: 按缓存模型编码与服务编码查询模型信息并校验模型编码、服务编码与名称一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -223,7 +223,7 @@ monitor_rule_get_all_products_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/monitorRule/getAllProducts
   method: GET
-  detail: 鏌ヨ搴旂敤鍙敤浜у搧鍒楄〃骞剁紦瀛橀涓骇鍝佺紪鐮佷笌鍚嶇О
+  detail: 查询应用可用产品列表并缓存首个产品编码与名称
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -266,7 +266,7 @@ monitor_rule_get_tree_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/monitorRule/getMonitorRuleTree
   method: GET
-  detail: 鏌ヨ搴旂敤鐩戞祴瑙勫垯鏍戝苟鏍￠獙鏍硅妭鐐圭紪鐮佷笌鍚嶇О瀛樺湪
+  detail: 查询应用监测规则树并校验根节点编码与名称存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -302,7 +302,7 @@ page_design_query_by_application_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/pageDesign/queryByApplication
   method: GET
-  detail: 鏌ヨ搴旂敤涓嬬晫闈㈣璁″垪琛ㄥ苟缂撳瓨棣栨潯鐣岄潰缂栫爜涓庡悕绉?
+  detail: 查询应用下界面设计列表并缓存首条界面编码与名称
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -345,7 +345,7 @@ page_design_query_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/pageDesign/queryByCode
   method: GET
-  detail: 鎸夌紦瀛樼晫闈㈢紪鐮佹煡璇㈣鎯呭苟鏍￠獙鐣岄潰缂栫爜涓庡悕绉颁竴鑷?
+  detail: 按缓存界面编码查询详情并校验界面编码与名称一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -376,7 +376,7 @@ page_design_query_data_sources_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/pageDesign/queryDataSourcesByCode
   method: GET
-  detail: 鎸夌紦瀛樼晫闈㈢紪鐮佹煡璇㈡暟鎹簮骞舵牎楠岀储寮曟暟鎹簮鍚嶇О瀛樺湪
+  detail: 按缓存界面编码查询数据源并校验索引数据源名称存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -407,7 +407,7 @@ page_design_get_action_id_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/pageDesign/getActionIdByCode
   method: GET
-  detail: 鎸夌紦瀛樼晫闈㈢紪鐮佹煡璇㈠姩浣滄爣璇嗗苟鏍￠獙鏄庣粏鍔ㄤ綔瀛樺湪
+  detail: 按缓存界面编码查询动作标识并校验明细动作存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -433,7 +433,7 @@ page_design_assign_name_check_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/pageDesign/assignNameCheck
   method: GET
-  detail: 鎸夌紦瀛樼晫闈㈢紪鐮佹牎楠岀晫闈㈠悕绉版鏌ョ粨鏋滀负鐪?
+  detail: 按缓存界面编码校验界面名称检查结果为空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -459,7 +459,7 @@ page_design_esp_product_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/pageDesign/espProduct/${{app2_code()}}
   method: GET
-  detail: 鏌ヨ搴旂敤鍙敤ESP浜у搧骞舵牎楠岄椤逛负褰撳墠搴旂敤涓旂粨鏋滃垪琛ㄩ潪绌?
+  detail: 查询应用可用 ESP 产品并校验首项为当前应用且结果列表非空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -489,7 +489,7 @@ project_find_app_effect_adp_version_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/groupHistory/findAppEffectAdpVersion
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤鐢熸晥ADP鐗堟湰骞剁紦瀛樼増鏈彿鐢ㄤ簬椤圭洰鏌ヨ鍓嶇疆鏍￠獙
+  detail: 查询当前应用生效ADP版本并缓存版本号用于项目查询前置校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -519,7 +519,7 @@ project_canvas_not_upgrade_exists_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/canvas/notUpgrade/exists
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤鐢诲竷涓嶅崌绾ф爣璁板苟鏍￠獙褰撳墠鐜涓嬫湭寮€鍚鐘舵€?
+  detail: 查询当前应用画布不升级标记并校验当前环境下未开启该状态
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -545,7 +545,7 @@ project_project_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/projectList/${{app2_code()}}
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤椤圭洰鍒楄〃骞剁紦瀛橀涓」鐩紪鐮佸悕绉颁笌鏉ユ簮鐢ㄤ簬鍚庣画闂幆鏍￠獙
+  detail: 查询当前应用项目列表并缓存首个项目编码名称与来源用于后续闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -592,7 +592,7 @@ project_projects_simple_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/projects
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤椤圭洰绮剧畝鍒楄〃骞舵牎楠岄涓」鐩紪鐮佸悕绉颁笌鏉ユ簮鍜岄」鐩垪琛ㄤ竴鑷?
+  detail: 查询当前应用项目精简列表并校验首个项目编码、名称与来源和项目列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -633,7 +633,7 @@ project_projects_by_execute_type_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/projects
   method: GET
-  detail: 鎸夋墽琛岀被鍨嬫煡璇㈤」鐩簿绠€鍒楄〃骞舵牎楠岄涓」鐩紪鐮佷笌鏉ユ簮鍜屽熀绾块」鐩垪琛ㄤ竴鑷?
+  detail: 按执行类型查询项目精简列表并校验首个项目编码与来源和基线项目列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -670,7 +670,7 @@ project_query_project_list_v2_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/v2/queryProjectList
   method: POST
-  detail: 鍒嗛〉鏌ヨ褰撳墠搴旂敤椤圭洰鍒楄〃骞舵牎楠屾€绘暟澶т簬闆朵笖棣栨潯椤圭洰鍚嶇О涓庢祦绋嬬紪鍙峰瓨鍦?
+  detail: 分页查询当前应用项目列表并校验总数大于零且首条项目名称与流程编号存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -717,7 +717,7 @@ project_get_project_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/getProject/$cache{project_first_code}
   method: GET
-  detail: 鏌ヨ棣栦釜椤圭洰鏄庣粏骞剁紦瀛樻祦绋嬬紪鍙风敤浜庡悗缁祦绋嬫槑缁嗛棴鐜牎楠?
+  detail: 查询首个项目明细并缓存流程编号用于后续流程明细闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -757,7 +757,7 @@ project_project_tree_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/projectTree/${{app2_code()}}
   method: GET
-  detail: 鏌ヨ椤圭洰鏍戝苟鏍￠獙鏍硅妭鐐逛负褰撳墠搴旂敤涓斿悕绉板瓨鍦?
+  detail: 查询项目树并校验根节点为当前应用且名称存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -797,7 +797,7 @@ process_find_process_count_by_trigger_type_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findProcessCountByTriggerType
   method: GET
-  detail: 鏌ヨ娴佺▼鐩戞祴绫诲瀷娴佺▼鏁伴噺骞剁紦瀛樼粺璁″€肩敤浜庡拰鍒嗛〉鏌ヨ鎬绘暟鍋氫竴鑷存€ф牎楠?
+  detail: 查询流程监测类型流程数量并缓存统计用于和分页查询总数做一致校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -834,7 +834,7 @@ process_find_process_pagination_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findProcessPagination
   method: GET
-  detail: 鍒嗛〉鏌ヨ娴佺▼鐩戞祴绫诲瀷娴佺▼骞舵牎楠屽垎椤垫€绘暟涓庣粺璁℃煡璇㈢粨鏋滀竴鑷?
+  detail: 分页查询流程监测类型流程并校验分页数据与统计查询结果一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -874,7 +874,7 @@ process_find_process_by_id_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findProcessById
   method: GET
-  detail: 鏌ヨ棣栦釜椤圭洰鍏宠仈娴佺▼鏄庣粏骞舵牎楠屾祦绋嬬紪鍙烽」鐩紪鍙蜂笌搴旂敤褰掑睘涓€鑷?
+  detail: 查询首个项目关联流程明细并校验流程编号、项目编号与应用归属一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -915,7 +915,7 @@ project_get_solve_simple_projects_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/getSolveSimpleProjectByApplication/${{app2_code()}}
   method: GET
-  detail: 鏌ヨ搴旂敤绠€鍖栭」鐩垪琛ㄥ苟鏍￠獙褰撳墠鐜涓嬭繑鍥炵┖鍒楄〃
+  detail: 查询应用箢化项目列表并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -940,7 +940,7 @@ project_get_root_projects_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/getRootProjects/${{app2_code()}}
   method: GET
-  detail: 鏌ヨ搴旂敤鏍归」鐩垪琛ㄥ苟鏍￠獙褰撳墠鐜涓嬭繑鍥炵┖鍒楄〃
+  detail: 查询应用根项目列表并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -965,7 +965,7 @@ process_find_approvals_button_by_condition_id_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findApprovalsButtonByConditionId
   method: GET
-  detail: 鎸変笉瀛樺湪鐨勬潯浠剁紪鍙锋煡璇㈠鎵规寜閽垪琛ㄥ苟鏍￠獙褰撳墠鐜涓嬭繑鍥炵┖鍒楄〃
+  detail: 按不存在的条件编号查询审批按钮列表并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -992,7 +992,7 @@ process_find_process_list_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/findProcessList
   method: GET
-  detail: 鏌ヨ椤甸潰瑙﹀彂娴佺▼鍒楄〃骞剁紦瀛橀鏉℃祦绋嬬紪鍙风敤浜庡拰娴佺▼鏄庣粏閾捐矾鍋氫竴鑷存€ф牎楠?
+  detail: 查询页面触发流程列表并缓存首条流程编号用于和流程明细链路做一致校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1034,7 +1034,7 @@ process_query_waiting_nodes_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/process/queryWaitingNodes
   method: GET
-  detail: 鏌ヨ绛夊緟鑺傜偣鍒嗛〉缁撴灉骞舵牎楠屽綋鍓嶇幆澧冧笅鎬绘暟涓洪浂涓旀暟鎹垪琛ㄤ负绌?
+  detail: 查询等待节点分页结果并校验当前环境下总数为零且数据列表为空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1073,7 +1073,7 @@ resource_tree_query_list_of_source_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/resourceTree/queryListOfSource
   method: POST
-  detail: 鏌ヨ搴旂敤璧勬簮鏍戝苟缂撳瓨棣栦釜涓氬姟瀵硅薄缂栫爜涓庡悕绉?
+  detail: 查询应用资源树并缓存首个业务对象编码与名称
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1118,7 +1118,7 @@ resource_tree_query_model_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/resourceTree/queryModelListOfApplication
   method: POST
-  detail: 鏌ヨ搴旂敤涓绘ā鍨嬪垪琛ㄥ苟鏍￠獙棣栦釜妯″瀷缂栫爜涓庡悕绉板拰璧勬簮鏍戠粨鏋滀竴鑷?
+  detail: 查询应用主模型列表并校验首个模型编码与名称和资源树结果一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1156,7 +1156,7 @@ task_process_seed_project_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/v2/queryProjectList
   method: POST
-  detail: 鏌ヨ椤圭洰鍒嗛〉缁撴灉骞剁紦瀛橀涓」鐩紪鐮佷笌娴佺▼缂栧彿鐢ㄤ簬浠诲姟鍜屾祦绋嬬増鏈棴鐜牎楠?
+  detail: 查询项目分页结果并缓存首个项目编码与流程编号用于任务和流程版本闭环校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1195,7 +1195,7 @@ task_process_seed_project_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/getProject/$cache{task_process_project_code}
   method: GET
-  detail: 鏌ヨ棣栦釜椤圭洰鏄庣粏骞剁紦瀛樺垎缁勭紪鐮佺敤浜庝换鍔＄浉鍏虫煡璇㈤棴鐜?
+  detail: 查询首个项目明细并缓存分组编码用于任务相关查询闭环
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1224,7 +1224,7 @@ process_version_query_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/processVersion/queryList
   method: GET
-  detail: 鏌ヨ棣栨潯椤甸潰娴佺▼鍏宠仈鐗堟湰鍒楄〃骞舵牎楠屾祦绋嬬紪鍙风増鏈彿涓庣姸鎬佸瓨鍦?
+  detail: 查询首条页面流程关联版本列表并校验流程编号、版本号与状态存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1265,7 +1265,7 @@ task_get_task_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getTaskList
   method: GET
-  detail: 鏌ヨ浠诲姟鍒楄〃骞剁紦瀛橀涓换鍔＄紪鐮佺敤浜庣鎴蜂换鍔″垪琛ㄤ竴鑷存€ф牎楠?
+  detail: 查询任务列表并缓存首个任务编码用于租户任务列表一致校验
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1306,7 +1306,7 @@ tenant_task_get_task_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tenant/task/getTaskList
   method: GET
-  detail: 鏌ヨ绉熸埛浠诲姟鍒楄〃骞舵牎楠岄涓换鍔＄紪鐮佷笌鏅€氫换鍔″垪琛ㄤ竴鑷?
+  detail: 查询租户任务列表并校验首个任务编码与普通任务列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1338,7 +1338,7 @@ task_get_data_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getDataList
   method: GET
-  detail: 鏌ヨ浠诲姟鏁版嵁鍒楄〃骞舵牎楠屽綋鍓嶇幆澧冧笅杩斿洖绌哄垪琛?
+  detail: 查询任务数据列表并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1380,7 +1380,7 @@ tenant_task_get_data_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tenant/task/getDataList
   method: GET
-  detail: 鏌ヨ绉熸埛浠诲姟鏁版嵁鍒楄〃骞舵牎楠屽綋鍓嶇幆澧冧笅杩斿洖绌哄垪琛?
+  detail: 查询租户任务数据列表并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1422,7 +1422,7 @@ task_get_dtd_canvas_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getDtdCanvas
   method: GET
-  detail: 鏌ヨ浠诲姟鐢诲竷骞舵牎楠屽綋鍓嶇幆澧冧笅鏁版嵁鍏崇郴涓虹┖涓旀棤寰呭垹闄よ祫婧?
+  detail: 查询任务画布并校验当前环境下数据关系为空且无待删除资源
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1460,7 +1460,7 @@ tenant_task_get_dtd_canvas_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tenant/task/getDtdCanvas
   method: GET
-  detail: 鏌ヨ绉熸埛浠诲姟鐢诲竷骞舵牎楠屽綋鍓嶇幆澧冧笅鏁版嵁鍏崇郴涓虹┖涓旀棤寰呭垹闄よ祫婧?
+  detail: 查询租户任务画布并校验当前环境下数据关系为空且无待删除资源
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1498,7 +1498,7 @@ task_get_task_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getTask/$cache{task_process_first_task_code}
   method: GET
-  detail: 鏌ヨ浠诲姟鏄庣粏骞舵牎楠屼换鍔＄紪鐮佸垎缁勭紪鐮佷笌搴旂敤褰掑睘鍜屼换鍔″垪琛ㄤ竴鑷?
+  detail: 查询任务明细并校验任务编码、分组编码与应用归属和任务列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1538,7 +1538,7 @@ tenant_task_get_task_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tenant/task/getTask/$cache{task_process_first_task_code}
   method: GET
-  detail: 鏌ヨ绉熸埛浠诲姟鏄庣粏骞舵牎楠屼换鍔＄紪鐮佸垎缁勭紪鐮佷笌搴旂敤褰掑睘鍜屾櫘閫氫换鍔℃槑缁嗕竴鑷?
+  detail: 查询租户任务明细并校验任务编码、分组编码与应用归属和普通任务明细一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1573,7 +1573,7 @@ task_get_task_and_data_state_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getTaskAndDataState
   method: GET
-  detail: 鏌ヨ浠诲姟涓庢暟鎹姸鎬佹€昏骞舵牎楠岄涓换鍔＄紪鐮佷笌浠诲姟鍒楄〃涓€鑷翠笖鏁版嵁鍒楄〃涓虹┖
+  detail: 查询任务与数据状态览并校验首个任务编码与任务列表丢致且数据列表为空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1620,7 +1620,7 @@ task_get_dtd_canvas_tasks_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getDtdCanvasTasks
   method: GET
-  detail: 鏌ヨ浠诲姟鐢诲竷浠诲姟鎬昏骞舵牎楠岄涓换鍔＄紪鐮佷笌浠诲姟鍒楄〃涓€鑷翠笖鏁版嵁鍒楄〃涓虹┖
+  detail: 查询任务画布任务总览并校验首个任务编码与任务列表丢致且数据列表为空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1667,7 +1667,7 @@ task_get_data_list_by_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getDataListByCode
   method: GET
-  detail: 鎸変笉瀛樺湪鐨勬暟鎹紪鐮佹煡璇㈡暟鎹垪琛ㄥ苟鏍￠獙褰撳墠鐜涓嬭繑鍥炵┖鍒楄〃
+  detail: 按不存在的数据编码查询数据列表并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1694,7 +1694,7 @@ task_get_main_line_001:
   url: /athena-designer/task/getMainLine
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询项目主线任务并校验接口执行成功
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1715,7 +1715,7 @@ group_history_get_data_group_history_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/groupHistory/getDataGroupHistory
   method: GET
-  detail: 鎸変笉瀛樺湪鐨勬暟鎹粍缂栫爜鏌ヨ澶氱増鏈巻鍙插苟鏍￠獙褰撳墠鐜涓嬭繑鍥炵┖鍒楄〃
+  detail: 按不存在的数据组编码查询多版本历史并校验当前环境下返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1742,7 +1742,7 @@ group_history_query_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/groupHistory/queryList
   method: GET
-  detail: 鏌ヨ褰撳墠搴旂敤澶氱増鏈巻鍙插垪琛ㄥ苟鏍￠獙棣栨潯鐗堟湰鍙蜂笌鐢熸晥鐘舵€佸瓨鍦?
+  detail: 查询当前应用多版本历史列表并校验首条版本号与生效状态存在
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1784,7 +1784,7 @@ task_get_task_by_codes_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getTaskByCodes
   method: POST
-  detail: 鎸夌紦瀛樹换鍔＄紪鐮佹壒閲忔煡璇换鍔″苟鏍￠獙浠诲姟缂栫爜鍒嗙粍缂栫爜涓庡簲鐢ㄥ綊灞炲拰浠诲姟鍒楄〃涓€鑷?
+  detail: 按缓存任务编码批量查询任务并校验任务编码、分组编码与应用归属和任务列表一致
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1826,7 +1826,7 @@ task_query_assist_task_flow_info_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/queryAssistTaskFlowInfo
   method: GET
-  detail: 鎸夊簲鐢ㄦ煡璇㈣緟鍔╀换鍔℃祦绋嬩俊鎭苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
+  detail: 按应用查询辅助任务流程信息并校验当前环境下稳定返回空列表
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1852,7 +1852,7 @@ task_get_task_and_data_state_by_skill_code_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getTaskAndDataStateByApplicationAndSkillCode
   method: GET
-  detail: 鎸夊簲鐢ㄦ煡璇换鍔′笌鏁版嵁鐘舵€佹€昏骞舵牎楠屼换鍔″垪琛ㄩ潪绌洪鏉′换鍔″綊灞炴纭笖鏁版嵁鍒楄〃涓虹┖
+  detail: 按应用查询任务与数据状览并校验任务列表非空首条任务归属正确且数据列表为空
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1894,7 +1894,7 @@ pagedesign_ai_biz_add_001:
   url: /athena-designer/businessDir/add
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 新增 AI 业务目录并缓存目录编码用于页面设计闭环
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1904,20 +1904,20 @@ pagedesign_ai_biz_add_001:
   is_run: true
   data:
     code: pagedesign_ai_biz_${{random_id()}}
-    name: AI椤甸潰璁捐涓氬姟瀵硅薄${{get_time()}}
-    description: AI椤甸潰璁捐涓婚棴鐜笟鍔″璞?{{get_time()}}
+    name: AI页面设计业务对象${{get_time()}}
+    description: AI页面设计主闭环业务对象${{get_time()}}
     serviceCode: ${{serviceCode()}}
     needCreateApi: true
     customProperties: {}
     modelType: transaction
     lang:
       name:
-        zh_CN: AI椤甸潰璁捐涓氬姟瀵硅薄${{get_time()}}
-        zh_TW: AI闋侀潰瑷▓妤嫏灏嶈薄${{get_time()}}
+        zh_CN: AI页面设计业务对象${{get_time()}}
+        zh_TW: AI頁面設計業務對象${{get_time()}}
         en_US: AI PageDesign Biz Obj ${{get_time()}}
       description:
-        zh_CN: AI椤甸潰璁捐涓婚棴鐜笟鍔″璞?{{get_time()}}
-        zh_TW: AI闋侀潰瑷▓涓婚枆鐠版キ鍕欏皪璞?{{get_time()}}
+        zh_CN: AI页面设计主闭环业务对象${{get_time()}}
+        zh_TW: AI頁面設計主閉環業務對象${{get_time()}}
         en_US: AI PageDesign Biz Obj For Closure ${{get_time()}}
     tenantId: SYSTEM
     application: ${{app2_code()}}
@@ -1938,7 +1938,7 @@ pagedesign_ai_query_model_001:
   url: /athena-designer/modelDriver/queryModelByCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询业务目录关联模型并缓存模型编码用于页面设计闭环
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1978,7 +1978,7 @@ pagedesign_ai_generate_query_plan_001:
   url: /athena-designer/dataView/generateJustQueryPlan
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 生成查询方案并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1997,16 +1997,16 @@ pagedesign_ai_generate_query_plan_001:
     createDataViewList:
     - name: AI椤甸潰璁捐鏁版嵁瑙嗗浘
       dataViewType: page_design_view
-      description: AI椤甸潰璁捐鏁版嵁瑙嗗浘${{get_time()}}
+      description: AI页面设计数据视图${{get_time()}}
       sql: SELECT $cache{pagedesign_ai_biz_code}_id, manage_status, complete_state, serial_number, eoc_company_id, eoc_site_id, eoc_region_id, owner_dept_id, owner_dept_name, owner_emp_id, owner_emp_name, tenantsid, tenant_id, create_by, create_date, modified_by, modified_date, creator_name, modifier_name FROM $cache{pagedesign_ai_biz_code} ORDER BY created_date DESC
       lang:
         name:
-          zh_CN: AI椤甸潰璁捐鏁版嵁瑙嗗浘
-          zh_TW: AI闋侀潰瑷▓鏁告摎瑕栧湒
+          zh_CN: AI页面设计数据视图
+          zh_TW: AI頁面設計資料視圖
           en_US: AI PageDesign Data View
         description:
-          zh_CN: AI椤甸潰璁捐鏁版嵁瑙嗗浘${{get_time()}}
-          zh_TW: AI闋侀潰瑷▓鏁告摎瑕栧湒${{get_time()}}
+          zh_CN: AI页面设计数据视图${{get_time()}}
+          zh_TW: AI頁面設計資料視圖${{get_time()}}
           en_US: AI PageDesign Data View ${{get_time()}}
   dependence_case: false
   dependence_case_data: null
@@ -2021,7 +2021,7 @@ pagedesign_ai_query_data_view_001:
   url: /athena-designer/dataView/queryDataViewByModel
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询模型数据视图并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2060,7 +2060,7 @@ pagedesign_ai_generate_page_001:
   url: /athena-designer/pageDesign/generatePageDesignByQueryPlan
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 基于查询方案生成页面设计并缓存页面编码
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2069,7 +2069,7 @@ pagedesign_ai_generate_page_001:
   requestType: JSON
   is_run: true
   data:
-    name: AI椤甸潰璁捐鏌ヨ鏂规椤甸潰${{get_time()}}
+    name: AI页面设计查询方案页面${{get_time()}}
     dependOnGroundEnd: false
     authorityPrefix: ''
     application: ${{app2_code()}}
@@ -2084,8 +2084,8 @@ pagedesign_ai_generate_page_001:
     - $cache{pagedesign_ai_data_view_code}
     lang:
       name:
-        zh_CN: AI椤甸潰璁捐鏌ヨ鏂规椤甸潰${{get_time()}}
-        zh_TW: AI闋侀潰瑷▓鏌ヨ鏂规闋侀潰${{get_time()}}
+        zh_CN: AI页面设计查询方案页面${{get_time()}}
+        zh_TW: AI頁面設計查詢方案頁面${{get_time()}}
         en_US: AI PageDesign QueryPlan Page ${{get_time()}}
   dependence_case: false
   dependence_case_data: null
@@ -2109,7 +2109,7 @@ pagedesign_ai_query_by_code_001:
   url: /athena-designer/pageDesign/queryByCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按编码查询生成页面并校验页面编码匹配
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2140,7 +2140,7 @@ pagedesign_ai_update_001:
   url: /athena-designer/pageDesign/update
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 更新 AI 页面设计并校验接口执行成功
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2155,21 +2155,21 @@ pagedesign_ai_update_001:
     objectId: $cache{pagedesign_ai_page_object_id}
     code: $cache{pagedesign_ai_page_code}
     application: ${{app2_code()}}
-    name: AI椤甸潰璁捐鏌ヨ鏂规椤甸潰鏇存柊${{get_time()}}
+    name: AI页面设计查询方案页面更新${{get_time()}}
     lang:
       businessSubName:
-        zh_CN: AI椤甸潰璁捐鏌ヨ鏂规椤甸潰鏇存柊${{get_time()}}
-        zh_TW: AI闋侀潰瑷▓鏌ヨ鏂规闋侀潰鏇存柊${{get_time()}}
+        zh_CN: AI页面设计查询方案页面更新${{get_time()}}
+        zh_TW: AI頁面設計查詢方案頁面更新${{get_time()}}
         en_US: AI PageDesign QueryPlan Page Update ${{get_time()}}
       name:
-        zh_CN: AI椤甸潰璁捐鏌ヨ鏂规椤甸潰鏇存柊${{get_time()}}
-        zh_TW: AI闋侀潰瑷▓鏌ヨ鏂规闋侀潰鏇存柊${{get_time()}}
+        zh_CN: AI页面设计查询方案页面更新${{get_time()}}
+        zh_TW: AI頁面設計查詢方案頁面更新${{get_time()}}
         en_US: AI PageDesign QueryPlan Page Update ${{get_time()}}
     pageDsl:
       dataSources:
         $cache{pagedesign_ai_page_code}_index:
           sequence: 0
-          title: 绱㈠紩椤?
+          title: 索引页
           type: ESP
           actionId: esp_modeldriven.commons.eai.dataview.get
           serviceName: modeldriven.commons.eai.dataview.get
@@ -2179,8 +2179,8 @@ pagedesign_ai_update_001:
             type: total
           lang:
             title:
-              zh_CN: 绱㈠紩椤?
-              zh_TW: 绱㈠紩闋?
+              zh_CN: 索引页
+              zh_TW: 索引頁
               en_US: index page
           override: false
           metadataFields: []
@@ -2200,7 +2200,7 @@ pagedesign_ai_update_001:
       dataSources:
         $cache{pagedesign_ai_biz_code}_detail:
           sequence: 0
-          title: AI椤甸潰璁捐涓氬姟瀵硅薄${{get_time()}}
+          title: AI页面设计业务对象${{get_time()}}
           type: ESP
           actionId: esp_${{api_serviceCode()}}.$cache{pagedesign_ai_biz_code}.detail.get
           serviceName: ${{api_serviceCode()}}.$cache{pagedesign_ai_biz_code}.detail.get
@@ -2210,8 +2210,8 @@ pagedesign_ai_update_001:
             value: $cache{pagedesign_ai_biz_code}_id
           lang:
             title:
-              zh_CN: AI椤甸潰璁捐涓氬姟瀵硅薄${{get_time()}}
-              zh_TW: AI闋侀潰瑷▓妤嫏灏嶈薄${{get_time()}}
+              zh_CN: AI页面设计业务对象${{get_time()}}
+              zh_TW: AI頁面設計業務對象${{get_time()}}
               en_US: AI PageDesign Biz Obj ${{get_time()}}
           override: false
           dataViewQuery:
@@ -2263,7 +2263,7 @@ pagedesign_ai_query_by_code_after_update_001:
   url: /athena-designer/pageDesign/queryByCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 更新后再次查询页面并校验修改结果生效
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2295,7 +2295,7 @@ pagedesign_ai_delete_001:
   url: /athena-designer/pageDesign/delete
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 删除 AI 页面设计并回收闭环数据
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2317,7 +2317,7 @@ pagedesign_ai_biz_delete_001:
   url: /athena-designer/businessDir/delete
   method: POST
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 删除 AI 业务目录并回收闭环数据
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2342,7 +2342,7 @@ task_process_project_update_main_line_tasks_001:
   url: /athena-designer/project/updateMainLineTasks/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 更新项目主线任务并校验接口执行成功
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2364,7 +2364,7 @@ task_process_project_get_solve_simple_001:
   url: /athena-designer/project/getSolveSimpleProjectByApplication/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询解决方案精简项目列表并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2386,7 +2386,7 @@ task_process_project_can_skip_config_001:
   url: /athena-designer/project/getProject4TaskCanSkipConfig
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询项目可跳过配置并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2409,7 +2409,7 @@ task_process_tenant_get_process_in_combination_001:
   url: /athena-designer/process/tenant/getProcessInCombination
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询租户流程组合信息并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2433,7 +2433,7 @@ task_process_tenant_find_process_pagination_001:
   url: /athena-designer/process/tenant/findProcessPagination
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 分页查询租户流程并校验分页结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2458,7 +2458,7 @@ task_process_pagedesign_permission_by_code_001:
   url: /athena-designer/pageDesign/queryPageDesignPermissionByCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按页面编码查询页面设计权限并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2481,7 +2481,7 @@ task_process_pagedesign_form_publish_status_001:
   url: /athena-designer/pageDesign/queryFormPublishStatus
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询表单发布状态并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2504,7 +2504,7 @@ task_process_pagedesign_form_list_001:
   url: /athena-designer/pageDesign/queryFormList
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询表单列表并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2527,7 +2527,7 @@ task_process_pagedesign_query_fields_001:
   url: /athena-designer/pageDesign/queryFields
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询页面字段定义并校验字段列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2550,7 +2550,7 @@ task_process_pagedesign_query_fields_by_table_name_001:
   url: /athena-designer/pageDesign/queryFieldsByTableName
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按表名查询页面字段并校验字段列表结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2573,7 +2573,7 @@ task_process_pagedesign_lcdp_data_entry_001:
   url: /athena-designer/pageDesign/lcdpDataEntry/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 LCDP 数据录入配置并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2595,7 +2595,7 @@ task_process_pagedesign_get_page_design_by_model_001:
   url: /athena-designer/pageDesign/getPageDesignByModel
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按模型查询页面设计并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2618,7 +2618,7 @@ task_process_pagedesign_get_standards_permissions_001:
   url: /athena-designer/pageDesign/getDataEntryStandardsPermissions
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询页面标准权限并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2641,7 +2641,7 @@ task_process_mobile_page_query_by_workbench_code_001:
   url: /athena-designer/mobilePageDesign/queryByWorkbenchCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按工作台编码查询移动页面并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2664,7 +2664,7 @@ task_process_mobile_page_query_by_code_001:
   url: /athena-designer/mobilePageDesign/queryByCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按编码查询移动页面详情并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2687,7 +2687,7 @@ task_process_mechanism_service_domains_001:
   url: /athena-designer/mechanism/serviceDomains
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制服务域列表并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2710,7 +2710,7 @@ task_process_mechanism_task_page_struct_001:
   url: /athena-designer/mechanism/getTaskPageStruct
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询任务页面结构并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2734,7 +2734,7 @@ task_process_mechanism_task_data_struct_001:
   url: /athena-designer/mechanism/getTaskDataStruct
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询任务数据结构并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2758,7 +2758,7 @@ task_process_mechanism_resolve_plan_001:
   url: /athena-designer/mechanism/getResolvePlan
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制解析方案并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2782,7 +2782,7 @@ task_process_mechanism_project_page_struct_001:
   url: /athena-designer/mechanism/getProjectPageStruct
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询项目页面结构并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2806,7 +2806,7 @@ task_process_mechanism_get_detail_001:
   url: /athena-designer/mechanism/getMechanism
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制详情并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2829,7 +2829,7 @@ task_process_mechanism_output_template_001:
   url: /athena-designer/mechanism/getMechanismOutputTemplate
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制输出模板并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2852,7 +2852,7 @@ task_process_mechanism_group_and_items_001:
   url: /athena-designer/mechanism/getMechanismGroupAndMechanism
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制分组及条目并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2875,7 +2875,7 @@ task_process_mechanism_group_data_001:
   url: /athena-designer/mechanism/getGroupData
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制分组数据并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2898,7 +2898,7 @@ task_process_mechanism_data_struct_001:
   url: /athena-designer/mechanism/getDataStruct
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询机制数据结构并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2922,7 +2922,7 @@ task_process_mechanism_all_data_description_001:
   url: /athena-designer/mechanism/getAllDataDescription
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询全部数据说明并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2946,7 +2946,7 @@ task_process_data_description_and_state_001:
   url: /athena-designer/data/getDataDescriptionAndState
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询数据说明与状态并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2970,7 +2970,7 @@ task_process_data_find_decision_by_application_001:
   url: /athena-designer/data/findDecisionByApplication
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 按应用查询决策数据并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2993,7 +2993,7 @@ task_process_data_dd_and_ds_tree_001:
   url: /athena-designer/data/ddAndDsTree/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询 DD 与 DS 树并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3015,7 +3015,7 @@ task_process_data_tree_001:
   url: /athena-designer/data/dataTree/${{app2_code()}}
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询数据树并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3037,7 +3037,7 @@ task_process_build_data_get_page_design_code_001:
   url: /athena-designer/buildData/getPageDesignCode
   method: GET
 
-  detail: 自动补齐缺失说明，保留当前执行与断言逻辑
+  detail: 查询构建数据对应页面编码并校验返回结构稳定
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3765,9 +3765,520 @@ pagedesign_model_ai_generate_api_config_001:
       value: 0
       AssertType: null
 
+page_design_ext_query_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/queryByPage
+  method: POST
+  detail: 分页查询页面设计列表，覆盖 pageDesign 分页查询接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    pageIndex: 1
+    pageSize: 10
+    value:
+      application: ${{app2_code()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+page_design_ext_query_by_model_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/queryPageDesignByModel
+  method: POST
+  detail: 按模型编码查询页面设计列表，覆盖 pageDesign 模型查询接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    modelCode: $cache{pagedesign_ai_biz_code}
+    serviceCode: ${{serviceCode()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+page_design_ext_query_navigate_model_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/queryNavigateModel
+  method: POST
+  detail: 按模型编码查询导航模型，覆盖 pageDesign 导航模型查询接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    modelCode: $cache{pagedesign_ai_biz_code}
+    serviceCode: ${{serviceCode()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+page_design_ext_switch_to_low_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/switchToLowCode
+  method: POST
+  detail: 切换当前页面为低代码模式，覆盖 pageDesign 低代码切换接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    code: $cache{pagedesign_ai_page_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+page_design_ext_part_dsl_save_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/partOfDsl/save
+  method: POST
+  detail: 保存页面局部 DSL 配置，覆盖 pageDesign 局部保存接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    code: $cache{pagedesign_ai_page_code}
+    operations: []
+    submitActions: []
+    layout: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+page_design_ext_generate_default_dsl_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/generateDefaultDslByCode
+  method: POST
+  detail: 生成默认 DSL 结构，覆盖 pageDesign 默认 DSL 生成接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    category: DOUBLE-DOCUMENT-FORM
+    dataSourceList: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
 
+page_design_third_party_get_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/thirdParty/getPageDesignCode
+  method: POST
+  detail: 基于当前页面动作生成第三方作业编码，作为第三方页面闭环种子
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    type: pageDesign
+    application: ${{app2_code()}}
+    pageDesignName: AI第三方页面${{get_time()}}
+    actionId: $cache{pagedesign_ai_page_action_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    page_design_third_party_code_not_empty:
+      jsonpath: $.data.pageDesignCode
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.pageDesignCode
+    name: page_design_third_party_code
+
+page_design_ext_get_action_id_by_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/getActionIdByCode
+  method: GET
+  detail: 按当前 AI 页面编码查询动作标识，作为后续 taskPageDesigner 与 thirdParty 闭环种子
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{pagedesign_ai_page_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    page_design_ext_detail_action_not_empty:
+      jsonpath: $.data.detailAction
+      type: not_eq
+      value: ''
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.detailAction
+    name: pagedesign_ai_page_action_id
+
+page_design_third_party_get_auth_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/thirdParty/getPageDesignAuth
+  method: POST
+  detail: 查询第三方作业权限配置，覆盖第三方页面权限读取接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: $cache{page_design_third_party_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+page_design_third_party_add_or_update_auth_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/thirdParty/pageDesignAddOrUpdateAuth
+  method: POST
+  detail: 更新第三方作业权限配置，覆盖第三方页面权限保存接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    code: $cache{page_design_third_party_code}
+    operateCustomTemplateRelates: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+page_design_third_party_delete_auth_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/thirdParty/pageDesignDeleteAuth
+  method: POST
+  detail: 删除第三方作业权限配置，覆盖第三方页面权限删除接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    code: $cache{page_design_third_party_code}
+    operateCustomTemplateRelates: []
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+page_design_third_party_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/pageDesign/thirdParty/pageDesignDelete
+  method: POST
+  detail: 删除第三方作业编码对应的页面数据，确保第三方页面闭环可回收
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    code: $cache{page_design_third_party_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+task_page_designer_task_definition_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/taskPageDesigner/taskDefinition
+  method: GET
+  detail: 查询任务页面定义，覆盖 taskPageDesigner 任务定义接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    taskCode: $cache{task_process_first_task_code}
+    pageCode: $cache{pagedesign_ai_page_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+task_page_designer_redis_value_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/taskPageDesigner/redisValue
+  method: GET
+  detail: 查询任务页预览缓存值，覆盖 taskPageDesigner 缓存读取接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    key: $cache{pagedesign_ai_page_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+task_page_designer_metadata_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/taskPageDesigner/metadata
+  method: GET
+  detail: 查询任务页面元数据，覆盖 taskPageDesigner 元数据接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    actionId: $cache{pagedesign_ai_page_action_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+task_page_designer_tag_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/taskPageDesigner/tag
+  method: POST
+  detail: 查询任务页面标签信息，覆盖 taskPageDesigner 标签接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    resourceId: $cache{pagedesign_ai_page_object_id}
+    relationIds:
+    - $cache{task_process_first_task_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+task_page_designer_redis_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/taskPageDesigner/redisData
+  method: POST
+  detail: 生成任务页 redis 预览数据，覆盖 taskPageDesigner 预览缓存写入接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    taskCode: $cache{task_process_first_task_code}
+    pageCode: $cache{pagedesign_ai_page_code}
+    actionId: $cache{pagedesign_ai_page_action_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+task_page_designer_process_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/taskPageDesigner/process
+  method: POST
+  detail: 生成任务页流程预览数据，覆盖 taskPageDesigner 流程预览接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    taskCode: $cache{task_process_first_task_code}
+    pageCode: $cache{pagedesign_ai_page_code}
+    actionId: $cache{pagedesign_ai_page_action_id}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+page_view_design_query_by_task_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/v2/pageViewDesign/queryByTaskCode
+  method: GET
+  detail: 按任务编码查询页面视图，覆盖 v2 pageViewDesign 任务查询接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data:
+    taskCode: $cache{task_process_first_task_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+page_view_design_query_by_project_code_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/v2/pageViewDesign/queryByProjectCode
+  method: GET
+  detail: 按项目编码查询页面视图，覆盖 v2 pageViewDesign 项目查询接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    projectCode: $cache{task_project_first_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+page_view_design_data_entry_task_page_view_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/v2/pageViewDesign/dataEntryTaskPageView/$cache{task_process_first_task_code}
+  method: GET
+  detail: 查询任务录入页面视图，覆盖 v2 pageViewDesign 任务页面视图接口
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null

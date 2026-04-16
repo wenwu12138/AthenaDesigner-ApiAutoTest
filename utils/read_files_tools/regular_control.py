@@ -211,6 +211,13 @@ class Context:
         """获取api路径关键词"""
         return config.api_serviceCode
 
+    @classmethod
+    def app_Basicfunction(cls) -> str:
+        from utils import config
+        """获取api路径关键词"""
+        return config.app_Basicfunction
+
+
 
 
 def sql_json(js_path, res):

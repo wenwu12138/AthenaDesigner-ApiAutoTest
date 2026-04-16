@@ -227,6 +227,7 @@ class Config(BaseModel):
     athena_tenant_deployer_host: Text
     serviceCode: Text
     api_serviceCode: Text
+    app_Basicfunction: Text
 
 
 

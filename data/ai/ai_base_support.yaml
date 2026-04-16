@@ -1,12 +1,11 @@
-case_common:
-  allureEpic: 开发平台接口
-  allureFeature: AI闭环用例
-  allureStory: 基础支撑闭环
-background_is_manager_001:
+﻿case_common:
+  allureEpic: ??????
+  allureFeature: AI????
+  allureStory: ??????
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/isManager
   method: GET
-  detail: 查询当前用户是否具备后台管理权限
+  detail: 鏌ヨ褰撳墠鐢ㄦ埛鏄惁鍏峰鍚庡彴绠＄悊鏉冮檺
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -26,7 +25,7 @@ background_query_application_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryApplicationByPage
   method: GET
-  detail: 分页查询后台应用列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴搴旂敤鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -50,7 +49,7 @@ background_query_application_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryApplicationTotal
   method: GET
-  detail: 查询后台应用总数
+  detail: 鏌ヨ鍚庡彴搴旂敤鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -72,7 +71,7 @@ background_query_model_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryModelByPage
   method: GET
-  detail: 分页查询后台模型列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴妯″瀷鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -96,7 +95,7 @@ background_query_model_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryModelTotal
   method: GET
-  detail: 查询后台模型总数
+  detail: 鏌ヨ鍚庡彴妯″瀷鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -118,7 +117,7 @@ background_query_data_card_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryDataCard
   method: GET
-  detail: 查询后台数据概览卡片
+  detail: 鏌ヨ鍚庡彴鏁版嵁姒傝鍗＄墖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -138,7 +137,7 @@ background_query_date_driven_line_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryDateDrivenLine
   method: GET
-  detail: 查询后台数据驱动趋势
+  detail: 鏌ヨ鍚庡彴鏁版嵁椹卞姩瓒嬪娍
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -160,7 +159,7 @@ background_query_work_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryWorkByPage
   method: GET
-  detail: 分页查询后台工作台列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴宸ヤ綔鍙板垪琛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -184,7 +183,7 @@ background_query_work_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryWorkTotal
   method: GET
-  detail: 查询后台工作台总数
+  detail: 鏌ヨ鍚庡彴宸ヤ綔鍙版€绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -206,7 +205,7 @@ background_query_action_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryActionByPage
   method: GET
-  detail: 分页查询后台动作列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴鍔ㄤ綔鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -230,7 +229,7 @@ background_query_action_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryActionTotal
   method: GET
-  detail: 查询后台动作总数
+  detail: 鏌ヨ鍚庡彴鍔ㄤ綔鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -252,7 +251,7 @@ background_query_detection_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryDetectionByPage
   method: GET
-  detail: 分页查询后台检测列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴妫€娴嬪垪琛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -276,7 +275,7 @@ background_query_detection_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryDetectionTotal
   method: GET
-  detail: 查询后台检测总数
+  detail: 鏌ヨ鍚庡彴妫€娴嬫€绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -298,7 +297,7 @@ background_query_scheme_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/querySchemeByPage
   method: GET
-  detail: 分页查询后台方案列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴鏂规鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -322,7 +321,7 @@ background_query_scheme_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/querySchemeTotal
   method: GET
-  detail: 查询后台方案总数
+  detail: 鏌ヨ鍚庡彴鏂规鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -344,7 +343,7 @@ background_query_user_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryUserByPage
   method: GET
-  detail: 分页查询后台用户列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴鐢ㄦ埛鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -368,7 +367,7 @@ background_query_user_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryUserTotal
   method: GET
-  detail: 查询后台用户总数
+  detail: 鏌ヨ鍚庡彴鐢ㄦ埛鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -390,7 +389,7 @@ background_query_process_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryProcessByPage
   method: GET
-  detail: 分页查询后台流程列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴娴佺▼鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -414,7 +413,7 @@ background_query_process_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryProcessTotal
   method: GET
-  detail: 查询后台流程总数
+  detail: 鏌ヨ鍚庡彴娴佺▼鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -436,7 +435,7 @@ background_query_task_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryTaskByPage
   method: GET
-  detail: 分页查询后台任务列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴浠诲姟鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -460,7 +459,7 @@ background_query_task_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryTaskTotal
   method: GET
-  detail: 查询后台任务总数
+  detail: 鏌ヨ鍚庡彴浠诲姟鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -482,7 +481,7 @@ background_query_hooks_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryHooksByPage
   method: GET
-  detail: 分页查询后台钩子列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴閽╁瓙鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -506,7 +505,7 @@ background_query_hooks_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryHooksTotal
   method: GET
-  detail: 查询后台钩子总数
+  detail: 鏌ヨ鍚庡彴閽╁瓙鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -528,7 +527,7 @@ background_query_application_data_list_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryApplicationDataListByPage
   method: GET
-  detail: 分页查询后台应用数据列表
+  detail: 鍒嗛〉鏌ヨ鍚庡彴搴旂敤鏁版嵁鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -551,7 +550,7 @@ background_query_application_data_list_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryApplicationDataListTotal
   method: GET
-  detail: 查询后台应用数据总数
+  detail: 鏌ヨ鍚庡彴搴旂敤鏁版嵁鎬绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -572,7 +571,7 @@ background_query_application_data_num_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryApplicationDataNum
   method: GET
-  detail: 查询后台应用数据数量卡片
+  detail: 鏌ヨ鍚庡彴搴旂敤鏁版嵁鏁伴噺鍗＄墖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -592,7 +591,7 @@ background_query_application_num_by_type_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryApplicationNumByType
   method: GET
-  detail: 查询后台应用类型分布
+  detail: 鏌ヨ鍚庡彴搴旂敤绫诲瀷鍒嗗竷
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -612,7 +611,7 @@ background_query_data_card2_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryDataCard2
   method: GET
-  detail: 查询后台数据概览卡片二
+  detail: 鏌ヨ鍚庡彴鏁版嵁姒傝鍗＄墖浜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -632,7 +631,7 @@ background_query_all_data_card_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/queryAllDataCard
   method: GET
-  detail: 查询后台全租户数据概览卡片
+  detail: 鏌ヨ鍚庡彴鍏ㄧ鎴锋暟鎹瑙堝崱鐗?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -652,7 +651,7 @@ background_all_tenant_application_data_list_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/allTenantApplicationDataListByPage
   method: GET
-  detail: 分页查询全租户应用数据列表
+  detail: 鍒嗛〉鏌ヨ鍏ㄧ鎴峰簲鐢ㄦ暟鎹垪琛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -675,7 +674,7 @@ background_all_tenant_application_data_list_total_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/allTenantApplicationDataListTotal
   method: GET
-  detail: 查询全租户应用数据总数
+  detail: 鏌ヨ鍏ㄧ鎴峰簲鐢ㄦ暟鎹€绘暟
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -696,7 +695,7 @@ background_all_tenant_application_data_num_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/allTenantApplicationDataNum
   method: GET
-  detail: 查询全租户应用数据数量卡片
+  detail: 鏌ヨ鍏ㄧ鎴峰簲鐢ㄦ暟鎹暟閲忓崱鐗?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -716,7 +715,7 @@ background_all_tenant_application_num_by_type_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/allTenantApplicationNumByType
   method: GET
-  detail: 查询全租户应用类型分布
+  detail: 鏌ヨ鍏ㄧ鎴峰簲鐢ㄧ被鍨嬪垎甯?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -736,7 +735,7 @@ background_all_tenant_data_card2_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/allTenantDataCard2
   method: GET
-  detail: 查询全租户数据概览卡片二
+  detail: 鏌ヨ鍏ㄧ鎴锋暟鎹瑙堝崱鐗囦簩
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -756,7 +755,7 @@ background_all_date_driven_line_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/backgroundManagement/AllDateDrivenLine
   method: GET
-  detail: 查询全租户数据驱动趋势
+  detail: 鏌ヨ鍏ㄧ鎴锋暟鎹┍鍔ㄨ秼鍔?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -778,7 +777,7 @@ base_info_business_type_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/system/baseInfo/businessType
   method: GET
-  detail: 查询业务类型基础信息列表并缓存首条code
+  detail: 鏌ヨ涓氬姟绫诲瀷鍩虹淇℃伅鍒楄〃骞剁紦瀛橀鏉ode
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -815,7 +814,7 @@ base_info_business_type_get_one_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/system/baseInfo/businessType/getOne
   method: GET
-  detail: 按业务类型code查询单条基础信息并校验名称一致
+  detail: 鎸変笟鍔＄被鍨媍ode鏌ヨ鍗曟潯鍩虹淇℃伅骞舵牎楠屽悕绉颁竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -846,7 +845,7 @@ base_info_product_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/system/baseInfo/product
   method: GET
-  detail: 查询产品基础信息列表并校验列表非空
+  detail: 鏌ヨ浜у搧鍩虹淇℃伅鍒楄〃骞舵牎楠屽垪琛ㄩ潪绌?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -876,7 +875,7 @@ classification_get_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/classification/getList
   method: GET
-  detail: 查询当前应用分类列表并校验当前环境下稳定返回空列表
+  detail: 鏌ヨ褰撳墠搴旂敤鍒嗙被鍒楄〃骞舵牎楠屽綋鍓嶇幆澧冧笅绋冲畾杩斿洖绌哄垪琛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -902,7 +901,7 @@ business_type_get_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/businessType/getList
   method: GET
-  detail: 查询当前应用业务类型列表并校验当前环境下稳定返回空列表
+  detail: 鏌ヨ褰撳墠搴旂敤涓氬姟绫诲瀷鍒楄〃骞舵牎楠屽綋鍓嶇幆澧冧笅绋冲畾杩斿洖绌哄垪琛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -928,7 +927,7 @@ data_standard_business_type_query_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dataStandard/businessType/queryByPage
   method: GET
-  detail: 分页查询数据标准业务类型并校验当前环境下总数为零且结果列表为空
+  detail: 鍒嗛〉鏌ヨ鏁版嵁鏍囧噯涓氬姟绫诲瀷骞舵牎楠屽綋鍓嶇幆澧冧笅鎬绘暟涓洪浂涓旂粨鏋滃垪琛ㄤ负绌?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -960,7 +959,7 @@ dictionary_query_system_infos_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/querySystemInfos
   method: GET
-  detail: 查询字典体系列表并校验至少存在一条体系数据
+  detail: 鏌ヨ瀛楀吀浣撶郴鍒楄〃骞舵牎楠岃嚦灏戝瓨鍦ㄤ竴鏉′綋绯绘暟鎹?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -990,7 +989,7 @@ dictionary_query_legacy_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/queryDictionary
   method: GET
-  detail: 查询旧版全部字典并缓存首条key用于后续按key查询
+  detail: 鏌ヨ鏃х増鍏ㄩ儴瀛楀吀骞剁紦瀛橀鏉ey鐢ㄤ簬鍚庣画鎸塳ey鏌ヨ
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1024,7 +1023,7 @@ dictionary_query_legacy_by_key_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/queryDictionaryByKey
   method: GET
-  detail: 按旧版字典key查询并校验返回key与应用归属一致
+  detail: 鎸夋棫鐗堝瓧鍏竗ey鏌ヨ骞舵牎楠岃繑鍥瀔ey涓庡簲鐢ㄥ綊灞炰竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1060,7 +1059,7 @@ dictionary_query_v2_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/V2/queryDictionary
   method: GET
-  detail: 查询V2全部字典并缓存首条id与enumKey用于后续明细查询
+  detail: 鏌ヨV2鍏ㄩ儴瀛楀吀骞剁紦瀛橀鏉d涓巈numKey鐢ㄤ簬鍚庣画鏄庣粏鏌ヨ
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1108,7 +1107,7 @@ dictionary_query_v2_by_enum_key_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/V2/getDictByEnumKey
   method: GET
-  detail: 按V2枚举key查询字典值列表并校验key与应用归属一致
+  detail: 鎸塚2鏋氫妇key鏌ヨ瀛楀吀鍊煎垪琛ㄥ苟鏍￠獙key涓庡簲鐢ㄥ綊灞炰竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1144,7 +1143,7 @@ dictionary_query_v2_info_by_enum_key_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/V2/getDictInfoByEnumKey
   method: GET
-  detail: 按V2枚举key查询字典详情并校验id与key一致
+  detail: 鎸塚2鏋氫妇key鏌ヨ瀛楀吀璇︽儏骞舵牎楠宨d涓巏ey涓€鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1185,7 +1184,7 @@ dictionary_simple_legacy_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/simpleDictionary
   method: GET
-  detail: 查询旧版简化字典列表并校验列表非空
+  detail: 鏌ヨ鏃х増绠€鍖栧瓧鍏稿垪琛ㄥ苟鏍￠獙鍒楄〃闈炵┖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1210,7 +1209,7 @@ dictionary_simple_v2_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/V2/simpleDictionary
   method: GET
-  detail: 查询V2简化字典列表并校验列表非空
+  detail: 鏌ヨV2绠€鍖栧瓧鍏稿垪琛ㄥ苟鏍￠獙鍒楄〃闈炵┖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1235,7 +1234,7 @@ dictionary_get_dict_by_key_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/getDictByKey
   method: GET
-  detail: 按旧版字典key查询运行时字典并校验当前环境下稳定返回空列表
+  detail: 鎸夋棫鐗堝瓧鍏竗ey鏌ヨ杩愯鏃跺瓧鍏稿苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1261,7 +1260,7 @@ dictionary_v2_get_dict_by_key_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dictionary/V2/getDictByKey
   method: GET
-  detail: 按V2字典key查询运行时字典并校验当前环境下稳定返回空列表
+  detail: 鎸塚2瀛楀吀key鏌ヨ杩愯鏃跺瓧鍏稿苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1287,7 +1286,7 @@ button_select_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/select
   method: GET
-  detail: 按按钮模式分类查询按钮配置并校验当前环境下稳定返回空列表
+  detail: 鎸夋寜閽ā寮忓垎绫绘煡璇㈡寜閽厤缃苟鏍￠獙褰撳墠鐜涓嬬ǔ瀹氳繑鍥炵┖鍒楄〃
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1315,7 +1314,7 @@ dmc_query_token_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/dmc/queryDmcToken
   method: GET
-  detail: 查询DMC令牌并校验返回token非空
+  detail: 鏌ヨDMC浠ょ墝骞舵牎楠岃繑鍥瀟oken闈炵┖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1345,7 +1344,7 @@ file_get_dmc_token_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/file/getDmcToken
   method: GET
-  detail: 查询文件服务DMC令牌并校验token字段非空
+  detail: 鏌ヨ鏂囦欢鏈嶅姟DMC浠ょ墝骞舵牎楠宼oken瀛楁闈炵┖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1375,7 +1374,7 @@ duty_get_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/duty/all
   method: GET
-  detail: 查询职责列表并缓存首条职责编码与名称
+  detail: 鏌ヨ鑱岃矗鍒楄〃骞剁紦瀛橀鏉¤亴璐ｇ紪鐮佷笌鍚嶇О
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1417,7 +1416,7 @@ duty_get_one_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/duty
   method: GET
-  detail: 按职责编码查询单条职责并校验编码与名称一致
+  detail: 鎸夎亴璐ｇ紪鐮佹煡璇㈠崟鏉¤亴璐ｅ苟鏍￠獙缂栫爜涓庡悕绉颁竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1448,7 +1447,7 @@ eoc_get_department_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/eoc/getDepartmentList
   method: GET
-  detail: 查询部门列表并校验列表非空及首条部门名称存在
+  detail: 鏌ヨ閮ㄩ棬鍒楄〃骞舵牎楠屽垪琛ㄩ潪绌哄強棣栨潯閮ㄩ棬鍚嶇О瀛樺湪
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1483,7 +1482,7 @@ button_init_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/init
   method: GET
-  detail: 初始化手动按钮预置数据并校验接口执行成功
+  detail: 鍒濆鍖栨墜鍔ㄦ寜閽缃暟鎹苟鏍￠獙鎺ュ彛鎵ц鎴愬姛
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1503,7 +1502,7 @@ button_init_project_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/initProject
   method: GET
-  detail: 初始化项目按钮预置数据并校验接口执行成功
+  detail: 鍒濆鍖栭」鐩寜閽缃暟鎹苟鏍￠獙鎺ュ彛鎵ц鎴愬姛
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1523,7 +1522,7 @@ button_query_project_init_data_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/queryProjectInitData
   method: GET
-  detail: 查询项目初始化按钮配置并缓存配置键与首个提交动作标识
+  detail: 鏌ヨ椤圭洰鍒濆鍖栨寜閽厤缃苟缂撳瓨閰嶇疆閿笌棣栦釜鎻愪氦鍔ㄤ綔鏍囪瘑
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1565,7 +1564,7 @@ button_query_manually_init_data_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/queryManuallyInitData
   method: GET
-  detail: 查询手动初始化按钮配置并校验配置键与动作标识存在
+  detail: 鏌ヨ鎵嬪姩鍒濆鍖栨寜閽厤缃苟鏍￠獙閰嶇疆閿笌鍔ㄤ綔鏍囪瘑瀛樺湪
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1600,7 +1599,7 @@ button_query_buttons_by_key_project_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/queryButtonsByKey/PROJECT_FIELD_INIT
   method: GET
-  detail: 按键查询项目初始化按钮配置列表并校验首条配置键与提交动作标识存在
+  detail: 鎸夐敭鏌ヨ椤圭洰鍒濆鍖栨寜閽厤缃垪琛ㄥ苟鏍￠獙棣栨潯閰嶇疆閿笌鎻愪氦鍔ㄤ綔鏍囪瘑瀛樺湪
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1635,7 +1634,7 @@ button_query_buttons_by_key_manual_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/button/queryButtonsByKey/MANUALLY_INIT_BUTTON
   method: GET
-  detail: 按键查询手动初始化按钮配置列表并校验首条配置键与动作标识存在
+  detail: 鎸夐敭鏌ヨ鎵嬪姩鍒濆鍖栨寜閽厤缃垪琛ㄥ苟鏍￠獙棣栨潯閰嶇疆閿笌鍔ㄤ綔鏍囪瘑瀛樺湪
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1670,7 +1669,7 @@ preset_data_get_connection_objects_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/presetData/getConnectionObjects
   method: GET
-  detail: 查询连接对象列表并缓存首条连接对象编码与类型
+  detail: 鏌ヨ杩炴帴瀵硅薄鍒楄〃骞剁紦瀛橀鏉¤繛鎺ュ璞＄紪鐮佷笌绫诲瀷
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1712,7 +1711,7 @@ preset_data_get_project_field_init_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/presetData/getPresetDataObject
   method: GET
-  detail: 按键查询项目初始化配置并缓存配置键与提交动作标识
+  detail: 鎸夐敭鏌ヨ椤圭洰鍒濆鍖栭厤缃苟缂撳瓨閰嶇疆閿笌鎻愪氦鍔ㄤ綔鏍囪瘑
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1755,7 +1754,7 @@ preset_data_get_manually_init_button_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/presetData/getPresetDataObject
   method: GET
-  detail: 按键查询手动初始化按钮配置并校验动作标识与标题存在
+  detail: 鎸夐敭鏌ヨ鎵嬪姩鍒濆鍖栨寜閽厤缃苟鏍￠獙鍔ㄤ綔鏍囪瘑涓庢爣棰樺瓨鍦?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1791,7 +1790,7 @@ preset_data_get_batch_objects_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/presetData/getBatchPresetDataObject
   method: POST
-  detail: 批量查询预置配置并校验返回包含项目初始化与手动初始化按钮两个配置键
+  detail: 鎵归噺鏌ヨ棰勭疆閰嶇疆骞舵牎楠岃繑鍥炲寘鍚」鐩垵濮嬪寲涓庢墜鍔ㄥ垵濮嬪寲鎸夐挳涓や釜閰嶇疆閿?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1830,7 +1829,7 @@ tag_public_actions_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/public/actions
   method: GET
-  detail: 查询公共动作分页并缓存首条动作编号与首个请求属性
+  detail: 鏌ヨ鍏叡鍔ㄤ綔鍒嗛〉骞剁紦瀛橀鏉″姩浣滅紪鍙蜂笌棣栦釜璇锋眰灞炴€?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1880,7 +1879,7 @@ tag_task_action_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/taskAction
   method: GET
-  detail: 按缓存动作编号查询动作详情并校验动作编号与请求字段列表一致
+  detail: 鎸夌紦瀛樺姩浣滅紪鍙锋煡璇㈠姩浣滆鎯呭苟鏍￠獙鍔ㄤ綔缂栧彿涓庤姹傚瓧娈靛垪琛ㄤ竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1916,7 +1915,7 @@ tag_built_in_attrs_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/builtInAttrs
   method: GET
-  detail: 查询内建属性列表并校验首条属性编码与名称存在
+  detail: 鏌ヨ鍐呭缓灞炴€у垪琛ㄥ苟鏍￠獙棣栨潯灞炴€х紪鐮佷笌鍚嶇О瀛樺湪
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -1971,7 +1970,7 @@ tag_definition_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tagDefinition/all
   method: GET
-  detail: 查询标签定义列表并缓存首条标签定义编码与名称
+  detail: 鏌ヨ鏍囩瀹氫箟鍒楄〃骞剁紦瀛橀鏉℃爣绛惧畾涔夌紪鐮佷笌鍚嶇О
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2013,7 +2012,7 @@ tag_definition_get_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tagDefinition
   method: GET
-  detail: 按缓存标签定义编码查询详情并校验编码与名称一致
+  detail: 鎸夌紦瀛樻爣绛惧畾涔夌紪鐮佹煡璇㈣鎯呭苟鏍￠獙缂栫爜涓庡悕绉颁竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2656,7 +2655,7 @@ agiledata_business_type_create_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/businessType/createOrUpdate
   method: POST
-  detail: 新增AI业务类型作为agiledata主闭环种子
+  detail: 鏂板AI涓氬姟绫诲瀷浣滀负agiledata涓婚棴鐜瀛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2668,10 +2667,10 @@ agiledata_business_type_create_001:
     appCode: ${{app2_code()}}
     tenantId: SYSTEM
     code: agile_bt_${{random_id()}}
-    name: AI业务类型${{get_time()}}
+    name: AI涓氬姟绫诲瀷${{get_time()}}
     showType: INTEGER
     source: custom
-    description: AI业务类型闭环${{get_time()}}
+    description: AI涓氬姟绫诲瀷闂幆${{get_time()}}
     decimal: 0
     decimalRule: round
     dataUnit: '0'
@@ -2679,9 +2678,9 @@ agiledata_business_type_create_001:
     lang:
       name:
         zh_CN:
-          value: AI业务类型${{get_time()}}
+          value: AI涓氬姟绫诲瀷${{get_time()}}
         zh_TW:
-          value: AI業務類型${{get_time()}}
+          value: AI妤嫏椤炲瀷${{get_time()}}
         en_US:
           value: AI Business Type ${{get_time()}}
   dependence_case: false
@@ -2711,7 +2710,7 @@ agiledata_business_type_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/businessType/getBusinessTypesByPage
   method: POST
-  detail: 按业务类型编码分页查询agiledata业务类型
+  detail: 鎸変笟鍔＄被鍨嬬紪鐮佸垎椤垫煡璇giledata涓氬姟绫诲瀷
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2747,7 +2746,7 @@ agiledata_business_type_get_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/businessType/getList
   method: GET
-  detail: 查询当前应用业务类型列表作为agiledata业务类型闭环补充查询
+  detail: 鏌ヨ褰撳墠搴旂敤涓氬姟绫诲瀷鍒楄〃浣滀负agiledata涓氬姟绫诲瀷闂幆琛ュ厖鏌ヨ
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2773,7 +2772,7 @@ agiledata_business_type_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/businessType/delete/$cache{agiledata_business_type_id}
   method: DELETE
-  detail: 删除主闭环新建的业务类型并恢复环境
+  detail: 鍒犻櫎涓婚棴鐜柊寤虹殑涓氬姟绫诲瀷骞舵仮澶嶇幆澧?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2793,7 +2792,7 @@ agiledata_classification_create_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/classification/createOrUpdate
   method: POST
-  detail: 新增AI分类作为agiledata分类主闭环种子
+  detail: 鏂板AI鍒嗙被浣滀负agiledata鍒嗙被涓婚棴鐜瀛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2805,7 +2804,7 @@ agiledata_classification_create_001:
     appCode: ${{app2_code()}}
     tenantId: SYSTEM
     code: agile_cl_${{random_id()}}
-    name: AI分类${{get_time()}}
+    name: AI鍒嗙被${{get_time()}}
     relMetricCount: 0
     relSceneCount: 0
     relMetric: []
@@ -2814,9 +2813,9 @@ agiledata_classification_create_001:
     lang:
       name:
         zh_CN:
-          value: AI分类${{get_time()}}
+          value: AI鍒嗙被${{get_time()}}
         zh_TW:
-          value: AI分類${{get_time()}}
+          value: AI鍒嗛${{get_time()}}
         en_US:
           value: AI Classification ${{get_time()}}
   dependence_case: false
@@ -2846,7 +2845,7 @@ agiledata_classification_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/classification/getClassificationsByPage
   method: POST
-  detail: 按分类编码分页查询agiledata分类
+  detail: 鎸夊垎绫荤紪鐮佸垎椤垫煡璇giledata鍒嗙被
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2884,7 +2883,7 @@ agiledata_classification_get_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/classification/getList
   method: GET
-  detail: 查询当前应用分类列表作为agiledata分类闭环补充查询
+  detail: 鏌ヨ褰撳墠搴旂敤鍒嗙被鍒楄〃浣滀负agiledata鍒嗙被闂幆琛ュ厖鏌ヨ
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2910,7 +2909,7 @@ agiledata_classification_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/classification/delete/$cache{agiledata_classification_id}
   method: DELETE
-  detail: 删除主闭环新建的分类并恢复环境
+  detail: 鍒犻櫎涓婚棴鐜柊寤虹殑鍒嗙被骞舵仮澶嶇幆澧?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2931,7 +2930,7 @@ agiledata_standard_params_create_or_update_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/createOrUpdate
   method: POST
-  detail: 标准参数创建更新接口先纳入覆盖集合，待确认最小稳定 DTO 后再转稳定闭环
+  detail: 鏍囧噯鍙傛暟鍒涘缓鏇存柊鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝寰呯‘璁ゆ渶灏忕ǔ瀹?DTO 鍚庡啀杞ǔ瀹氶棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2942,7 +2941,7 @@ agiledata_standard_params_create_or_update_001:
   data:
     appCode: ${{app2_code()}}
     code: agile_std_param_probe
-    name: AI标准参数探测
+    name: AI鏍囧噯鍙傛暟鎺㈡祴
   dependence_case: false
   dependence_case_data: null
   assert:
@@ -2956,7 +2955,7 @@ agiledata_standard_params_query_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/queryStandardParamsByPage
   method: POST
-  detail: 标准参数分页查询接口先纳入覆盖集合，保留为探测集
+  detail: 鏍囧噯鍙傛暟鍒嗛〉鏌ヨ鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝淇濈暀涓烘帰娴嬮泦
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -2983,7 +2982,7 @@ agiledata_standard_params_query_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/queryStandardParams
   method: POST
-  detail: 标准参数普通查询接口先纳入覆盖集合，保留为探测集
+  detail: 鏍囧噯鍙傛暟鏅€氭煡璇㈡帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屼繚鐣欎负鎺㈡祴闆?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3008,7 +3007,7 @@ agiledata_standard_params_get_standard_params_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/getStandardParams
   method: POST
-  detail: 标准参数详情查询接口先纳入覆盖集合，保留为探测集
+  detail: 鏍囧噯鍙傛暟璇︽儏鏌ヨ鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝淇濈暀涓烘帰娴嬮泦
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3032,7 +3031,7 @@ agiledata_standard_params_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/delete
   method: GET
-  detail: 标准参数删除接口先纳入覆盖集合，待真实种子稳定后再转稳定闭环
+  detail: 鏍囧噯鍙傛暟鍒犻櫎鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝寰呯湡瀹炵瀛愮ǔ瀹氬悗鍐嶈浆绋冲畾闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3054,7 +3053,7 @@ agiledata_standard_params_save_or_update_mapping_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/saveOrUpdateMapping
   method: POST
-  detail: 标准参数映射保存接口先纳入覆盖集合，保留为探测集
+  detail: 鏍囧噯鍙傛暟鏄犲皠淇濆瓨鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝淇濈暀涓烘帰娴嬮泦
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3079,7 +3078,7 @@ agiledata_standard_params_query_mapping_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/queryMapping
   method: POST
-  detail: 标准参数映射查询接口先纳入覆盖集合，保留为探测集
+  detail: 鏍囧噯鍙傛暟鏄犲皠鏌ヨ鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝淇濈暀涓烘帰娴嬮泦
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3103,7 +3102,7 @@ agiledata_standard_params_delete_mapping_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/standardParams/deleteMapping
   method: GET
-  detail: 标准参数映射删除接口先纳入覆盖集合，待真实映射种子稳定后再转稳定闭环
+  detail: 鏍囧噯鍙傛暟鏄犲皠鍒犻櫎鎺ュ彛鍏堢撼鍏ヨ鐩栭泦鍚堬紝寰呯湡瀹炴槧灏勭瀛愮ǔ瀹氬悗鍐嶈浆绋冲畾闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3125,7 +3124,7 @@ agiledata_instruction_add_group_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/addInstructionGroup
   method: POST
-  detail: 指令集分组新增接口先纳入覆盖集合，待确认最小稳定 DTO 后再转稳定闭环
+  detail: 鎸囦护闆嗗垎缁勬柊澧炴帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屽緟纭鏈€灏忕ǔ瀹?DTO 鍚庡啀杞ǔ瀹氶棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3136,7 +3135,7 @@ agiledata_instruction_add_group_001:
   data:
     appCode: ${{app2_code()}}
     code: agile_instruction_probe
-    name: AI指令集探测
+    name: AI鎸囦护闆嗘帰娴?
   dependence_case: false
   dependence_case_data: null
   assert:
@@ -3150,7 +3149,7 @@ agiledata_instruction_query_by_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/queryInstructionSetByPage
   method: POST
-  detail: 指令集分页查询接口先纳入覆盖集合，保留为探测集
+  detail: 鎸囦护闆嗗垎椤垫煡璇㈡帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屼繚鐣欎负鎺㈡祴闆?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3176,7 +3175,7 @@ agiledata_instruction_get_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/getInstructionSetDetail
   method: GET
-  detail: 指令集详情接口先纳入覆盖集合，待真实种子稳定后再转稳定闭环
+  detail: 鎸囦护闆嗚鎯呮帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屽緟鐪熷疄绉嶅瓙绋冲畾鍚庡啀杞ǔ瀹氶棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3198,7 +3197,7 @@ agiledata_instruction_repeat_check_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/repeatCheck
   method: GET
-  detail: 指令集重复校验接口先纳入覆盖集合，保留为探测集
+  detail: 鎸囦护闆嗛噸澶嶆牎楠屾帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屼繚鐣欎负鎺㈡祴闆?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3208,7 +3207,7 @@ agiledata_instruction_repeat_check_001:
   data:
     appCode: ${{app2_code()}}
     code: agile_instruction_probe
-    name: AI指令集探测
+    name: AI鎸囦护闆嗘帰娴?
   dependence_case: false
   dependence_case_data: null
   assert:
@@ -3222,7 +3221,7 @@ agiledata_instruction_delete_group_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/deleteInstructionGroup
   method: GET
-  detail: 指令集分组删除接口先纳入覆盖集合，待真实种子稳定后再转稳定闭环
+  detail: 鎸囦护闆嗗垎缁勫垹闄ゆ帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屽緟鐪熷疄绉嶅瓙绋冲畾鍚庡啀杞ǔ瀹氶棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3244,7 +3243,7 @@ agiledata_instruction_edit_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/editInstructionSet
   method: POST
-  detail: 指令集编辑接口先纳入覆盖集合，保留为探测集
+  detail: 鎸囦护闆嗙紪杈戞帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屼繚鐣欎负鎺㈡祴闆?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3255,7 +3254,7 @@ agiledata_instruction_edit_001:
   data:
     appCode: ${{app2_code()}}
     code: agile_instruction_probe
-    name: AI指令集编辑探测
+    name: AI鎸囦护闆嗙紪杈戞帰娴?
   dependence_case: false
   dependence_case_data: null
   assert:
@@ -3269,7 +3268,7 @@ agiledata_instruction_update_sort_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/instruction/updateSort
   method: POST
-  detail: 指令集排序接口先纳入覆盖集合，保留为探测集
+  detail: 鎸囦护闆嗘帓搴忔帴鍙ｅ厛绾冲叆瑕嗙洊闆嗗悎锛屼繚鐣欎负鎺㈡祴闆?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3293,7 +3292,7 @@ agiledata_section_config_add_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/add
   method: POST
-  detail: 新增板块配置并建立后续分页、详情、复制和删除链路
+  detail: 鏂板鏉垮潡閰嶇疆骞跺缓绔嬪悗缁垎椤点€佽鎯呫€佸鍒跺拰鍒犻櫎閾捐矾
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3303,13 +3302,13 @@ agiledata_section_config_add_001:
   is_run: true
   data:
     application: ${{app2_code()}}
-    name: AI板块配置${{random_id()}}
-    desc: AI板块配置闭环${{get_time()}}
+    name: AI鏉垮潡閰嶇疆${{random_id()}}
+    desc: AI鏉垮潡閰嶇疆闂幆${{get_time()}}
     status: 1
     lang:
       name:
-        zh_CN: AI板块配置${{get_time()}}
-        zh_TW: AI板塊配置${{get_time()}}
+        zh_CN: AI鏉垮潡閰嶇疆${{get_time()}}
+        zh_TW: AI鏉垮閰嶇疆${{get_time()}}
         en_US: AI Section Config ${{get_time()}}
     showConfig:
       showType: 0
@@ -3338,7 +3337,7 @@ agiledata_section_config_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/getListByPage
   method: POST
-  detail: 按新增板块配置编码分页查询并命中当前闭环对象
+  detail: 鎸夋柊澧炴澘鍧楅厤缃紪鐮佸垎椤垫煡璇㈠苟鍛戒腑褰撳墠闂幆瀵硅薄
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3379,7 +3378,7 @@ agiledata_section_config_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/detail
   method: GET
-  detail: 查询新增板块配置详情并校验编码一致
+  detail: 鏌ヨ鏂板鏉垮潡閰嶇疆璇︽儏骞舵牎楠岀紪鐮佷竴鑷?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3406,7 +3405,7 @@ agiledata_section_config_edit_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/edit
   method: POST
-  detail: 编辑当前板块配置并保持后续复制删除链路可用
+  detail: 缂栬緫褰撳墠鏉垮潡閰嶇疆骞朵繚鎸佸悗缁鍒跺垹闄ら摼璺彲鐢?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3417,13 +3416,13 @@ agiledata_section_config_edit_001:
   data:
     code: $cache{agiledata_section_config_code}
     application: ${{app2_code()}}
-    name: AI板块配置更新${{random_id()}}
-    desc: AI板块配置更新闭环${{get_time()}}
+    name: AI鏉垮潡閰嶇疆鏇存柊${{random_id()}}
+    desc: AI鏉垮潡閰嶇疆鏇存柊闂幆${{get_time()}}
     status: 1
     lang:
       name:
-        zh_CN: AI板块配置更新${{get_time()}}
-        zh_TW: AI板塊配置更新${{get_time()}}
+        zh_CN: AI鏉垮潡閰嶇疆鏇存柊${{get_time()}}
+        zh_TW: AI鏉垮閰嶇疆鏇存柊${{get_time()}}
         en_US: AI Section Config Updated ${{get_time()}}
     showConfig:
       showType: 0
@@ -3440,7 +3439,7 @@ agiledata_section_config_get_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/getAll
   method: GET
-  detail: 查询应用下全部启用板块配置，确认列表结构稳定
+  detail: 鏌ヨ搴旂敤涓嬪叏閮ㄥ惎鐢ㄦ澘鍧楅厤缃紝纭鍒楄〃缁撴瀯绋冲畾
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3467,7 +3466,7 @@ agiledata_section_config_copy_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/copy
   method: POST
-  detail: 复制当前板块配置生成副本并缓存副本编码用于清理
+  detail: 澶嶅埗褰撳墠鏉垮潡閰嶇疆鐢熸垚鍓湰骞剁紦瀛樺壇鏈紪鐮佺敤浜庢竻鐞?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3500,7 +3499,7 @@ agiledata_section_config_delete_copy_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/delete
   method: GET
-  detail: 删除当前闭环产生的板块配置副本，避免残留污染环境
+  detail: 鍒犻櫎褰撳墠闂幆浜х敓鐨勬澘鍧楅厤缃壇鏈紝閬垮厤娈嬬暀姹℃煋鐜
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3522,7 +3521,7 @@ agiledata_section_config_delete_origin_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/sectionConfig/delete
   method: GET
-  detail: 删除当前闭环原始板块配置，恢复环境
+  detail: 鍒犻櫎褰撳墠闂幆鍘熷鏉垮潡閰嶇疆锛屾仮澶嶇幆澧?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3544,7 +3543,7 @@ agiledata_business_variables_insert_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/businessVariablesController/insert
   method: POST
-  detail: 新增业务变量并建立分页、列表、更新和删除闭环
+  detail: 鏂板涓氬姟鍙橀噺骞跺缓绔嬪垎椤点€佸垪琛ㄣ€佹洿鏂板拰鍒犻櫎闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3557,8 +3556,8 @@ agiledata_business_variables_insert_001:
     data_name: ai_biz_var_${{random_id()}}
     data_type: string
     source: custom
-    name: AI业务变量${{get_time()}}
-    description: AI业务变量闭环${{get_time()}}
+    name: AI涓氬姟鍙橀噺${{get_time()}}
+    description: AI涓氬姟鍙橀噺闂幆${{get_time()}}
     operationTag: 0
     isRepeat: false
   dependence_case: false
@@ -3587,7 +3586,7 @@ agiledata_business_variables_get_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/businessVariablesController/getPage
   method: POST
-  detail: 分页查询新增业务变量并缓存真实 id 和 code
+  detail: 鍒嗛〉鏌ヨ鏂板涓氬姟鍙橀噺骞剁紦瀛樼湡瀹?id 鍜?code
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3630,7 +3629,7 @@ agiledata_business_variables_get_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/businessVariablesController/getList
   method: POST
-  detail: 查询应用下自定义业务变量列表，确认结构稳定
+  detail: 鏌ヨ搴旂敤涓嬭嚜瀹氫箟涓氬姟鍙橀噺鍒楄〃锛岀‘璁ょ粨鏋勭ǔ瀹?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3659,7 +3658,7 @@ agiledata_business_variables_update_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/businessVariablesController/update
   method: POST
-  detail: 更新当前业务变量描述并保持删除链路可用
+  detail: 鏇存柊褰撳墠涓氬姟鍙橀噺鎻忚堪骞朵繚鎸佸垹闄ら摼璺彲鐢?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3674,8 +3673,8 @@ agiledata_business_variables_update_001:
     data_name: $cache{agiledata_business_var_data_name}
     data_type: string
     source: custom
-    name: AI业务变量更新${{get_time()}}
-    description: AI业务变量更新闭环${{get_time()}}
+    name: AI涓氬姟鍙橀噺鏇存柊${{get_time()}}
+    description: AI涓氬姟鍙橀噺鏇存柊闂幆${{get_time()}}
     operationTag: 0
     isRepeat: false
   dependence_case: false
@@ -3691,7 +3690,7 @@ agiledata_business_variables_add_sys_variables_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/businessVariablesController/addSysVariables
   method: POST
-  detail: 以空列表方式安全触达系统业务变量新增接口，纳入稳定覆盖集
+  detail: 浠ョ┖鍒楄〃鏂瑰紡瀹夊叏瑙﹁揪绯荤粺涓氬姟鍙橀噺鏂板鎺ュ彛锛岀撼鍏ョǔ瀹氳鐩栭泦
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3713,7 +3712,7 @@ agiledata_business_variables_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/businessVariablesController/delete
   method: POST
-  detail: 删除当前闭环创建的业务变量并恢复环境
+  detail: 鍒犻櫎褰撳墠闂幆鍒涘缓鐨勪笟鍔″彉閲忓苟鎭㈠鐜
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3740,7 +3739,7 @@ agiledata_board_info_insert_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/insert
   method: POST
-  detail: 新增收藏夹草稿对象并建立分页、更新、复制和删除闭环
+  detail: 鏂板鏀惰棌澶硅崏绋垮璞″苟寤虹珛鍒嗛〉銆佹洿鏂般€佸鍒跺拰鍒犻櫎闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3750,8 +3749,8 @@ agiledata_board_info_insert_001:
   is_run: true
   data:
     appCode: ${{app2_code()}}
-    groupValue: AI收藏夹草稿${{random_id()}}
-    description: AI收藏夹草稿闭环${{get_time()}}
+    groupValue: AI收藏夹组${{random_hexcode()}}
+    description: AI鏀惰棌澶硅崏绋块棴鐜?{{get_time()}}
     status: 0
     type: draft
     dataCollectQuestions: []
@@ -3772,7 +3771,7 @@ agiledata_board_info_get_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/getPage
   method: POST
-  detail: 分页查询当前收藏夹草稿并缓存真实 id 和 groupId
+  detail: 鍒嗛〉鏌ヨ褰撳墠鏀惰棌澶硅崏绋垮苟缂撳瓨鐪熷疄 id 鍜?groupId
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3815,7 +3814,7 @@ agiledata_board_info_update_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/update
   method: POST
-  detail: 更新当前收藏夹草稿描述并保持复制删除链路可用
+  detail: 鏇存柊褰撳墠鏀惰棌澶硅崏绋挎弿杩板苟淇濇寔澶嶅埗鍒犻櫎閾捐矾鍙敤
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3828,7 +3827,7 @@ agiledata_board_info_update_001:
     groupId: $cache{agiledata_board_group_id}
     appCode: ${{app2_code()}}
     groupValue: $cache{agiledata_board_group_value}
-    description: AI收藏夹草稿更新${{get_time()}}
+    description: AI鏀惰棌澶硅崏绋挎洿鏂?{{get_time()}}
     status: 0
     type: draft
     authorityPrefix: ${{app2_code()}}:board
@@ -3846,7 +3845,7 @@ agiledata_board_info_copy_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/copy
   method: POST
-  detail: 复制当前收藏夹草稿并使用新名称缓存副本 groupId 以便清理
+  detail: 澶嶅埗褰撳墠鏀惰棌澶硅崏绋垮苟浣跨敤鏂板悕绉扮紦瀛樺壇鏈?groupId 浠ヤ究娓呯悊
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3858,8 +3857,8 @@ agiledata_board_info_copy_001:
     id: $cache{agiledata_board_id}
     groupId: $cache{agiledata_board_group_id}
     appCode: ${{app2_code()}}
-    groupValue: AI收藏夹副本${{random_id()}}
-    description: AI收藏夹副本闭环${{get_time()}}
+    groupValue: AI收藏夹副本${{random_hexcode()}}
+    description: AI鏀惰棌澶瑰壇鏈棴鐜?{{get_time()}}
     status: 0
     type: draft
     authorityPrefix: ${{app2_code()}}:board
@@ -3881,7 +3880,7 @@ agiledata_board_info_get_page_copy_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/getPage
   method: POST
-  detail: 查询复制后的收藏夹草稿并缓存副本 groupId 以便删除
+  detail: 鏌ヨ澶嶅埗鍚庣殑鏀惰棌澶硅崏绋垮苟缂撳瓨鍓湰 groupId 浠ヤ究鍒犻櫎
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3921,7 +3920,7 @@ agiledata_board_info_delete_copy_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/delete
   method: GET
-  detail: 删除复制后的收藏夹草稿，避免环境残留
+  detail: 鍒犻櫎澶嶅埗鍚庣殑鏀惰棌澶硅崏绋匡紝閬垮厤鐜娈嬬暀
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3943,7 +3942,7 @@ agiledata_board_info_delete_origin_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/boardInfo/delete
   method: GET
-  detail: 删除当前闭环原始收藏夹草稿，恢复环境
+  detail: 鍒犻櫎褰撳墠闂幆鍘熷鏀惰棌澶硅崏绋匡紝鎭㈠鐜
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3965,7 +3964,7 @@ agiledata_node_template_insert_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/nodeTemplate/insert
   method: POST
-  detail: 新增自定义节点模板并建立后续分页、列表、更新和删除闭环
+  detail: 鏂板鑷畾涔夎妭鐐规ā鏉垮苟寤虹珛鍚庣画鍒嗛〉銆佸垪琛ㄣ€佹洿鏂板拰鍒犻櫎闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -3975,8 +3974,8 @@ agiledata_node_template_insert_001:
   is_run: true
   data:
     appCode: ${{app2_code()}}
-    templateName: AI节点模板${{get_time()}}
-    templateDescription: AI节点模板描述${{get_time()}}
+    templateName: AI鑺傜偣妯℃澘${{get_time()}}
+    templateDescription: AI鑺傜偣妯℃澘鎻忚堪${{get_time()}}
     templateNodeType: INPUT
     templateSource: custom
   dependence_case: false
@@ -3996,7 +3995,7 @@ agiledata_node_template_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/nodeTemplate/findListPage
   method: POST
-  detail: 按名称分页查询当前节点模板并缓存 templateId
+  detail: 鎸夊悕绉板垎椤垫煡璇㈠綋鍓嶈妭鐐规ā鏉垮苟缂撳瓨 templateId
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4036,7 +4035,7 @@ agiledata_node_template_find_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/nodeTemplate/findList
   method: GET
-  detail: 查询应用下节点模板列表，确认查询接口稳定返回
+  detail: 鏌ヨ搴旂敤涓嬭妭鐐规ā鏉垮垪琛紝纭鏌ヨ鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4063,7 +4062,7 @@ agiledata_node_template_update_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/nodeTemplate/update
   method: POST
-  detail: 更新当前节点模板名称和描述，复用闭环中的真实 templateId
+  detail: 鏇存柊褰撳墠鑺傜偣妯℃澘鍚嶇О鍜屾弿杩帮紝澶嶇敤闂幆涓殑鐪熷疄 templateId
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4074,8 +4073,8 @@ agiledata_node_template_update_001:
   data:
     templateId: $cache{agiledata_node_template_id}
     appCode: ${{app2_code()}}
-    templateName: AI节点模板更新${{get_time()}}
-    templateDescription: AI节点模板更新描述${{get_time()}}
+    templateName: AI鑺傜偣妯℃澘鏇存柊${{get_time()}}
+    templateDescription: AI鑺傜偣妯℃澘鏇存柊鎻忚堪${{get_time()}}
     templateNodeType: INPUT
     templateSource: custom
   dependence_case: false
@@ -4091,7 +4090,7 @@ agiledata_node_template_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/nodeTemplate/delete
   method: POST
-  detail: 删除当前闭环创建的节点模板，恢复环境
+  detail: 鍒犻櫎褰撳墠闂幆鍒涘缓鐨勮妭鐐规ā鏉匡紝鎭㈠鐜
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4114,7 +4113,7 @@ agiledata_target_create_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/target/createOrUpdate
   method: POST
-  detail: 新增目标数据并建立分页查询和删除闭环
+  detail: 鏂板鐩爣鏁版嵁骞跺缓绔嬪垎椤垫煡璇㈠拰鍒犻櫎闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4126,12 +4125,12 @@ agiledata_target_create_001:
     application: ${{app2_code()}}
     key: target_data
     code: AITARGET${{get_time()}}
-    value: AI目标数据${{get_time()}}
+    value: AI鐩爣鏁版嵁${{get_time()}}
     status: '1'
     lang:
       value:
-        zh_CN: AI目标数据${{get_time()}}
-        zh_TW: AI目標資料${{get_time()}}
+        zh_CN: AI鐩爣鏁版嵁${{get_time()}}
+        zh_TW: AI鐩璩囨枡${{get_time()}}
         en_US: AI Target ${{get_time()}}
   dependence_case: false
   dependence_case_data: null
@@ -4153,7 +4152,7 @@ agiledata_target_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/target/getTargetDataPageList
   method: POST
-  detail: 分页查询目标数据并缓存 objectId 用于后续删除
+  detail: 鍒嗛〉鏌ヨ鐩爣鏁版嵁骞剁紦瀛?objectId 鐢ㄤ簬鍚庣画鍒犻櫎
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4193,7 +4192,7 @@ agiledata_target_dict_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/target/getDictByKey
   method: GET
-  detail: 查询目标数据字典，验证目标配置查询接口稳定可用
+  detail: 鏌ヨ鐩爣鏁版嵁瀛楀吀锛岄獙璇佺洰鏍囬厤缃煡璇㈡帴鍙ｇǔ瀹氬彲鐢?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4221,7 +4220,7 @@ agiledata_target_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/target/delete
   method: GET
-  detail: 删除当前闭环创建的目标数据，恢复环境
+  detail: 鍒犻櫎褰撳墠闂幆鍒涘缓鐨勭洰鏍囨暟鎹紝鎭㈠鐜
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4243,7 +4242,7 @@ agiledata_operate_query_by_user_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/operate/queryByUser
   method: GET
-  detail: 查询固定用户操作偏好，若不存在由后端自动创建默认配置
+  detail: 鏌ヨ鍥哄畾鐢ㄦ埛鎿嶄綔鍋忓ソ锛岃嫢涓嶅瓨鍦ㄧ敱鍚庣鑷姩鍒涘缓榛樿閰嶇疆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4274,7 +4273,7 @@ agiledata_operate_update_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/operate/update
   method: POST
-  detail: 更新当前用户操作偏好，形成最小可回归小闭环
+  detail: 鏇存柊褰撳墠鐢ㄦ埛鎿嶄綔鍋忓ソ锛屽舰鎴愭渶灏忓彲鍥炲綊灏忛棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4312,7 +4311,7 @@ agiledata_ai_log_day_on_day_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/aiLogInfoController/dayOnDay
   method: POST
-  detail: 查询 AI 日环比统计，验证统计接口稳定返回
+  detail: 鏌ヨ AI 鏃ョ幆姣旂粺璁★紝楠岃瘉缁熻鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4342,7 +4341,7 @@ agiledata_ai_log_day_count_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/aiLogInfoController/dayCount
   method: POST
-  detail: 查询 AI 按日统计结果，验证时间范围查询接口稳定返回
+  detail: 鏌ヨ AI 鎸夋棩缁熻缁撴灉锛岄獙璇佹椂闂磋寖鍥存煡璇㈡帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4372,7 +4371,7 @@ agiledata_ai_log_user_count_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/aiLogInfoController/userCount
   method: POST
-  detail: 查询 AI 用户维度统计，验证用户统计接口稳定返回
+  detail: 鏌ヨ AI 鐢ㄦ埛缁村害缁熻锛岄獙璇佺敤鎴风粺璁℃帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4402,7 +4401,7 @@ agiledata_application_get_model_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/application/getModelListByApp
   method: GET
-  detail: 查询应用关联模型列表，验证应用维度模型统计接口稳定返回
+  detail: 鏌ヨ搴旂敤鍏宠仈妯″瀷鍒楄〃锛岄獙璇佸簲鐢ㄧ淮搴︽ā鍨嬬粺璁℃帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4429,7 +4428,7 @@ agiledata_ai_dataflow_permission_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/aiDataFlowGenerateController/permission
   method: GET
-  detail: 查询 AI 数据流生成权限开关，验证权限接口稳定返回
+  detail: 鏌ヨ AI 鏁版嵁娴佺敓鎴愭潈闄愬紑鍏筹紝楠岃瘉鏉冮檺鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4455,7 +4454,7 @@ agiledata_auto_switch_page_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/autoSwitch/pageList
   method: POST
-  detail: 分页查询自动切版任务，验证自动切版分页接口稳定返回
+  detail: 鍒嗛〉鏌ヨ鑷姩鍒囩増浠诲姟锛岄獙璇佽嚜鍔ㄥ垏鐗堝垎椤垫帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4485,7 +4484,7 @@ agiledata_auto_switch_lasted_version_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/agile/autoSwitch/getLastedPublishedVersion
   method: GET
-  detail: 查询应用最近发布版本，验证自动切版版本查询接口稳定返回
+  detail: 鏌ヨ搴旂敤鏈€杩戝彂甯冪増鏈紝楠岃瘉鑷姩鍒囩増鐗堟湰鏌ヨ鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4507,7 +4506,7 @@ tag_private_seed_project_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/v2/queryProjectList
   method: POST
-  detail: 查询稳定项目分页并缓存首个项目编码，作为私有标签闭环前置项目种子
+  detail: 鏌ヨ绋冲畾椤圭洰鍒嗛〉骞剁紦瀛橀涓」鐩紪鐮侊紝浣滀负绉佹湁鏍囩闂幆鍓嶇疆椤圭洰绉嶅瓙
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4544,7 +4543,7 @@ tag_private_seed_project_detail_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/project/getProject/$cache{tag_private_ai_project_code}
   method: GET
-  detail: 查询前置项目详情并缓存 groupCode，作为任务列表与 taskRelation 闭环前置
+  detail: 鏌ヨ鍓嶇疆椤圭洰璇︽儏骞剁紦瀛?groupCode锛屼綔涓轰换鍔″垪琛ㄤ笌 taskRelation 闂幆鍓嶇疆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4574,7 +4573,7 @@ tag_private_seed_task_list_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/task/getTaskList
   method: GET
-  detail: 查询稳定任务列表并缓存首个任务编码，作为私有标签闭环前置任务种子
+  detail: 鏌ヨ绋冲畾浠诲姟鍒楄〃骞剁紦瀛橀涓换鍔＄紪鐮侊紝浣滀负绉佹湁鏍囩闂幆鍓嶇疆浠诲姟绉嶅瓙
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4606,7 +4605,7 @@ tag_public_ai_create_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag
   method: POST
-  detail: 创建公共标签，作为公共标签绑定闭环前置数据
+  detail: 鍒涘缓鍏叡鏍囩锛屼綔涓哄叕鍏辨爣绛剧粦瀹氶棴鐜墠缃暟鎹?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4616,7 +4615,7 @@ tag_public_ai_create_001:
   is_run: true
   data:
     code: tagpub${{random_hexcode()}}
-    name: AI公共标签${{get_time()}}
+    name: AI鍏叡鏍囩${{get_time()}}
     category: task
     common: true
   dependence_case: false
@@ -4644,7 +4643,7 @@ tag_public_ai_query_by_condition_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag
   method: GET
-  detail: 按新建公共标签编码模糊查询标签集合，校验模糊搜索接口稳定返回
+  detail: 鎸夋柊寤哄叕鍏辨爣绛剧紪鐮佹ā绯婃煡璇㈡爣绛鹃泦鍚堬紝鏍￠獙妯＄硦鎼滅储鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4671,7 +4670,7 @@ tag_public_ai_query_public_all_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/public/all
   method: GET
-  detail: 查询公共标签列表，校验公共标签查询接口稳定返回
+  detail: 鏌ヨ鍏叡鏍囩鍒楄〃锛屾牎楠屽叕鍏辨爣绛炬煡璇㈡帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4698,7 +4697,7 @@ tag_public_ai_bind_save_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/binding/public
   method: POST
-  detail: 将新建公共标签绑定到稳定动作响应字段，建立公共绑定闭环
+  detail: 灏嗘柊寤哄叕鍏辨爣绛剧粦瀹氬埌绋冲畾鍔ㄤ綔鍝嶅簲瀛楁锛屽缓绔嬪叕鍏辩粦瀹氶棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4726,7 +4725,7 @@ tag_public_ai_bind_get_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/binding/public
   method: GET
-  detail: 查询公共标签绑定结果，校验绑定查询接口稳定返回
+  detail: 鏌ヨ鍏叡鏍囩缁戝畾缁撴灉锛屾牎楠岀粦瀹氭煡璇㈡帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4755,7 +4754,7 @@ tag_category_query_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/category
   method: GET
-  detail: 查询标签分类列表，校验分类查询接口稳定返回
+  detail: 鏌ヨ鏍囩鍒嗙被鍒楄〃锛屾牎楠屽垎绫绘煡璇㈡帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4782,7 +4781,7 @@ tag_private_relation_save_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/taskRelation
   method: POST
-  detail: 为稳定任务建立最小 taskRelation，并挂接现有动作作为私有标签闭环前置
+  detail: 涓虹ǔ瀹氫换鍔″缓绔嬫渶灏?taskRelation锛屽苟鎸傛帴鐜版湁鍔ㄤ綔浣滀负绉佹湁鏍囩闂幆鍓嶇疆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4794,7 +4793,7 @@ tag_private_relation_save_001:
     applicationCode: ${{app2_code()}}
     projectCode: $cache{tag_private_ai_project_code}
     taskCode: $cache{tag_private_ai_task_code}
-    taskName: AI私有标签任务闭环
+    taskName: AI绉佹湁鏍囩浠诲姟闂幆
     domain: task
     intelligentWord: false
     actions:
@@ -4816,7 +4815,7 @@ tag_private_relation_get_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/taskRelation
   method: GET
-  detail: 查询任务关系列表，校验 taskRelation 查询接口稳定返回
+  detail: 鏌ヨ浠诲姟鍏崇郴鍒楄〃锛屾牎楠?taskRelation 鏌ヨ鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4844,7 +4843,7 @@ tag_private_action_sync_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/taskAction/sync
   method: POST
-  detail: 同步私有任务动作字段，补齐字段信息后继续私有标签绑定闭环
+  detail: 鍚屾绉佹湁浠诲姟鍔ㄤ綔瀛楁锛岃ˉ榻愬瓧娈典俊鎭悗缁х画绉佹湁鏍囩缁戝畾闂幆
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4875,7 +4874,7 @@ tag_private_ai_create_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag
   method: POST
-  detail: 创建私有标签，作为私有字段绑定闭环前置数据
+  detail: 鍒涘缓绉佹湁鏍囩锛屼綔涓虹鏈夊瓧娈电粦瀹氶棴鐜墠缃暟鎹?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4885,7 +4884,7 @@ tag_private_ai_create_001:
   is_run: true
   data:
     code: tagpri${{random_hexcode()}}
-    name: AI私有标签${{get_time()}}
+    name: AI绉佹湁鏍囩${{get_time()}}
     category: task
     common: false
     applicationCode: ${{app2_code()}}
@@ -4917,7 +4916,7 @@ tag_private_query_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/private
   method: GET
-  detail: 查询私有标签集合，校验私有标签查询接口稳定返回
+  detail: 鏌ヨ绉佹湁鏍囩闆嗗悎锛屾牎楠岀鏈夋爣绛炬煡璇㈡帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4946,7 +4945,7 @@ tag_private_query_page_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/queryPage
   method: POST
-  detail: 分页查询私有标签，校验分页接口稳定返回
+  detail: 鍒嗛〉鏌ヨ绉佹湁鏍囩锛屾牎楠屽垎椤垫帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -4980,7 +4979,7 @@ tag_private_bind_save_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/binding/private/save
   method: POST
-  detail: 将私有标签绑定到任务动作响应字段，建立私有绑定闭环
+  detail: 灏嗙鏈夋爣绛剧粦瀹氬埌浠诲姟鍔ㄤ綔鍝嶅簲瀛楁锛屽缓绔嬬鏈夌粦瀹氶棴鐜?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5010,7 +5009,7 @@ tag_private_bind_get_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/binding/private
   method: POST
-  detail: 查询私有字段绑定结果，校验私有绑定查询接口稳定返回
+  detail: 鏌ヨ绉佹湁瀛楁缁戝畾缁撴灉锛屾牎楠岀鏈夌粦瀹氭煡璇㈡帴鍙ｇǔ瀹氳繑鍥?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5043,7 +5042,7 @@ tag_private_bind_ext_info_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/binding/tag/extInfo
   method: POST
-  detail: 查询私有字段扩展信息，校验扩展信息接口稳定可调用
+  detail: 鏌ヨ绉佹湁瀛楁鎵╁睍淇℃伅锛屾牎楠屾墿灞曚俊鎭帴鍙ｇǔ瀹氬彲璋冪敤
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5071,7 +5070,7 @@ tag_query_open_window_action_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/queryOpenWindowAction
   method: POST
-  detail: 查询打开窗口动作字段，校验该接口在当前环境下稳定返回对象结构
+  detail: 鏌ヨ鎵撳紑绐楀彛鍔ㄤ綔瀛楁锛屾牎楠岃鎺ュ彛鍦ㄥ綋鍓嶇幆澧冧笅绋冲畾杩斿洖瀵硅薄缁撴瀯
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5101,7 +5100,7 @@ tag_private_action_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/taskAction/delete
   method: POST
-  detail: 删除私有 taskAction 绑定动作，校验动作删除接口稳定执行
+  detail: 鍒犻櫎绉佹湁 taskAction 缁戝畾鍔ㄤ綔锛屾牎楠屽姩浣滃垹闄ゆ帴鍙ｇǔ瀹氭墽琛?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5127,7 +5126,7 @@ tag_public_ai_bind_clear_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/binding/public/$cache{tag_action_id}/response/$cache{tag_action_attr}
   method: DELETE
-  detail: 清理公共字段绑定，避免公共标签残留污染后续环境
+  detail: 娓呯悊鍏叡瀛楁缁戝畾锛岄伩鍏嶅叕鍏辨爣绛炬畫鐣欐薄鏌撳悗缁幆澧?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5148,7 +5147,7 @@ tag_private_ai_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/id/$cache{tag_private_ai_id}
   method: DELETE
-  detail: 删除私有标签，完成私有标签闭环清理
+  detail: 鍒犻櫎绉佹湁鏍囩锛屽畬鎴愮鏈夋爣绛鹃棴鐜竻鐞?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5169,7 +5168,7 @@ tag_public_ai_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tag/id/$cache{tag_public_ai_id}
   method: DELETE
-  detail: 删除公共标签，完成公共标签闭环清理
+  detail: 鍒犻櫎鍏叡鏍囩锛屽畬鎴愬叕鍏辨爣绛鹃棴鐜竻鐞?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5190,7 +5189,7 @@ tag_definition_ai_create_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tagDefinition
   method: POST
-  detail: 创建标签定义，作为标签定义闭环前置数据
+  detail: 鍒涘缓鏍囩瀹氫箟锛屼綔涓烘爣绛惧畾涔夐棴鐜墠缃暟鎹?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5200,8 +5199,8 @@ tag_definition_ai_create_001:
   is_run: true
   data:
     code: tagdef${{random_hexcode()}}
-    name: AI标签定义${{get_time()}}
-    description: AI标签定义闭环
+    name: AI鏍囩瀹氫箟${{get_time()}}
+    description: AI鏍囩瀹氫箟闂幆
     category: task
     customize: true
   dependence_case: false
@@ -5226,7 +5225,7 @@ tag_definition_ai_get_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tagDefinition
   method: GET
-  detail: 按新建标签定义编码查询详情，校验标签定义详情接口稳定返回
+  detail: 鎸夋柊寤烘爣绛惧畾涔夌紪鐮佹煡璇㈣鎯咃紝鏍￠獙鏍囩瀹氫箟璇︽儏鎺ュ彛绋冲畾杩斿洖
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5253,7 +5252,7 @@ tag_definition_ai_delete_001:
   host: ${{athena_designer_host()}}
   url: /athena-designer/tagDefinition/code/$cache{tag_definition_ai_code}
   method: DELETE
-  detail: 删除标签定义，完成标签定义闭环清理
+  detail: 鍒犻櫎鏍囩瀹氫箟锛屽畬鎴愭爣绛惧畾涔夐棴鐜竻鐞?
   headers:
     digi-middleware-auth-user: $cache{token}
     token: $cache{token}
@@ -5261,6 +5260,406 @@ tag_definition_ai_delete_001:
   requestType: PARAMS
   is_run: true
   data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+scene_temp_ai_create_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/sceneTemp/createOrUpdate
+  method: POST
+  detail: 鏂板鍦烘櫙妯℃澘锛屼綔涓哄満鏅ā鏉块棴鐜墠缃暟鎹?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    code: stemp${{random_hexcode()}}
+    description: AI鍦烘櫙妯℃澘闂幆${{get_time()}}
+    templateCode: SCENE_TEMP_AI
+    templateName: AI鍦烘櫙妯℃澘${{get_time()}}
+    lang: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.code
+    name: scene_temp_ai_code
+  - type: request
+    jsonpath: $.description
+    name: scene_temp_ai_description
+
+scene_temp_ai_query_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/sceneTemp/querySceneTempsByPage
+  method: POST
+  detail: 鍒嗛〉鏌ヨ鍦烘櫙妯℃澘鍒楄〃骞舵牎楠屾柊澧炴ā鏉垮彲琚ǔ瀹氭绱?
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    application: ${{app2_code()}}
+    description: $cache{scene_temp_ai_description}
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    scene_temp_ai_query_total_positive:
+      jsonpath: $.data.total
+      type: gt
+      value: 0
+      AssertType: null
+    scene_temp_ai_query_not_empty:
+      jsonpath: $.data.data
+      type: len_gt
+      value: 0
+      AssertType: null
+
+scene_temp_ai_detail_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/sceneTemp/detail
+  method: GET
+  detail: ?????????????
+  headers:
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{scene_temp_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    scene_temp_ai_detail_code_match:
+      jsonpath: $.data.code
+      type: ==
+      value: $cache{scene_temp_ai_code}
+      AssertType: null
+
+scene_temp_ai_get_relate_scenes_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/sceneTemp/getRelateScenesByPage
+  method: POST
+  detail: ???????????????????????
+  headers:
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: false
+  data:
+    code: $cache{scene_temp_ai_code}
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    scene_temp_ai_relate_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+scene_temp_ai_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/sceneTemp/delete
+  method: GET
+  detail: ???????????????????
+  headers:
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: false
+  data:
+    code: $cache{scene_temp_ai_code}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+standard_param_ai_expand_create_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/createStandardParam
+  method: POST
+  detail: ?????????????????????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    data_name: ai_std_${{random_hexcode()}}
+    name: AI鏍囧噯鍙傛暟鎵╁睍${{get_time()}}
+    data_type: string
+    isRepeat: false
+    lang:
+      name:
+        zh_CN: AI鏍囧噯鍙傛暟鎵╁睍${{get_time()}}
+        zh_TW: AI妯欐簴鍙冩暩鎿村睍${{get_time()}}
+        en_US: AI standard param expand ${{get_time()}}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: request
+    jsonpath: $.data_name
+    name: standard_param_ai_expand_name
+  - type: request
+    jsonpath: $.name
+    name: standard_param_ai_expand_desc
+
+standard_param_ai_expand_query_by_page_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/queryStandardParamsByPage
+  method: POST
+  detail: ????????????? objectId ???????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    data_name: $cache{standard_param_ai_expand_name}
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    standard_param_ai_expand_page_not_empty:
+      jsonpath: $.data.data
+      type: len_gt
+      value: 0
+      AssertType: null
+  current_request_set_cache:
+  - type: response
+    jsonpath: $.data.data[0].objectId
+    name: standard_param_ai_expand_object_id
+
+standard_param_ai_expand_get_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/getStandardParams
+  method: POST
+  detail: 鏌ヨ褰撳墠鏍囧噯鍙傛暟鏍囧噯鍖栧尮閰嶇粨鏋滃苟鏍￠獙缁撴瀯绋冲畾
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    fields:
+    - data_name: $cache{standard_param_ai_expand_name}
+      name: $cache{standard_param_ai_expand_desc}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    standard_param_ai_expand_get_not_empty:
+      jsonpath: $.data
+      type: len_gt
+      value: 0
+      AssertType: null
+
+standard_param_ai_expand_query_relate_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/queryRelateDataList
+  method: POST
+  detail: ???????????????????????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    data_name: $cache{standard_param_ai_expand_name}
+    relateDataType: state
+    pageNum: 1
+    pageSize: 10
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    standard_param_ai_expand_relate_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+standard_param_ai_expand_get_suggestions_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/getSuggestions
+  method: POST
+  detail: ???????????????????????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    fields:
+    - dataName: $cache{standard_param_ai_expand_name}
+      name: $cache{standard_param_ai_expand_desc}
+      fieldName: model__$cache{standard_param_ai_expand_name}
+      suggestedName: ''
+      dataType: string
+      lang: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    standard_param_ai_expand_suggestions_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+standard_param_ai_expand_get_ai_suggestions_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/getAiSuggestions
+  method: POST
+  detail: ???????? AI ?????????????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    application: ${{app2_code()}}
+    tenantId: SYSTEM
+    fields:
+    - dataName: $cache{standard_param_ai_expand_name}
+      name: $cache{standard_param_ai_expand_desc}
+      fieldName: model__$cache{standard_param_ai_expand_name}
+      suggestedName: ''
+      dataType: string
+      lang: {}
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+    standard_param_ai_expand_ai_suggestions_not_null:
+      jsonpath: $.data
+      type: not_eq
+      value: null
+      AssertType: null
+
+standard_param_ai_expand_init_data_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/initData
+  method: GET
+  detail: ?????????????????????????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+  requestType: PARAMS
+  is_run: true
+  data: null
+  dependence_case: false
+  dependence_case_data: null
+  assert:
+    code:
+      jsonpath: $.code
+      type: ==
+      value: 0
+      AssertType: null
+
+standard_param_ai_expand_batch_delete_001:
+  host: ${{athena_designer_host()}}
+  url: /athena-designer/standardParams/batchDelete
+  method: POST
+  detail: ???????????????????????
+  headers:
+    digi-middleware-auth-user: $cache{token}
+    token: $cache{token}
+    locale: zh_CN
+    content-type: application/json
+  requestType: JSON
+  is_run: true
+  data:
+    idList:
+    - $cache{standard_param_ai_expand_object_id}
   dependence_case: false
   dependence_case_data: null
   assert:
